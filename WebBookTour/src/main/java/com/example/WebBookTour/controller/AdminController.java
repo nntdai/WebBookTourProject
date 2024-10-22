@@ -1,4 +1,4 @@
-package controller;
+package com.example.WebBookTour.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
