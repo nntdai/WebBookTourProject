@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 21, 2024 lúc 04:06 AM
+-- Thời gian đã tạo: Th10 22, 2024 lúc 04:38 PM
 -- Phiên bản máy phục vụ: 8.3.0
 -- Phiên bản PHP: 8.0.28
 
@@ -72,6 +72,13 @@ CREATE TABLE `chucvu` (
   `id` int NOT NULL,
   `ten` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `chucvu`
+--
+
+INSERT INTO `chucvu` (`id`, `ten`) VALUES
+(1, 'ADMIN');
 
 -- --------------------------------------------------------
 
@@ -163,6 +170,13 @@ CREATE TABLE `khachhang` (
   `status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `khachhang`
+--
+
+INSERT INTO `khachhang` (`soDienThoai`, `ten`, `email`, `diemTichLuy`, `status`) VALUES
+(904814457, 'Nguyễn Ngọc Thành Đại', 'nguyenngocthanhdai@gmail.com', 0, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -191,12 +205,19 @@ CREATE TABLE `nhansu` (
   `id` int NOT NULL,
   `ten` varchar(50) NOT NULL,
   `diaChi` varchar(100) DEFAULT NULL,
-  `cmnd` int NOT NULL,
+  `cmnd` varchar(12) NOT NULL,
   `soDienThoai` int NOT NULL,
   `email` varchar(40) NOT NULL,
   `hinhAnh` varchar(100) DEFAULT NULL,
   `status` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `nhansu`
+--
+
+INSERT INTO `nhansu` (`id`, `ten`, `diaChi`, `cmnd`, `soDienThoai`, `email`, `hinhAnh`, `status`) VALUES
+(1, 'Nguyễn Ngọc Thành Đại', 'Xuân Thới Đông 2', '079203040332', 904814457, 'nguyenngocthanhdai@gmail.com', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -250,6 +271,13 @@ CREATE TABLE `taikhoanadmin` (
   `idChucVu` int NOT NULL,
   `idNhanVien` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `taikhoanadmin`
+--
+
+INSERT INTO `taikhoanadmin` (`id`, `username`, `password`, `ngayCap`, `status`, `idChucVu`, `idNhanVien`) VALUES
+(1, 'nntdai', 'DaiDepTrai2k3', '2024-10-22 15:24:01', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -454,7 +482,7 @@ ALTER TABLE `chucnangquyen`
 -- AUTO_INCREMENT cho bảng `chucvu`
 --
 ALTER TABLE `chucvu`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT cho bảng `datchotour`
@@ -490,7 +518,7 @@ ALTER TABLE `huydatchotour`
 -- AUTO_INCREMENT cho bảng `nhansu`
 --
 ALTER TABLE `nhansu`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT cho bảng `nhomtuoi`
@@ -508,7 +536,7 @@ ALTER TABLE `quyen`
 -- AUTO_INCREMENT cho bảng `taikhoanadmin`
 --
 ALTER TABLE `taikhoanadmin`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT cho bảng `tourdulich`
