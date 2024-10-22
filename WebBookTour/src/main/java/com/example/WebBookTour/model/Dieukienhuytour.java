@@ -1,4 +1,4 @@
-package model;
+package com.example.WebBookTour.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -31,6 +31,6 @@ public class Dieukienhuytour {
     private String ghiChu;
 
     @OneToMany(mappedBy = "idDKHuy")
-    private Set<model.Huydatchotour> huydatchotours = new LinkedHashSet<>();
+    private Set<Huydatchotour> huydatchotours = new LinkedHashSet<>();
 
 }

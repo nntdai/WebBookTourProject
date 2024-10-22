@@ -1,4 +1,4 @@
-package model;
+package com.example.WebBookTour.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -33,20 +33,20 @@ public class Datchotour {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idTour", nullable = false)
-    private model.Tourdulich idTour;
+    private Tourdulich idTour;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "sdtKhachHang", nullable = false)
-    private model.Khachhang sdtKhachHang;
+    private Khachhang sdtKhachHang;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idKhuyenMai")
-    private model.Khuyenmai idKhuyenMai;
+    private Khuyenmai idKhuyenMai;
 
     @Column(name = "status")
     private Boolean status;
 
     @OneToMany(mappedBy = "idDatCho")
-    private Set<model.Huydatchotour> huydatchotours = new LinkedHashSet<>();
+    private Set<Huydatchotour> huydatchotours = new LinkedHashSet<>();
 
 }

@@ -1,4 +1,4 @@
-package model;
+package com.example.WebBookTour.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -21,7 +21,7 @@ public class Hoivien {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idKhachHang")
-    private model.Khachhang idKhachHang;
+    private Khachhang idKhachHang;
 
     @Column(name = "ngaySinh", nullable = false)
     private Instant ngaySinh;

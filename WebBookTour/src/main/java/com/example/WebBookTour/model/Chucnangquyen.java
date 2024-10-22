@@ -1,4 +1,4 @@
-package model;
+package com.example.WebBookTour.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -23,9 +23,9 @@ public class Chucnangquyen {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idQuyen", nullable = false)
-    private model.Quyen idQuyen;
+    private Quyen idQuyen;
 
     @OneToMany(mappedBy = "idChucNangQuyen")
-    private Set<model.Phanquyen> phanquyens = new LinkedHashSet<>();
+    private Set<Phanquyen> phanquyens = new LinkedHashSet<>();
 
 }

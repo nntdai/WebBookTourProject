@@ -1,4 +1,4 @@
-package model;
+package com.example.WebBookTour.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -15,7 +15,7 @@ public class Chitietlichtrinh {
     @MapsId("idTour")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idTour", nullable = false)
-    private model.Tourdulich idTour;
+    private Tourdulich idTour;
 
     @Column(name = "ngayThu", nullable = false)
     private Integer ngayThu;

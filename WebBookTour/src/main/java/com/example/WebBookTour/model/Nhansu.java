@@ -1,4 +1,4 @@
-package model;
+package com.example.WebBookTour.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -39,9 +39,9 @@ public class Nhansu {
     private Boolean status;
 
     @OneToOne(mappedBy = "idNhanVien")
-    private model.Taikhoanadmin taikhoanadmin;
+    private Taikhoanadmin taikhoanadmin;
 
     @OneToMany(mappedBy = "idHDV")
-    private Set<model.Tourdulich> tourduliches = new LinkedHashSet<>();
+    private Set<Tourdulich> tourduliches = new LinkedHashSet<>();
 
 }
