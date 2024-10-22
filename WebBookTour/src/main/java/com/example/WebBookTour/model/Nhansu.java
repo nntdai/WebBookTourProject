@@ -23,8 +23,8 @@ public class Nhansu {
     @Column(name = "diaChi", length = 100)
     private String diaChi;
 
-    @Column(name = "cmnd", nullable = false)
-    private Integer cmnd;
+    @Column(name = "cmnd", nullable = false ,length = 12)
+    private String cmnd;
 
     @Column(name = "soDienThoai", nullable = false)
     private Integer soDienThoai;
