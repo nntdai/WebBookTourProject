@@ -25,4 +25,8 @@ public class TaiKhoanAdminService implements UserDetailsService {
         }
         throw new UsernameNotFoundException(username);
     }
+
+    public Optional<Taikhoanadmin> getTaikhoanByUsername(String user) {
+        return taiKhoanAdminRepository.findByUsername(user);
+    }
 }

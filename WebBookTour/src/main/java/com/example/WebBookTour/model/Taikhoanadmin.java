@@ -23,7 +23,7 @@ public class Taikhoanadmin implements UserDetails {
     @Column(name = "username", nullable = false, length = 20)
     private String username;
 
-    @Column(name = "password", nullable = false, length = 30)
+    @Column(name = "password", nullable = false, length = 100)
     private String password;
 
     @Column(name = "ngayCap")
