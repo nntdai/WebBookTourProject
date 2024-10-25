@@ -1,6 +1,6 @@
 package com.example.WebBookTour.service;
 
-import com.example.WebBookTour.model.Taikhoanadmin;
+import com.example.WebBookTour.entity.Taikhoanadmin;
 import com.example.WebBookTour.repository.TaiKhoanAdminRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,6 +1,6 @@
 package com.example.WebBookTour.controller;
 
-import com.example.WebBookTour.model.Taikhoanadmin;
+import com.example.WebBookTour.entity.Taikhoanadmin;
 import com.example.WebBookTour.service.TaiKhoanAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
