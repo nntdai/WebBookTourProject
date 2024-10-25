@@ -1,4 +1,4 @@
-package com.example.WebBookTour.model;
+package com.example.WebBookTour.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
