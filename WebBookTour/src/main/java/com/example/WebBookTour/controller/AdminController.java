@@ -11,13 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
-@RestController
+@Controller
 public class AdminController {
     private TaiKhoanAdminService service;
     @Autowired
     public AdminController(TaiKhoanAdminService service) {
         this.service = service;
     }
+
     @GetMapping("/")
     public String adminPage(Model model)
     {
