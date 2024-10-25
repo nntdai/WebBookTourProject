@@ -1,4 +1,4 @@
-package com.example.WebBookTour.model;
+package com.example.WebBookTour.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -22,7 +22,7 @@ public class Diadiem {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idVungMien")
-    private com.example.WebBookTour.model.Vungmien idVungMien;
+    private Vungmien idVungMien;
 
     @OneToMany(mappedBy = "diaDiemKH")
     private Set<Tourdulich> tourduliches = new LinkedHashSet<>();
