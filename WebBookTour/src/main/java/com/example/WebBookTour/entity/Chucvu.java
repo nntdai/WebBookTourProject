@@ -1,4 +1,4 @@
-package com.example.WebBookTour.model;
+package com.example.WebBookTour.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -10,8 +10,8 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "quyen")
-public class Quyen {
+@Table(name = "chucvu")
+public class Chucvu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -20,7 +20,10 @@ public class Quyen {
     @Column(name = "ten", nullable = false, length = 150)
     private String ten;
 
-    @OneToMany(mappedBy = "idQuyen")
-    private Set<Chucnangquyen> chucnangquyens = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "idChucVu")
+    private Set<Phanquyen> phanquyens = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "idChucVu")
+    private Set<Taikhoanadmin> taikhoanadmins = new LinkedHashSet<>();
 
 }
