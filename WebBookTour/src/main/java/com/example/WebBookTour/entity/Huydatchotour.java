@@ -25,7 +25,7 @@ public class Huydatchotour {
     private Dieukienhuytour idDKHuy;
 
     @Lob
-    @Column(name = "ghiChu")
+    @Column(name = "ghiChu",columnDefinition = "TEXT")
     private String ghiChu;
 
     @Column(name = "chiPhiHuyTour", precision = 15, scale = 3)

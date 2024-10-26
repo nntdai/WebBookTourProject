@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 22, 2024 lúc 04:38 PM
+-- Thời gian đã tạo: Th10 26, 2024 lúc 09:04 AM
 -- Phiên bản máy phục vụ: 8.3.0
 -- Phiên bản PHP: 8.0.28
 
@@ -93,7 +93,7 @@ CREATE TABLE `datchotour` (
   `diemTLCong` int DEFAULT NULL,
   `diemTLDung` int DEFAULT NULL,
   `idTour` int NOT NULL,
-  `sdtKhachHang` int NOT NULL,
+  `sdtKhachHang` varchar(12) NOT NULL,
   `idKhuyenMai` varchar(10) DEFAULT NULL,
   `status` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -132,10 +132,10 @@ CREATE TABLE `dieukienhuytour` (
 
 CREATE TABLE `hoivien` (
   `id` int NOT NULL,
-  `password` varchar(50) NOT NULL,
-  `idKhachHang` int DEFAULT NULL,
+  `password` varchar(100) NOT NULL,
+  `idKhachHang` varchar(12) DEFAULT NULL,
   `ngaySinh` datetime NOT NULL,
-  `cmnd` int NOT NULL,
+  `cmnd` varchar(12) NOT NULL,
   `diaChi` varchar(70) NOT NULL,
   `ngayTao` datetime NOT NULL,
   `status` tinyint(1) NOT NULL
@@ -163,9 +163,9 @@ CREATE TABLE `huydatchotour` (
 --
 
 CREATE TABLE `khachhang` (
-  `soDienThoai` int NOT NULL,
+  `soDienThoai` varchar(12) NOT NULL,
   `ten` varchar(50) NOT NULL,
-  `email` varchar(50) NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `diemTichLuy` int NOT NULL,
   `status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -175,7 +175,7 @@ CREATE TABLE `khachhang` (
 --
 
 INSERT INTO `khachhang` (`soDienThoai`, `ten`, `email`, `diemTichLuy`, `status`) VALUES
-(904814457, 'Nguyễn Ngọc Thành Đại', 'nguyenngocthanhdai@gmail.com', 0, 1);
+('904814457', 'Nguyễn Ngọc Thành Đại', 'nguyenngocthanhdai@gmail.com', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -206,8 +206,8 @@ CREATE TABLE `nhansu` (
   `ten` varchar(50) NOT NULL,
   `diaChi` varchar(100) DEFAULT NULL,
   `cmnd` varchar(12) NOT NULL,
-  `soDienThoai` int NOT NULL,
-  `email` varchar(40) NOT NULL,
+  `soDienThoai` varchar(12) NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `hinhAnh` varchar(100) DEFAULT NULL,
   `status` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -217,7 +217,7 @@ CREATE TABLE `nhansu` (
 --
 
 INSERT INTO `nhansu` (`id`, `ten`, `diaChi`, `cmnd`, `soDienThoai`, `email`, `hinhAnh`, `status`) VALUES
-(1, 'Nguyễn Ngọc Thành Đại', 'Xuân Thới Đông 2', '079203040332', 904814457, 'nguyenngocthanhdai@gmail.com', NULL, 1);
+(1, 'Nguyễn Ngọc Thành Đại', 'Xuân Thới Đông 2', '079203040332', '904814457', 'nguyenngocthanhdai@gmail.com', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -264,8 +264,8 @@ CREATE TABLE `quyen` (
 
 CREATE TABLE `taikhoanadmin` (
   `id` int NOT NULL,
-  `username` varchar(20) NOT NULL,
-  `password` varchar(30) NOT NULL,
+  `username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `ngayCap` datetime DEFAULT NULL,
   `status` tinyint(1) DEFAULT NULL,
   `idChucVu` int NOT NULL,
@@ -277,7 +277,7 @@ CREATE TABLE `taikhoanadmin` (
 --
 
 INSERT INTO `taikhoanadmin` (`id`, `username`, `password`, `ngayCap`, `status`, `idChucVu`, `idNhanVien`) VALUES
-(1, 'nntdai', 'DaiDepTrai2k3', '2024-10-22 15:24:01', 1, 1, 1);
+(1, 'nntdai', '$2y$10$Fj/GcGzWi.GoHtGrXURpreSddxDVNxlHPhhAFcLqoOcnbWhhTRGru', '2024-10-22 15:24:01', 1, 1, 1);
 
 -- --------------------------------------------------------
 
