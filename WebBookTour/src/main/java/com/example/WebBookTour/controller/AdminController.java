@@ -19,12 +19,17 @@ public class AdminController {
         this.service = service;
     }
 
-    @GetMapping("/")
+    @GetMapping("/admin")
     public String adminPage(Model model)
     {
         return "adminpage";
     }
 
+    @GetMapping("/")
+    public String homePage(Model model)
+    {
+        return "homepage";
+    }
 //    @GetMapping("/taikhoan/{username}")
 //    public Optional<Taikhoanadmin> getTaikhoan(@PathVariable String username) {
 //        return service.getTaikhoanByUsername(username);
