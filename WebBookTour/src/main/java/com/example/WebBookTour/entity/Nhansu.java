@@ -26,8 +26,8 @@ public class Nhansu {
     @Column(name = "cmnd", nullable = false ,length = 12)
     private String cmnd;
 
-    @Column(name = "soDienThoai", nullable = false)
-    private Integer soDienThoai;
+    @Column(name = "soDienThoai", nullable = false,length=12)
+    private String soDienThoai;
 
     @Column(name = "email", nullable = false, length = 40)
     private String email;

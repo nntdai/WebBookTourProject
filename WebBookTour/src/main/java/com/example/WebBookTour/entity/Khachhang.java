@@ -13,8 +13,8 @@ import java.util.Set;
 @Table(name = "khachhang")
 public class Khachhang {
     @Id
-    @Column(name = "soDienThoai", nullable = false)
-    private Integer id;
+    @Column(name = "soDienThoai", nullable = false,length=12)
+    private String id;
 
     @Column(name = "ten", nullable = false, length = 50)
     private String ten;
