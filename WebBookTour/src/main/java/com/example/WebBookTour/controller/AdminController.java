@@ -7,11 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
     private TaiKhoanAdminService service;
     @Autowired
@@ -19,17 +21,24 @@ public class AdminController {
         this.service = service;
     }
 
-    @GetMapping("/admin")
-    public String adminPage(Model model)
+    @GetMapping({"", "/{var}"})
+    public String adminPage(Model model,@PathVariable String var)
     {
-        return "index";
+        model.addAttribute("var", var);
+        return "admin";
     }
 
-    @GetMapping("/")
-    public String homePage(Model model)
-    {
-        return "homepage";
-    }
+//    @GetMapping("/tourdulich")
+//    public String getTourDuLich(Model model)
+//    {
+//        return "tourdulich";
+//    }
+
+//    @GetMapping("/")
+//    public String homePage(Model model)
+//    {
+//        return "homepage";
+//    }
 //    @GetMapping("/taikhoan/{username}")
 //    public Optional<Taikhoanadmin> getTaikhoan(@PathVariable String username) {
 //        return service.getTaikhoanByUsername(username);
