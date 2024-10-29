@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -25,24 +24,11 @@ public class Tourdulich {
     @Column(name = "giaTour", nullable = false, precision = 15, scale = 3)
     private BigDecimal giaTour;
 
+    @Column(name = "thoiGian", nullable = false, length = 10)
+    private String thoiGian;
+
     @Column(name = "phuongTienDiChuyen", length = 50)
     private String phuongTienDiChuyen;
-
-    @Column(name = "soCho", nullable = false)
-    private Integer soCho;
-
-    @Column(name = "soChoCon", nullable = false)
-    private Integer soChoCon;
-
-    @Column(name = "ngayKH", nullable = false)
-    private Instant ngayKH;
-
-    @Column(name = "ngayVe", nullable = false)
-    private Instant ngayVe;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idHDV", nullable = false)
-    private Nhansu idHDV;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "diaDiemKH", nullable = false)
@@ -58,10 +44,10 @@ public class Tourdulich {
     @OneToMany(mappedBy = "idTour")
     private Set<Chitietlichtrinh> chitietlichtrinhs = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "idTour")
-    private Set<Datchotour> datchotours = new LinkedHashSet<>();
-
     @OneToMany(mappedBy = "idDatCho")
     private Set<Thongtinhanhkhach> thongtinhanhkhaches = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "idTourDuLich")
+    private Set<Tochuctour> tochuctours = new LinkedHashSet<>();
 
 }

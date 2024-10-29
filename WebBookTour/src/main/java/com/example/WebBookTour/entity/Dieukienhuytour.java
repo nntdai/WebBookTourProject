@@ -26,7 +26,8 @@ public class Dieukienhuytour {
     @Column(name = "phanTramChiPhi")
     private Integer phanTramChiPhi;
 
-    @Column(name = "ghiChu", columnDefinition = "TEXT")
+
+    @Column(name = "ghiChu",columnDefinition = "TEXT")
     private String ghiChu;
 
     @OneToMany(mappedBy = "idDKHuy")

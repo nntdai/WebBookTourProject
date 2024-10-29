@@ -32,8 +32,8 @@ public class Datchotour {
     private Integer diemTLDung;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idTour", nullable = false)
-    private Tourdulich idTour;
+    @JoinColumn(name = "idToChucTour", nullable = false)
+    private Tochuctour idToChucTour;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "sdtKhachHang", nullable = false)

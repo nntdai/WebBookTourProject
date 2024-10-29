@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 
 @Getter
 @Setter
@@ -20,11 +21,14 @@ public class Huydatchotour {
     @JoinColumn(name = "idDatCho", nullable = false)
     private Datchotour idDatCho;
 
+    @Column(name = "ngayHuy", nullable = false)
+    private Instant ngayHuy;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idDKHuy", nullable = false)
     private Dieukienhuytour idDKHuy;
 
-    @Lob
+
     @Column(name = "ghiChu",columnDefinition = "TEXT")
     private String ghiChu;
 

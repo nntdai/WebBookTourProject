@@ -40,6 +40,7 @@ public class Taikhoanadmin implements UserDetails {
     @JoinColumn(name = "idNhanVien", nullable = false)
     private Nhansu idNhanVien;
 
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
