@@ -45,7 +45,7 @@ public class SecutityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/img/**", "/css/**", "/js/**", "/vendor/**").permitAll()
                         .requestMatchers("/").permitAll() // cho qua mà không cần authenticate
-                        .requestMatchers("/admin/**").authenticated() // với endpoint /customer/** sẽ yêu cầu authenticate
+                        .requestMatchers("/admin/**").permitAll() // với endpoint /customer/** sẽ yêu cầu authenticate
                 )
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults())

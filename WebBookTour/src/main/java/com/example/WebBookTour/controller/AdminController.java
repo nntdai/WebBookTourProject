@@ -2,6 +2,7 @@ package com.example.WebBookTour.controller;
 
 import com.example.WebBookTour.entity.Taikhoanadmin;
 import com.example.WebBookTour.service.TaiKhoanAdminService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Optional;
 
@@ -21,9 +23,15 @@ public class AdminController {
         this.service = service;
     }
 
-    @GetMapping({"", "/{var}"})
-    public String adminPage(Model model,@PathVariable String var)
+    @GetMapping("")
+    public RedirectView redirectToDashboard() {
+        return new RedirectView("/admin/dashboard");
+    }
+
+    @GetMapping({"/dashboard"})
+    public String adminPage(Model model)
     {
+        String var = "dashboard";
         model.addAttribute("var", var);
         return "admin";
     }
