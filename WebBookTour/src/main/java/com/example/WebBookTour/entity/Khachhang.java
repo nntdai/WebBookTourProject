@@ -13,13 +13,13 @@ import java.util.Set;
 @Table(name = "khachhang")
 public class Khachhang {
     @Id
-    @Column(name = "soDienThoai", nullable = false,length=12)
-    private String id;
+    @Column(name = "soDienThoai", nullable = false, length = 12)
+    private String soDienThoai;
 
     @Column(name = "ten", nullable = false, length = 50)
     private String ten;
 
-    @Column(name = "email", nullable = false, length = 50)
+    @Column(name = "email", nullable = false, length = 100)
     private String email;
 
     @Column(name = "diemTichLuy", nullable = false)

@@ -23,13 +23,13 @@ public class Nhansu {
     @Column(name = "diaChi", length = 100)
     private String diaChi;
 
-    @Column(name = "cmnd", nullable = false ,length = 12)
+    @Column(name = "cmnd", nullable = false, length = 12)
     private String cmnd;
 
-    @Column(name = "soDienThoai", nullable = false,length=12)
+    @Column(name = "soDienThoai", nullable = false, length = 12)
     private String soDienThoai;
 
-    @Column(name = "email", nullable = false, length = 40)
+    @Column(name = "email", nullable = false, length = 100)
     private String email;
 
     @Column(name = "hinhAnh", length = 100)
@@ -42,6 +42,6 @@ public class Nhansu {
     private Taikhoanadmin taikhoanadmin;
 
     @OneToMany(mappedBy = "idHDV")
-    private Set<Tourdulich> tourduliches = new LinkedHashSet<>();
+    private Set<Tochuctour> tochuctours = new LinkedHashSet<>();
 
 }

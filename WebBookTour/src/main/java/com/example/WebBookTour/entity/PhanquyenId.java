@@ -6,13 +6,14 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 @Getter
 @Setter
 @Embeddable
-public class PhanquyenId implements java.io.Serializable {
-    private static final long serialVersionUID = 4814713587081079616L;
+public class PhanquyenId implements Serializable {
+    private static final long serialVersionUID = 3992058910747525986L;
     @Column(name = "idChucVu", nullable = false)
     private Integer idChucVu;
 
