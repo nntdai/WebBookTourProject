@@ -40,14 +40,9 @@ public class SecutityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-<<<<<<< HEAD
-                        .requestMatchers("/api/tourdulich").permitAll() // cho qua mà không cần authenticate
-                        .requestMatchers("/api/tourdulich/{id}").permitAll()
+                        .requestMatchers("/api/tourdulich/**").permitAll()
                         .requestMatchers("/admin/**").authenticated() // với endpoint /customer/** sẽ yêu cầu authenticate
-=======
-//                        .requestMatchers("/taikhoan/**").permitAll() // cho qua mà không cần authenticate
-                        .requestMatchers("/").authenticated() // với endpoint /customer/** sẽ yêu cầu authenticate
->>>>>>> master
+                        .requestMatchers("/taikhoan/**").permitAll() // cho qua mà không cần authenticate
                 )
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults())
