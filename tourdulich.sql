@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 26, 2024 lúc 09:04 AM
+-- Thời gian đã tạo: Th10 29, 2024 lúc 09:45 AM
 -- Phiên bản máy phục vụ: 8.3.0
 -- Phiên bản PHP: 8.0.28
 
@@ -92,7 +92,7 @@ CREATE TABLE `datchotour` (
   `ngayDatCho` datetime NOT NULL,
   `diemTLCong` int DEFAULT NULL,
   `diemTLDung` int DEFAULT NULL,
-  `idTour` int NOT NULL,
+  `idToChucTour` int NOT NULL,
   `sdtKhachHang` varchar(12) NOT NULL,
   `idKhuyenMai` varchar(10) DEFAULT NULL,
   `status` tinyint(1) DEFAULT NULL
@@ -109,6 +109,28 @@ CREATE TABLE `diadiem` (
   `ten` varchar(100) NOT NULL,
   `idVungMien` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `diadiem`
+--
+
+INSERT INTO `diadiem` (`id`, `ten`, `idVungMien`) VALUES
+(1, 'Hà Giang', 1),
+(2, 'Quảng Ninh', 1),
+(3, 'Lào Cao', 1),
+(4, 'Ninh Bình', 1),
+(5, 'Đà Nẵng', 2),
+(6, 'Huế', 2),
+(7, 'Quảng Bình', 2),
+(8, 'Quy Nhơn', 2),
+(9, 'Tây Ninh', 3),
+(10, 'TP. Hồ Chí Minh', 3),
+(11, 'Đồng Nai', 3),
+(12, 'Bà Rịa - Vũng Tàu', 3),
+(13, 'Phú Quốc', 4),
+(14, 'Cần Thơ', 4),
+(15, 'Cà Mau', 4),
+(16, 'Bạc Liêu', 4);
 
 -- --------------------------------------------------------
 
@@ -150,6 +172,7 @@ CREATE TABLE `hoivien` (
 CREATE TABLE `huydatchotour` (
   `id` int NOT NULL,
   `idDatCho` int NOT NULL,
+  `ngayHuy` datetime NOT NULL,
   `idDKHuy` int NOT NULL,
   `ghiChu` text,
   `chiPhiHuyTour` decimal(15,3) DEFAULT NULL,
@@ -295,6 +318,23 @@ CREATE TABLE `thongtinhanhkhach` (
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `tochuctour`
+--
+
+CREATE TABLE `tochuctour` (
+  `id` int NOT NULL,
+  `idTourDuLich` int NOT NULL,
+  `idHDV` int NOT NULL,
+  `ngayKH` datetime NOT NULL,
+  `ngayVe` datetime NOT NULL,
+  `soCho` int NOT NULL,
+  `soChoCon` int NOT NULL,
+  `status` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `tourdulich`
 --
 
@@ -302,12 +342,8 @@ CREATE TABLE `tourdulich` (
   `id` int NOT NULL,
   `ten` varchar(150) NOT NULL,
   `giaTour` decimal(15,3) NOT NULL,
+  `thoiGian` varchar(10) NOT NULL,
   `phuongTienDiChuyen` varchar(50) DEFAULT NULL,
-  `soCho` int NOT NULL,
-  `soChoCon` int NOT NULL,
-  `ngayKH` datetime NOT NULL,
-  `ngayVe` datetime NOT NULL,
-  `idHDV` int NOT NULL,
   `diaDiemKH` int NOT NULL,
   `diaDiemThamQuan` int NOT NULL,
   `status` tinyint(1) DEFAULT NULL
@@ -323,6 +359,16 @@ CREATE TABLE `vungmien` (
   `id` int NOT NULL,
   `ten` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `vungmien`
+--
+
+INSERT INTO `vungmien` (`id`, `ten`) VALUES
+(1, 'Miền Bắc'),
+(2, 'Miền Trung'),
+(3, 'Miền Đông Nam Bộ'),
+(4, 'Miền Tây Nam Bộ');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -359,7 +405,7 @@ ALTER TABLE `chucvu`
 --
 ALTER TABLE `datchotour`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `idTour` (`idTour`),
+  ADD KEY `idTour` (`idToChucTour`),
   ADD KEY `sdtKhachHang` (`sdtKhachHang`),
   ADD KEY `idKhuyenMai` (`idKhuyenMai`);
 
@@ -448,11 +494,18 @@ ALTER TABLE `thongtinhanhkhach`
   ADD KEY `nhomTuoi` (`nhomTuoi`);
 
 --
+-- Chỉ mục cho bảng `tochuctour`
+--
+ALTER TABLE `tochuctour`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tochuc_tour` (`idTourDuLich`),
+  ADD KEY `tochuc_tour_hdv` (`idHDV`);
+
+--
 -- Chỉ mục cho bảng `tourdulich`
 --
 ALTER TABLE `tourdulich`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `idHDV` (`idHDV`),
   ADD KEY `diaDiemKH` (`diaDiemKH`),
   ADD KEY `diaDiemThamQuan` (`diaDiemThamQuan`);
 
@@ -494,7 +547,7 @@ ALTER TABLE `datchotour`
 -- AUTO_INCREMENT cho bảng `diadiem`
 --
 ALTER TABLE `diadiem`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT cho bảng `dieukienhuytour`
@@ -539,6 +592,12 @@ ALTER TABLE `taikhoanadmin`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT cho bảng `tochuctour`
+--
+ALTER TABLE `tochuctour`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT cho bảng `tourdulich`
 --
 ALTER TABLE `tourdulich`
@@ -548,7 +607,7 @@ ALTER TABLE `tourdulich`
 -- AUTO_INCREMENT cho bảng `vungmien`
 --
 ALTER TABLE `vungmien`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -571,7 +630,7 @@ ALTER TABLE `chucnangquyen`
 -- Các ràng buộc cho bảng `datchotour`
 --
 ALTER TABLE `datchotour`
-  ADD CONSTRAINT `datchotour_ibfk_1` FOREIGN KEY (`idTour`) REFERENCES `tourdulich` (`id`),
+  ADD CONSTRAINT `datchotour_ibfk_1` FOREIGN KEY (`idToChucTour`) REFERENCES `tochuctour` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `datchotour_ibfk_2` FOREIGN KEY (`sdtKhachHang`) REFERENCES `khachhang` (`soDienThoai`),
   ADD CONSTRAINT `datchotour_ibfk_3` FOREIGN KEY (`idKhuyenMai`) REFERENCES `khuyenmai` (`id`);
 
@@ -616,10 +675,16 @@ ALTER TABLE `thongtinhanhkhach`
   ADD CONSTRAINT `thongtinhanhkhach_ibfk_2` FOREIGN KEY (`nhomTuoi`) REFERENCES `nhomtuoi` (`id`);
 
 --
+-- Các ràng buộc cho bảng `tochuctour`
+--
+ALTER TABLE `tochuctour`
+  ADD CONSTRAINT `tochuc_tour` FOREIGN KEY (`idTourDuLich`) REFERENCES `tourdulich` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `tochuc_tour_hdv` FOREIGN KEY (`idHDV`) REFERENCES `nhansu` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
 -- Các ràng buộc cho bảng `tourdulich`
 --
 ALTER TABLE `tourdulich`
-  ADD CONSTRAINT `tourdulich_ibfk_1` FOREIGN KEY (`idHDV`) REFERENCES `nhansu` (`id`),
   ADD CONSTRAINT `tourdulich_ibfk_2` FOREIGN KEY (`diaDiemKH`) REFERENCES `diadiem` (`id`),
   ADD CONSTRAINT `tourdulich_ibfk_3` FOREIGN KEY (`diaDiemThamQuan`) REFERENCES `diadiem` (`id`);
 COMMIT;

@@ -35,7 +35,7 @@ public class Chitietlichtrinh {
     @Column(name = "hinhAnh", length = 100)
     private String hinhAnh;
 
-    @Lob
+
     @Column(name = "mota",columnDefinition = "TEXT")
     private String mota;
 
