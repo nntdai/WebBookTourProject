@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="JpaBuddyIdeaProjectConfig" migrateDefaultValues="false">
+  <component name="JpaBuddyIdeaProjectConfig" migrateDefaultValues="false" newRepositoryParent="org.springframework.data.jpa.repository.JpaRepository">
     <option name="migrateDefaultValues" value="false" />
     <option name="reLastEntityCreationPackage" value="src/main/java/com/example/WebBookTour/entity" />
     <option name="reverseEngineeringLastDbConnectionId" value="748707c7-aa66-42fc-a490-cdb25f038909" />
   </component>
+  <component name="JpaPluginProjectSettings" dtoSerializableType="2" />
 </project>

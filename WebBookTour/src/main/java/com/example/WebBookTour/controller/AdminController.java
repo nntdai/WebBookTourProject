@@ -1,25 +1,19 @@
 package com.example.WebBookTour.controller;
 
-import com.example.WebBookTour.entity.Taikhoanadmin;
-import com.example.WebBookTour.service.TaiKhoanAdminService;
-import jakarta.servlet.http.HttpServletResponse;
+import com.example.WebBookTour.service.TaikhoanadminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
-
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    private TaiKhoanAdminService service;
+    private TaikhoanadminService service;
     @Autowired
-    public AdminController(TaiKhoanAdminService service) {
+    public AdminController(TaikhoanadminService service) {
         this.service = service;
     }
 

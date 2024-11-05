@@ -1,10 +1,9 @@
 package com.example.WebBookTour.controller;
 
-import com.example.WebBookTour.dto.DiaDiemDTO;
+import com.example.WebBookTour.dto.DiadiemDto;
 import com.example.WebBookTour.entity.Diadiem;
-import com.example.WebBookTour.entity.Vungmien;
-import com.example.WebBookTour.service.DiaDiemService;
-import com.example.WebBookTour.service.VungMienService;
+import com.example.WebBookTour.service.DiadiemService;
+import com.example.WebBookTour.service.VungmienService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +16,9 @@ import java.util.List;
 @RequestMapping("/admin/diadiem")
 public class DiaDiemController {
     @Autowired
-    DiaDiemService diaDiemService;
+    DiadiemService diaDiemService;
     @Autowired
-    VungMienService vungMienService;
+    VungmienService vungMienService;
 
     @GetMapping
     public String diadiemPage(Model model) {
@@ -41,7 +40,7 @@ public class DiaDiemController {
 //        List<Vungmien> dsVungMien= vungMienService.getAllVungMien();
 //        model.addAttribute("dsVungMien", dsVungMien);
 //        // Chuẩn bị dữ liệu cần thiết cho form
-        model.addAttribute("diadiem", new DiaDiemDTO());
+        model.addAttribute("diadiem", new DiadiemDto());
         return "diadiemadd";
     }
 }
