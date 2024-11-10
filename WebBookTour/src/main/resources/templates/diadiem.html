@@ -49,8 +49,8 @@
                   <th th:text="${diadiem.getId()}"></th>
                   <th th:text="${diadiem.getTen()}"></th>
                   <th th:text="${diadiem.getIdVungMien() != null ? diadiem.getIdVungMien().getTen() : 'Chưa có vùng miền'}"></th>
-                  <th><button type="button" class="btn btn-warning">Edit</button></th>
-                  <th><button type="button" class="btn btn-danger">Delete</button></th>
+                  <th><button type="button" class="btn btn-warning" th:id="${diadiem.getId()}" th:value="${diadiem.getId()}">Edit</button></th>
+                  <th><button type="button" class="btn btn-danger" th:id="${diadiem.getId()}" th:value="${diadiem.getId()}">Delete</button></th>
                 </tr>
                 </tbody>
               </table>

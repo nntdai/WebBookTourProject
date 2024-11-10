@@ -1,21 +1,33 @@
 
-let listView ="admin/diadiem"
-
-let SinhVienAPI ="admin/api/diadiem"
-
 $(document).ready(function() {
-    function loadData(){
+    $('#btnAdd').on('click', function() {
+        alert("Hi")
+        const ten = document.getElementById("ten").value;
+        const vungMien = document.getElementById("vungMien").value;
 
-        $.ajax({
-            type: "GET",
-            contentType: "application/json",
-            url: SinhVienAPI,
+        // Tạo đối tượng DTO để gửi lên server
+        const diadiemDto = {
+            ten: ten,
+            idVungMien: {
+                id: vungMien,  // Chỉ gửi ID của vùng miền
 
-            success: function (responseData) {
-                console.log(responseData)
-                // $("#dataSinhVien").html(responseData)
             }
-        })}
+        };
+        $.ajax({
+            url: '/api/admin/diadiem/add',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(diadiemDto),
+            success: function(respone) {
+                // Đặt nội dung của modal vào một container, ví dụ là #modalContainer
+               alert("Thành công");
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.error("Không thể tải nội dung modal:", error);
+            }
+        });
+    });
 
 
     $('#addLocationButton').on('click', function() {

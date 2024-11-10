@@ -26,6 +26,10 @@ public class DiadiemService {
     {
         return diaDiemRepository.save(diaDiem);
     }
+    public void deleteDiaDiem(int diaDiemId)
+    {
+        diaDiemRepository.deleteById(diaDiemId);
+    }
     public Page<DiadiemDto> getDiaDiems(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Diadiem> dsDiaDiem = diaDiemRepository.findAll(pageable);

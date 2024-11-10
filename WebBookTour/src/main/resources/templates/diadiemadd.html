@@ -9,15 +9,15 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form th:action="@{/admin/diadiem/add}" th:object="${diadiem}" method="post">
+        <form method="post">
         <div class="modal-body">
           <div class="input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing-default">Tên</span>
-            <input name="ten" type="text" th:field="*{ten}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <input name="ten" type="text" id="ten" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
           </div>
           <div class="input-group mb-3">
           <span class="input-group-text">Vùng Miền</span>
-          <select class="form-control" id="inputGroupSelect01" th:field="*{idVungMien.id}">
+          <select class="form-control" id="vungMien" >
 
             <option th:each="vungMien : ${dsVungMien}"
                     th:value="${vungMien.getId()}"
@@ -28,7 +28,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Thêm</button>
+            <button id="btnAdd" type="button" class="btn btn-primary" onclick="">Thêm</button>
           </div>
         </div>
         </form>
@@ -36,3 +36,4 @@
     </div>
   </div>
 </div>
+<script th:src="@{/js/diadiemAjax.js}"></script>

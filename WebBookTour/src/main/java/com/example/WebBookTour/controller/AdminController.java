@@ -25,8 +25,8 @@ public class AdminController {
     @GetMapping({"/dashboard"})
     public String adminPage(Model model)
     {
-        String var = "dashboard";
-        model.addAttribute("var", var);
+//        String var = "dashboard";
+//        model.addAttribute("var", var);
         return "admin";
     }
 

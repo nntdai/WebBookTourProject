@@ -24,21 +24,20 @@ public class DiaDiemController {
     private List<Vungmien> dsVungMien;
     @GetMapping
     public String diadiemPage(Model model) {
-//        Page<DiadiemDto> dsDiaDiem = diaDiemService.getDiaDiems(2,10);
-//        dsVungMien= vungMienService.getAllVungMien();
-//        model.addAttribute("var", "diadiem");
-//        model.addAttribute("dsDiaDiem", dsDiaDiem);
+        Page<DiadiemDto> dsDiaDiem = diaDiemService.getDiaDiems(2,10);
+        dsVungMien= vungMienService.getAllVungMien();
+        model.addAttribute("var", "diadiem");
+        model.addAttribute("dsDiaDiem", dsDiaDiem);
         return "admin";
     }
 
-//    @GetMapping("/add")
-//    public String showAddLocationForm(Model model) {
-//        model.addAttribute("dsVungMien", dsVungMien);
-//        model.addAttribute("diadiem", new DiadiemDto());
-//        return "diadiemadd";
-//    }
+    @GetMapping("/add")
+    public String showAddLocationForm(Model model) {
+        model.addAttribute("dsVungMien", dsVungMien);
+        return "diadiemadd";
+    }
 
-//    @PostMapping("add")
+//    @PostMapping("/add")
 //    public String addDiadiem(@ModelAttribute("diadiemDto") DiadiemDto diadiemDto,Model model) {
 //        // Lưu địa điểm mới thông qua DiadiemService
 //        Diadiem diadiemE = new Diadiem();
