@@ -1,5 +1,6 @@
 package com.example.WebBookTour.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +21,7 @@ public class Vungmien {
     @Column(name = "ten", nullable = false, length = 100)
     private String ten;
 
-    @OneToMany(mappedBy = "idVungMien")
-    private Set<Diadiem> diadiems = new LinkedHashSet<>();
+//    @OneToMany(mappedBy = "idVungMien")            //Bo di vi tranh bi lap
+//    private Set<Diadiem> diadiems;
 
 }

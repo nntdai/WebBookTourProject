@@ -1,4 +1,23 @@
+
+let listView ="admin/diadiem"
+
+let SinhVienAPI ="admin/api/diadiem"
+
 $(document).ready(function() {
+    function loadData(){
+
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: SinhVienAPI,
+
+            success: function (responseData) {
+                console.log(responseData)
+                // $("#dataSinhVien").html(responseData)
+            }
+        })}
+
+
     $('#addLocationButton').on('click', function() {
         // Gửi yêu cầu AJAX tới server để lấy nội dung của modal
         $.ajax({
