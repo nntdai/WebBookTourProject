@@ -1,7 +1,7 @@
 package com.example.WebBookTour.service;
 
 import com.example.WebBookTour.entity.Taikhoanadmin;
-import com.example.WebBookTour.repository.TaiKhoanAdminRepository;
+import com.example.WebBookTour.repository.TaikhoanadminRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,8 +12,8 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class TaiKhoanAdminService implements UserDetailsService {
-    private final TaiKhoanAdminRepository taiKhoanAdminRepository;
+public class TaikhoanadminService implements UserDetailsService {
+    private final TaikhoanadminRepository taiKhoanAdminRepository;
 
 
     @Override
