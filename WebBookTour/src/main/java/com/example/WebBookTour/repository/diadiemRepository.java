@@ -1,8 +1,12 @@
 package com.example.WebBookTour.repository;
 
 import com.example.WebBookTour.entity.Diadiem;
-import com.example.WebBookTour.entity.Tourdulich;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface diadiemRepository extends JpaRepository<Diadiem, Integer> {
+import java.util.List;
+import java.util.Optional;
+@Repository
+public interface DiaDiemRepository extends JpaRepository<Diadiem, Integer> {
+
 }
