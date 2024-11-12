@@ -1,7 +1,7 @@
 package com.example.WebBookTour.controller;
 
 import com.example.WebBookTour.dto.DiadiemDto;
-import com.example.WebBookTour.entity.Diadiem;
+import com.example.WebBookTour.dto.VungmienDto;
 import com.example.WebBookTour.entity.Vungmien;
 import com.example.WebBookTour.service.DiadiemService;
 import com.example.WebBookTour.service.VungmienService;
@@ -21,12 +21,12 @@ public class DiaDiemController {
     @Autowired
     VungmienService vungMienService;
 
-    private List<Vungmien> dsVungMien;
+    private List<VungmienDto> dsVungMien;
     @GetMapping
     public String diadiemPage(Model model) {
         Page<DiadiemDto> dsDiaDiem = diaDiemService.getDiaDiems(2,10);
         dsVungMien= vungMienService.getAllVungMien();
-        model.addAttribute("var", "diadiem");
+        model.addAttribute("var", "diadiem/diadiem");
         model.addAttribute("dsDiaDiem", dsDiaDiem);
         return "admin";
     }
@@ -34,7 +34,14 @@ public class DiaDiemController {
     @GetMapping("/add")
     public String showAddLocationForm(Model model) {
         model.addAttribute("dsVungMien", dsVungMien);
-        return "diadiemadd";
+        return "diadiem/diadiemadd";
+    }
+    @GetMapping("/edit/{id}")
+    public String showEditLocationForm(Model model,@PathVariable int id) {
+        model.addAttribute("dsVungMien", dsVungMien);
+        DiadiemDto diadiemDto = diaDiemService.findDiaDiemById(id);
+        model.addAttribute("diadiem", diadiemDto);
+        return "diadiem/diadiemedit";
     }
 
 //    @PostMapping("/add")

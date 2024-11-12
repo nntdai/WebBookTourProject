@@ -5,7 +5,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Thêm mới</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close" data-bs-dismiss="modal" data-bs-target="#exampleModal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -15,19 +15,19 @@
             <span class="input-group-text" id="inputGroup-sizing-default">Tên</span>
             <input name="ten" type="text" id="ten" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
           </div>
+         <div id="errorName">
+         </div>
           <div class="input-group mb-3">
           <span class="input-group-text">Vùng Miền</span>
           <select class="form-control" id="vungMien" >
-
             <option th:each="vungMien : ${dsVungMien}"
                     th:value="${vungMien.getId()}"
                     th:text="${vungMien.getTen()}">
             </option>
-
           </select>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-target="#exampleModal">Close</button>
             <button id="btnAdd" type="button" class="btn btn-primary" onclick="">Thêm</button>
           </div>
         </div>
@@ -36,4 +36,4 @@
     </div>
   </div>
 </div>
-<script th:src="@{/js/diadiemAjax.js}"></script>
+<script th:src="@{/js/diadiem/addDD.js}"></script>
