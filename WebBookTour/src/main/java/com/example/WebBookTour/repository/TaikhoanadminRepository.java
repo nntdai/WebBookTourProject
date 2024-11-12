@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface TaiKhoanAdminRepository extends JpaRepository<Taikhoanadmin, Integer> {
+public interface TaikhoanadminRepository extends JpaRepository<Taikhoanadmin, Integer> {
     Optional<Taikhoanadmin> findByUsername(String username);
 }
