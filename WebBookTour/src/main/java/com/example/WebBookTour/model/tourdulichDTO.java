@@ -1,20 +1,30 @@
 package com.example.WebBookTour.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.math.BigDecimal;
 
 @Data //toString
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class tourdulichDTO {
+    @JsonProperty("ten")
     private String ten;
-    private String khoiHanh;
-    private String NgayKhoiHang;
-    private String thoiGian;
-    private Long soChoConLai;
+
+    @JsonProperty("giaTour")
     private BigDecimal giaTien;
-    private String hinhAnh;
+
+    @JsonProperty("thoiGian")
+    private String thoiGian;
+
+    @JsonProperty("phuongTienDiChuyen")
+    private String phuongTienDiChuyen;
+
+    @JsonProperty("diaDiemKH")
+    private String diadiemkhoiHanh;
+
+    @JsonProperty("diaDiemThamQuan")
+    private String diaDiemThamQuan;
+
 }
