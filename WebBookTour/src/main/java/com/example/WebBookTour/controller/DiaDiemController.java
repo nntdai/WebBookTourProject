@@ -24,11 +24,25 @@ public class DiaDiemController {
     private List<VungmienDto> dsVungMien;
     @GetMapping
     public String diadiemPage(Model model) {
-        Page<DiadiemDto> dsDiaDiem = diaDiemService.getDiaDiems(2,10);
+        Page<DiadiemDto> dsDiaDiem = diaDiemService.getDiaDiems(0,10);
+        int page = dsDiaDiem.getPageable().getPageNumber();
+        int totalPage = dsDiaDiem.getTotalPages();
         dsVungMien= vungMienService.getAllVungMien();
         model.addAttribute("var", "diadiem/diadiem");
         model.addAttribute("dsDiaDiem", dsDiaDiem);
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("page", page);
         return "admin";
+    }
+    @PostMapping("/{page}")
+    public String diaDiemList(Model model,@PathVariable int page)
+    {
+        Page<DiadiemDto> dsDiaDiem = diaDiemService.getDiaDiems(page,10);
+        int totalPage = dsDiaDiem.getTotalPages();
+        model.addAttribute("dsDiaDiem", dsDiaDiem);
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("page", page);
+        return "diadiem/diadiem :: tableDiaDiem";
     }
 
     @GetMapping("/add")

@@ -29,6 +29,14 @@ public class DiadiemService {
     {
 
         Diadiem diadiemE = diadiemMapper.toEntity(diadiemDto);
+        diaDiemRepository.save(diadiemE);
+        return "Added dia diem";
+
+    }
+    public String updateDiaDiem(DiadiemDto diadiemDto)
+    {
+
+        Diadiem diadiemE = diadiemMapper.toEntity(diadiemDto);
         Optional<Diadiem> existingDiaDiem = diaDiemRepository.findById(diadiemE.getId());
         if (existingDiaDiem.isPresent()) {
             Diadiem updatedDiaDiem = existingDiaDiem.get();
@@ -40,12 +48,6 @@ public class DiadiemService {
         else{
             return "Dia Diem not found";
         }
-    }
-    public String updateDiaDiem(DiadiemDto diadiemDto)
-    {
-        Diadiem diadiemE = diadiemMapper.toEntity(diadiemDto);
-        diaDiemRepository.save(diadiemE);
-        return "Oke";
     }
     public DiadiemDto findDiaDiemById(int id)
     {

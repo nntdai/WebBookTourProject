@@ -1,6 +1,38 @@
 
 $(document).ready(function() {
-    $('.btnEdit').on('click', function() {
+    $(document).on('click','.page-item',function ()
+    {
+        const pageSelected = $(this).data('page');
+        const pagePresent =$('.page-item.active').data('page');
+        const totalPage =$('#dataTable').attr('data-id')-1 ;
+        var page= 0;
+        if ((pageSelected==-1)||(pageSelected==="+1"))
+        {
+            const pageT = +pagePresent + +pageSelected ;
+            if ((pageT>=0)&&(pageT<=totalPage))
+                    page = pageT ;
+            else
+                return;
+        }
+        else if (pageSelected==pagePresent) return;
+        else
+        {
+            page = pageSelected;
+        }
+        $('#tableDiaDiem').html('');
+        $.ajax({
+            url: '/admin/diadiem/' + page,
+            type: 'POST',
+            contentType: 'application/json',
+            success: function (respone) {
+                $('#tableDiaDiem').html(respone);
+            },
+            error: function (xhr, status, error) {
+                console.error("Không thể tải nội dung modal:", error);
+            }
+        });
+    });
+    $(document).on('click','.btnEdit', function() {
         const id = $(this).attr('data-id');
 
 
@@ -20,14 +52,14 @@ $(document).ready(function() {
             });
         }
     });
-    $('#deleteModal').on('shown.bs.modal',function (event)
+    $(document).on('shown.bs.modal','#deleteModal',function (event)
     {
         const button = event.relatedTarget;
         const id = button.getAttribute('data-id');
         const buttonConfirmDelete = document.getElementById("btnCDelete");
         buttonConfirmDelete.setAttribute('data-id',id);
     });
-    $('#btnCDelete').on('click',function ()
+    $(document).on('click','#btnCDelete',function ()
     {
         const attributeValue = $(this).attr('data-id');
         $.ajax({
@@ -51,7 +83,7 @@ $(document).ready(function() {
     $(document).on('hidden.bs.modal', '#editModalLocation', function () {
         $('#modalContainer').html('');
     });
-    $('#addLocationButton').on('click', function() {
+    $(document).on('click','#addLocationButton', function() {
         if (!$('#exampleModal').hasClass('show')) {
             $.ajax({
                 url: '/admin/diadiem/add',
