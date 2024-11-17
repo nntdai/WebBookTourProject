@@ -1,5 +1,6 @@
 package com.example.WebBookTour.dto;
 
+import com.example.WebBookTour.entity.Diadiem;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -20,7 +21,7 @@ public class TourdulichDto {
     private BigDecimal giaTour;
     private String thoiGian;
     private String phuongTienDiChuyen;
-    private DiadiemDto diaDiemKH;
-    private DiadiemDto diaDiemThamQuan;
+    private Diadiem diaDiemKH;
+    private Diadiem diaDiemThamQuan;
     private Boolean status;
 }

@@ -1,8 +1,7 @@
 package com.example.WebBookTour.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.LinkedHashSet;
@@ -10,6 +9,9 @@ import java.util.Set;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "tourdulich")
 public class Tourdulich {
@@ -30,11 +32,11 @@ public class Tourdulich {
     @Column(name = "phuongTienDiChuyen", length = 50)
     private String phuongTienDiChuyen;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "diaDiemKH", nullable = false)
     private Diadiem diaDiemKH;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "diaDiemThamQuan", nullable = false)
     private Diadiem diaDiemThamQuan;
 

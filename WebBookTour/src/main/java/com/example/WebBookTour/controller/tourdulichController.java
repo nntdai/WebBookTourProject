@@ -1,6 +1,7 @@
 package com.example.WebBookTour.controller;
 
-import com.example.WebBookTour.model.tourdulichDTO;
+import com.example.WebBookTour.dto.TourdulichDto;
+import com.example.WebBookTour.exceptions.DataNotFoundException;
 import com.example.WebBookTour.service.tourdulichService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,16 +18,20 @@ public class tourdulichController {
 
     // Lấy danh sách tất cả các tour
     @GetMapping("/all") //http://localhost:8088/api/tourdulich
-    public List<tourdulichDTO> getAllTourdulich(){
+    public List<TourdulichDto> getAllTourdulich(){
         return tourService.getAllTours();
     }
 
     // Thêm một tour mới
-//    @PostMapping("/add")
-//    public ResponseEntity<tourdulichDTO> addTour(@RequestBody tourdulichDTO tour) {
-//        tourdulichDTO newTour = tourService.addTour(tour);
-//        return ResponseEntity.ok(newTour);
-//    }
+    @PostMapping("/add")
+    public ResponseEntity<?> addTour(@RequestBody TourdulichDto tour) {
+        try {
+            tourService.addTour(tour);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+        return ResponseEntity.badRequest().body("da tao moi tourdulich");
+    }
 
     // Cập nhật một tour
 //    @PutMapping("/update/{id}")

@@ -1,8 +1,8 @@
 package com.example.WebBookTour.config;
 
 
-import com.example.WebBookTour.repository.TaiKhoanAdminRepository;
-import com.example.WebBookTour.service.TaiKhoanAdminService;
+import com.example.WebBookTour.repository.TaikhoanadminRepository;
+import com.example.WebBookTour.service.TaikhoanadminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -34,7 +34,7 @@ import java.util.Arrays;
 @EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
 @RequiredArgsConstructor
 public class SecutityConfig {
-    private final TaiKhoanAdminRepository repository;
+    private final TaikhoanadminRepository repository;
 
 
 
@@ -43,9 +43,10 @@ public class SecutityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/tourdulich/**").permitAll()
-                        .requestMatchers("/admin/**").authenticated() // với endpoint /customer/** sẽ yêu cầu authenticate
-                        .requestMatchers("/taikhoan/**").permitAll() // cho qua mà không cần authenticate
+                        .requestMatchers("/img/**", "/css/**", "/js/**", "/vendor/**").permitAll()
+                        .requestMatchers("/").permitAll() // cho qua mà không cần authenticate
+                        .requestMatchers("/admin/**").permitAll() // với endpoint /customer/** sẽ yêu cầu authenticate
+                        .anyRequest().permitAll()
                 )
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults())
@@ -62,7 +63,7 @@ public class SecutityConfig {
 //                .roles("USER")
 //                .build();
 //        return new InMemoryUserDetailsManager(admin, user);
-        return new TaiKhoanAdminService(repository);
+        return new TaikhoanadminService(repository);
     }
     @Bean
     public PasswordEncoder passwordEncoder() {

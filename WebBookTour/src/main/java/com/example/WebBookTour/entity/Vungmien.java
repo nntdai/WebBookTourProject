@@ -20,7 +20,7 @@ public class Vungmien {
     @Column(name = "ten", nullable = false, length = 100)
     private String ten;
 
-    @OneToMany(mappedBy = "idVungMien")
-    private Set<Diadiem> diadiems = new LinkedHashSet<>();
+//    @OneToMany(mappedBy = "idVungMien")
+//    private Set<Diadiem> diadiems = new LinkedHashSet<>();
 
 }

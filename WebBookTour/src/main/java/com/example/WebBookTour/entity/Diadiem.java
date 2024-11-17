@@ -20,14 +20,14 @@ public class Diadiem {
     @Column(name = "ten", nullable = false, length = 100)
     private String ten;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idVungMien")
     private Vungmien idVungMien;
 
-    @OneToMany(mappedBy = "diaDiemKH")
-    private Set<Tourdulich> tourduliches = new LinkedHashSet<>();
+//    @OneToMany(mappedBy = "diaDiemKH")
+//    private Set<Tourdulich> tourduliches = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "diaDiemThamQuan")
-    private Set<Tourdulich> tourduliches2 = new LinkedHashSet<>();
+//    @OneToMany(mappedBy = "diaDiemThamQuan")
+//    private Set<Tourdulich> tourduliches2 = new LinkedHashSet<>();
 
 }

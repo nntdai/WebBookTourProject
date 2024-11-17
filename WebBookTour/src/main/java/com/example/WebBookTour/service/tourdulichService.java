@@ -1,10 +1,12 @@
 package com.example.WebBookTour.service;
 
+import com.example.WebBookTour.dto.DiadiemDto;
+import com.example.WebBookTour.entity.Diadiem;
 import com.example.WebBookTour.entity.Tourdulich;
 import com.example.WebBookTour.exceptions.DataNotFoundException;
-import com.example.WebBookTour.model.tourdulichDTO;
-import com.example.WebBookTour.repository.tourdulichRepository;
-import com.example.WebBookTour.repository.diadiemRepository;
+import com.example.WebBookTour.dto.TourdulichDto;
+import com.example.WebBookTour.repository.TourdulichRepository;
+import com.example.WebBookTour.repository.DiaDiemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,62 +17,55 @@ import java.util.stream.Collectors;
 @Service
 public class tourdulichService {
     @Autowired
-    private tourdulichRepository tourRepository;
+    private TourdulichRepository tourRepository;
 
     @Autowired
-    private diadiemRepository ddRepository;
+    private DiaDiemRepository diaDiemRepository;
 
 
     // Phương thức chuyển đổi từ Tourdulich sang tourdulichDTO
-    private tourdulichDTO convertToDTO(Tourdulich tour) {
-        tourdulichDTO tourDTO = new tourdulichDTO();
+    private TourdulichDto convertToDTO(Tourdulich tour) {
+        TourdulichDto tourDTO = new TourdulichDto();
+        Diadiem diaDiemKH = tour.getDiaDiemKH();
+        Diadiem diaDiemTQ = tour.getDiaDiemThamQuan();
         tourDTO.setTen(tour.getTen());
-        tourDTO.setGiaTien(tour.getGiaTour());
+        tourDTO.setGiaTour(tour.getGiaTour());
         tourDTO.setThoiGian(tour.getThoiGian());
         tourDTO.setPhuongTienDiChuyen(tour.getPhuongTienDiChuyen());
-        tourDTO.setDiadiemkhoiHanh(tour.getDiaDiemKH().getTen());
-        tourDTO.setDiaDiemThamQuan(tour.getDiaDiemThamQuan().getTen());
+        tourDTO.setDiaDiemKH(diaDiemKH);
+        tourDTO.setDiaDiemThamQuan(diaDiemTQ);
         return tourDTO;
     }
 
     // Lấy tất cả các tour du lịch
-    public List<tourdulichDTO> getAllTours() {
+    public List<TourdulichDto> getAllTours() {
         return tourRepository.findAll().stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 
     // Thêm một tour mới
-//    public Tourdulich addTour(tourdulichDTO tour) throws DataNotFoundException {
-//        ddRepository.findById(tour.getDiadiemkhoiHanh())
-//                .orElseThrow(() ->
-//                        new DataNotFoundException(
-//                                "Cannot find diadiem with id: " + tour.getDiadiemkhoiHanh()
-//                        ));
-//
-//
-////        return tourRepository.save(tour);
-//    }
+    public Tourdulich addTour(TourdulichDto tour) throws DataNotFoundException {
+        Diadiem existingDiaDiemKhoiHanh = diaDiemRepository
+                .findById(tour.getDiaDiemKH().getId())
+                .orElseThrow(() ->
+                        new DataNotFoundException(
+                                "cannot find diaDiemKhoiHanh with id: " + tour.getDiaDiemKH().getId()));
 
-    // Cập nhật một tour
-//    public Optional<tourdulichDTO> updateTour(Long id, Tourdulich updatedTour) {
-//        return tourRepository.findById(id).map(tour -> {
-//            tour.setTen(updatedTour.getTen());
-//            tour.setGiaTour(updatedTour.getGiaTour());
-//            tour.setThoiGian(updatedTour.getThoiGian());
-//            tour.setPhuongTienDiChuyen(updatedTour.getPhuongTienDiChuyen());
-//            tour.setDiaDiemKH(updatedTour.getdiadiemkhoiHanh());
-//            tour.setDiaDiemThamQuan(updatedTour.getDiaDiemThamQuan());
-//            return tourRepository.save(tour);
-//        });
-//    }
+        Diadiem existingDiaDiemThamQuan = diaDiemRepository
+                .findById(tour.getDiaDiemThamQuan().getId())
+                .orElseThrow(() ->
+                        new DataNotFoundException(
+                                "cannot find diaDiemThamQuan with id: " + tour.getDiaDiemThamQuan().getId()));
 
-    // Xóa một tour
-//    public boolean deleteTour(Long id) {
-//        if (tourRepository.existsById(id)) {
-//            tourRepository.deleteById(id);
-//            return true;
-//        }
-//        return false;
-//    }
+        Tourdulich newTourdulich = Tourdulich.builder()
+                .ten(tour.getTen())
+                .giaTour(tour.getGiaTour())
+                .thoiGian(tour.getThoiGian())
+                .phuongTienDiChuyen(tour.getPhuongTienDiChuyen())
+                .build();
+        newTourdulich.setDiaDiemKH(existingDiaDiemKhoiHanh);
+        newTourdulich.setDiaDiemThamQuan(existingDiaDiemThamQuan);
+        return tourRepository.save(newTourdulich);
+    }
 }
