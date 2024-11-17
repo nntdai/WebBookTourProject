@@ -14,7 +14,7 @@ $(document).ready(function() {
         };
         $.ajax({
             url: '/api/admin/diadiem/edit',
-            type: 'POST',
+            type: 'PUT',
             contentType: 'application/json',
             data: JSON.stringify(diadiemDto),
             success: function(respone) {

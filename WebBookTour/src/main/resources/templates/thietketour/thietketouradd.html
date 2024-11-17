@@ -1,0 +1,65 @@
+
+<div>
+  <div class="modal fade" id="thietkeTourModalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Thêm mới</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" data-bs-target="#thietkeTourModalAdd" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form method="post">
+          <div class="modal-body">
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="inputGroup-sizing-default">Tên</span>
+              <input name="ten" type="text" id="ten" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            </div>
+            <div id="errorName">
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text" >Thời gian</span>
+              <input  type="text"  class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">$</span>
+              <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+              <span class="input-group-text">.00</span>
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">Địa điểm khởi hành</span>
+              <select class="form-control" id="diaDiemKH" >
+                <option th:each="diaDiem : ${dsDiaDiem}"
+                        th:value="${diaDiem.getId()}"
+                        th:text="${diaDiem.getTen()}">
+                </option>
+              </select>
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">Địa điểm tham quan</span>
+                            <select class="form-control" id="diaDiemTQ" >
+                              <option th:each="diaDiem : ${dsDiaDiem}"
+                                      th:value="${diaDiem.getId()}"
+                                      th:text="${diaDiem.getTen()}">
+                              </option>
+                            </select>
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">Phương tiện di chuyển</span>
+                            <select class="form-control" id="ptDiChuyen" >
+                              <option>Xe du lịch</option>
+                              <option>Máy bay</option>
+                              <option>Xe du lịch , Máy bay</option>
+                            </select>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-target="#thietkeTourModalAdd">Close</button>
+              <button id="btnAddTour" type="button" class="btn btn-primary" onclick="">Thêm</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!--<script th:src="@{/js/diadiem/addDD.js}"></script>-->

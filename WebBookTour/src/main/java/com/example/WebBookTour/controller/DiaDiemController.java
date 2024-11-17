@@ -34,7 +34,7 @@ public class DiaDiemController {
         model.addAttribute("page", page);
         return "admin";
     }
-    @PostMapping("/{page}")
+    @GetMapping("/{page}")
     public String diaDiemList(Model model,@PathVariable int page)
     {
         Page<DiadiemDto> dsDiaDiem = diaDiemService.getDiaDiems(page,10);

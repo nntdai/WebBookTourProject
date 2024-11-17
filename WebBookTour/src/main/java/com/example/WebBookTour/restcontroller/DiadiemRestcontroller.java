@@ -8,6 +8,7 @@ import com.example.WebBookTour.service.DiadiemService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -33,11 +34,18 @@ public class DiadiemRestcontroller {
     }
 
 
-    @PostMapping("/delete")
-    public String deleteDiaDiem(@RequestBody int id)
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteDiaDiem(@RequestBody int id)
     {
-        diaDiemService.deleteDiaDiem(id);
-        return "Xóa thành công ";
+        try {
+            diaDiemService.deleteDiaDiem(id);
+            return ResponseEntity.ok("Địa điểm đã được xóa thành công!");
+
+        }
+        catch (DataIntegrityViolationException e)
+        {
+            return ResponseEntity.badRequest().body("Địa điểm này không thể xóa được ");
+        }
     }
 
     @PostMapping("/add")
@@ -65,7 +73,7 @@ public class DiadiemRestcontroller {
 
 
     }
-    @PostMapping("/edit")
+    @PutMapping("/edit")
     public ResponseEntity<String> editDiadiem(@RequestBody @Valid DiadiemDto diadiemDto, BindingResult result) throws Exception {
         if (result.hasErrors()) {
 
