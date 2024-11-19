@@ -29,7 +29,7 @@ public class ThietKeTourController {
         Page<TourdulichDto> dsTour = thietketourService.getTourDuLich(0,10);
         int page = dsTour.getPageable().getPageNumber();
         int totalPage = dsTour.getTotalPages();
-        dsDiaDiem = diadiemService.getDiaDiems(0,10).getContent();
+        dsDiaDiem = diadiemService.getAllDiaDiems();
 //        dsVungMien= vungMienService.getAllVungMien();
         model.addAttribute("var", "thietketour/thietketour");
         model.addAttribute("dsTour", dsTour);

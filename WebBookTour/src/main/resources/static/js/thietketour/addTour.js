@@ -1,5 +1,9 @@
 $(document).ready(function()
 {
+
+    $(document).on('hidden.bs.modal', '#addTourDesignModal', function () {
+        $('#modalContainer').html('');
+    });
     $(document).on('click','#addTourDesignModal', function() {
         if (!$('#thietkeTourModalAdd').hasClass('show')) {
             $.ajax({

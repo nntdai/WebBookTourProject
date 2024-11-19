@@ -19,7 +19,7 @@
          </div>
           <div class="input-group mb-3">
           <span class="input-group-text">Vùng Miền</span>
-          <select class="form-control" id="vungMien" >
+          <select class="form-select" id="vungMien" >
             <option th:each="vungMien : ${dsVungMien}"
                     th:value="${vungMien.getId()}"
                     th:text="${vungMien.getTen()}">

@@ -11,7 +11,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -59,6 +61,13 @@ public class DiadiemService {
     {
         diaDiemRepository.deleteById(diaDiemId);
     }
+    public List<DiadiemDto> getAllDiaDiems()
+    {
+        List<Diadiem> dsDiaDiem = diaDiemRepository.findAll();
+        List<DiadiemDto> diadiemDtos= dsDiaDiem.stream().map(diadiemMapper::toDto).collect(Collectors.toList());
+        return diadiemDtos;
+    }
+
     public Page<DiadiemDto> getDiaDiems(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Diadiem> dsDiaDiem = diaDiemRepository.findAll(pageable);
