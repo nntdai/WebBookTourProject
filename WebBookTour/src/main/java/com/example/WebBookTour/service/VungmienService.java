@@ -1,7 +1,6 @@
 package com.example.WebBookTour.service;
 
 import com.example.WebBookTour.dto.VungmienDto;
-import com.example.WebBookTour.entity.Vungmien;
 import com.example.WebBookTour.mapper.VungmienMapper;
 import com.example.WebBookTour.repository.VungmienRepository;
 import lombok.RequiredArgsConstructor;

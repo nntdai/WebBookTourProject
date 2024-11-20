@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class DiadiemService {
+
     @Autowired
     private final DiaDiemRepository diaDiemRepository;
     @Autowired
