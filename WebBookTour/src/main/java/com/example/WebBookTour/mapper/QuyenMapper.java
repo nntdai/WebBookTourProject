@@ -4,7 +4,7 @@ import com.example.WebBookTour.dto.QuyenDto;
 import com.example.WebBookTour.entity.Quyen;
 import org.mapstruct.*;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface QuyenMapper {
     Quyen toEntity(QuyenDto quyenDto);
 

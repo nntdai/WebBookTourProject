@@ -4,7 +4,7 @@ import com.example.WebBookTour.dto.DieukienhuytourDto;
 import com.example.WebBookTour.entity.Dieukienhuytour;
 import org.mapstruct.*;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface DieukienhuytourMapper {
     Dieukienhuytour toEntity(DieukienhuytourDto dieukienhuytourDto);
 

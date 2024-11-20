@@ -4,7 +4,7 @@ import com.example.WebBookTour.dto.ChucvuDto;
 import com.example.WebBookTour.entity.Chucvu;
 import org.mapstruct.*;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ChucvuMapper {
     Chucvu toEntity(ChucvuDto chucvuDto);
 

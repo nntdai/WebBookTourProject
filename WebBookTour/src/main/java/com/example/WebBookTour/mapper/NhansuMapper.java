@@ -5,7 +5,7 @@ import com.example.WebBookTour.entity.Nhansu;
 import com.example.WebBookTour.entity.Taikhoanadmin;
 import org.mapstruct.*;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface NhansuMapper {
     Nhansu toEntity(NhansuDto nhansuDto);
 

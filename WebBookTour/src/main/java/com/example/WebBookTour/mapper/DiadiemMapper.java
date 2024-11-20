@@ -4,7 +4,8 @@ import com.example.WebBookTour.dto.DiadiemDto;
 import com.example.WebBookTour.entity.Diadiem;
 import org.mapstruct.*;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)public interface DiadiemMapper {
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+public interface DiadiemMapper {
     Diadiem toEntity(DiadiemDto diadiemDto);
 
     DiadiemDto toDto(Diadiem diadiem);
