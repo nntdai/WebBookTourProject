@@ -10,8 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/admin/tourdesign")
@@ -35,13 +39,29 @@ public class ThietKeTourController {
         model.addAttribute("dsTour", dsTour);
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("page", page);
+
         return "admin";
     }
+
+//    @GetMapping("/getModalContent")
+//    @ResponseBody
+//    public String getModalContent(@RequestParam("days") int numDays, Model model) {
+//        // Tạo danh sách số ngày từ 1 đến numDays
+//        List<Integer> days = IntStream.rangeClosed(1, numDays)
+//                .boxed()
+//                .collect(Collectors.toList());
+//
+//        model.addAttribute("days", days);
+//
+//        // Trả về nội dung fragment cho modal body
+//        return ThymeleafUtil.processFragment("modalContent", model);
+//    }
 
     @GetMapping("/add")
     public String showAddTourForm(Model model) {
 //        model.addAttribute("dsVungMien", dsVungMien);
         model.addAttribute("dsDiaDiem", dsDiaDiem);
+        model.addAttribute("days",1);
         return "thietketour/thietketouradd";
     }
 }
