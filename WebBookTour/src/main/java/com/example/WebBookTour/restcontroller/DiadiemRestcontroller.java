@@ -17,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -30,6 +31,12 @@ public class DiadiemRestcontroller {
                                         @RequestParam(name = "size", defaultValue = "10") int size, Model model)
     {
         return diaDiemService.getDiaDiems(page,size);
+
+    }
+    @GetMapping("/getall")
+    public List<DiadiemDto> getAllDiaDiem()
+    {
+        return diaDiemService.getAllDiaDiems();
 
     }
 
