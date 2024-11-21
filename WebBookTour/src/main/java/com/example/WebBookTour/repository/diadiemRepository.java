@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.Optional;
 @Repository
 public interface diadiemRepository extends JpaRepository<Diadiem, Integer> {
-
+    Diadiem findDiadiemById(Integer id);
 }

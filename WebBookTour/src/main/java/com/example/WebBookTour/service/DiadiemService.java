@@ -11,7 +11,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -74,5 +76,14 @@ public class DiadiemService {
         Page<Diadiem> dsDiaDiem = diaDiemRepository.findAll(pageable);
         Page<DiadiemDto> diadiemDTOPage = dsDiaDiem.map(diadiem -> diadiemMapper.toDto(diadiem));
         return diadiemDTOPage;
+    }
+
+    public Map<Integer,String> getDiaDiem(){
+        Map<Integer,String> listDiaDiem = new HashMap<>();
+        List<Diadiem> dsDiaDiem = diaDiemRepository.findAll();
+        for(Diadiem it : dsDiaDiem){
+            listDiaDiem.put(it.getId(),it.getTen());
+        }
+        return listDiaDiem;
     }
 }

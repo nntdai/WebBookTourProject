@@ -1,10 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Bar with Dropdowns</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .search-container {
+            background-color: #ffffff;
+            border-radius: 25px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .search-container .dropdown {
+            flex-grow: 1;
+        }
+        .search-container .dropdown-toggle {
+            background: none;
+            border: none;
+            box-shadow: none;
+            width: 100%;
+            text-align: left;
+        }
+        .search-container .dropdown-menu {
+            width: 100%;
+        }
+        .search-btn {
+            background-color: #00264d;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .search-btn:hover {
+            background-color: #004080;
+        }
+    </style>
 </head>
 <body>
-$END$
+    <div class="container mt-5">
+        <div class="search-container">
+            <!-- Điểm đến -->
+            <div class="dropdown">
+                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-geo-alt me-2"></i>Bạn muốn khám phá nơi nào ?
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Hà Nội</a></li>
+                    <li><a class="dropdown-item" href="#">Đà Nẵng</a></li>
+                    <li><a class="dropdown-item" href="#">TP. Hồ Chí Minh</a></li>
+                </ul>
+            </div>
+            <!-- Khởi hành từ -->
+            <div class="dropdown">
+                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-send me-2"></i>Khởi hành từ
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Hà Nội</a></li>
+                    <li><a class="dropdown-item" href="#">Hải Phòng</a></li>
+                    <li><a class="dropdown-item" href="#">Huế</a></li>
+                </ul>
+            </div>
+            <!-- Ngân sách -->
+            <div class="dropdown">
+                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-currency-dollar me-2"></i>Ngân sách
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Dưới 5 triệu</a></li>
+                    <li><a class="dropdown-item" href="#">5-10 triệu</a></li>
+                    <li><a class="dropdown-item" href="#">Trên 10 triệu</a></li>
+                </ul>
+            </div>
+            <!-- Nút tìm kiếm -->
+            <button class="search-btn">
+                <i class="bi bi-search"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </body>
 </html>
