@@ -22,31 +22,10 @@ public class tourdulichController {
         return tourService.getAllTours();
     }
 
-    // Thêm một tour mới
-    @PostMapping("/add")
-    public ResponseEntity<?> addTour(@RequestBody TourdulichDto tour) {
-        try {
-            tourService.addTour(tour);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-        return ResponseEntity.badRequest().body("da tao moi tourdulich");
+    @RequestMapping(value = "/tour-list",method = RequestMethod.GET)
+    public ModelAttribute tourList(){
+
+        return null;
     }
 
-    // Cập nhật một tour
-//    @PutMapping("/update/{id}")
-//    public ResponseEntity<tourdulichDTO> updateTour(@PathVariable Long id, @RequestBody tourdulichDTO updatedTour) {
-//        return tourService.updateTour(id, updatedTour)
-//                .map(ResponseEntity::ok)
-//                .orElse(ResponseEntity.notFound().build());
-//    }
-
-    // Xóa một tour
-//    @DeleteMapping("/delete/{id}")
-//    public ResponseEntity<Void> deleteTour(@PathVariable Long id) {
-//        if (tourService.deleteTour(id)) {
-//            return ResponseEntity.noContent().build();
-//        }
-//        return ResponseEntity.notFound().build();
-//    }
 }

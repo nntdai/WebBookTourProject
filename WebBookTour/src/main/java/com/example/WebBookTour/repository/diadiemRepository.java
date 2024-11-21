@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 @Repository
-public interface DiaDiemRepository extends JpaRepository<Diadiem, Integer> {
+public interface diadiemRepository extends JpaRepository<Diadiem, Integer> {
 
 }

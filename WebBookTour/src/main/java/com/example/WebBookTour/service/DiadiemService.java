@@ -3,7 +3,7 @@ package com.example.WebBookTour.service;
 import com.example.WebBookTour.dto.DiadiemDto;
 import com.example.WebBookTour.entity.Diadiem;
 import com.example.WebBookTour.mapper.DiadiemMapper;
-import com.example.WebBookTour.repository.DiaDiemRepository;
+import com.example.WebBookTour.repository.diadiemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,7 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class DiadiemService {
     @Autowired
-    private final DiaDiemRepository diaDiemRepository;
+    private final diadiemRepository diaDiemRepository;
     @Autowired
     private DiadiemMapper diadiemMapper;
 
