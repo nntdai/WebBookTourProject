@@ -1,5 +1,6 @@
 package com.example.WebBookTour.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,8 +14,9 @@ public class Chitietlichtrinh {
     private ChitietlichtrinhId id;
 
     @MapsId("idTour")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "idTour", nullable = false)
+    @JsonBackReference
     private Tourdulich idTour;
 
     @Column(name = "ngayThu", nullable = false)

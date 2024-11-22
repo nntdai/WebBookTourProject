@@ -15,7 +15,6 @@ import lombok.experimental.Accessors;
 public class ChitietlichtrinhDto {
     private Integer idIdTour;
     private String idTenChiTiet;
-    private TourdulichDto idTour;
     private Integer ngayThu;
     private Boolean buaSang = false;
     private Boolean buaTrua = false;

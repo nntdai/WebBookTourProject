@@ -92,6 +92,12 @@
 			<artifactId>jquery</artifactId>
 			<version>2.2.4</version>
 		</dependency>
+
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>s3</artifactId>
+			<version>2.20.26</version> <!-- Phiên bản AWS SDK V2 -->
+		</dependency>
 	</dependencies>
 
 	<build>

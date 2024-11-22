@@ -13,7 +13,7 @@ public class Thongtinhanhkhach {
     private ThongtinhanhkhachId id;
 
     @MapsId("idDatCho")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "idDatCho", nullable = false)
     private Tourdulich idDatCho;
 

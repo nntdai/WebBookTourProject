@@ -1,5 +1,6 @@
 package com.example.WebBookTour.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,11 +31,11 @@ public class Tourdulich {
     @Column(name = "phuongTienDiChuyen", length = 50)
     private String phuongTienDiChuyen;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "diaDiemKH", nullable = false)
     private Diadiem diaDiemKH;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "diaDiemThamQuan", nullable = false)
     private Diadiem diaDiemThamQuan;
 
@@ -42,12 +43,15 @@ public class Tourdulich {
     private Boolean status;
 
     @OneToMany(mappedBy = "idTour")
+    @JsonManagedReference
     private Set<Chitietlichtrinh> chitietlichtrinhs = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "idDatCho")
+    @JsonManagedReference
     private Set<Thongtinhanhkhach> thongtinhanhkhaches = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "idTourDuLich")
+    @JsonManagedReference
     private Set<Tochuctour> tochuctours = new LinkedHashSet<>();
 
 }

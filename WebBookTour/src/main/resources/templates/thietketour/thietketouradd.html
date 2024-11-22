@@ -1,12 +1,23 @@
 <style>
   .thoiGian {
-    width: 200px; /* Chỉnh độ dài */
+    width: 200px;
+  }
+  .spanCustom {
+    width: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-content
+  {
+    padding: 10px;
+    margin-bottom: 15px;
   }
 </style>
 <div>
 
   <div class="modal fade" id="thietkeTourModalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Thiết kế Tour Du Lịch</h5>
@@ -15,47 +26,62 @@
           </button>
         </div>
         <div class="modal-body">
-          <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">Tên</span>
-            <input name="ten" type="text" id="ten" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-          </div>
-          <div id="errorName">
-          </div>
-          <div class="input-group mb-3">
-            <span class="input-group-text">$</span>
-            <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
-            <span class="input-group-text">.00</span>
-          </div>
-          <div class="input-group mb-3">
-            <span class="input-group-text">Địa điểm khởi hành</span>
-            <select class="form-select" id="diaDiemKH" name="diaDiemKH" >
-              <option th:each="diaDiem : ${dsDiaDiem}"
-                      th:value="${diaDiem.getId()}"
-                      th:text="${diaDiem.getTen()}">
-              </option>
-            </select>
-          </div>
-          <div class="input-group mb-3">
-            <span class="input-group-text" >Địa điểm tham quan</span>
-            <select class="form-select" data-control="select2" id="diaDiemTQ" >
-              <option th:each="diaDiem : ${dsDiaDiem}"
-                      th:value="${diaDiem.getId()}"
-                      th:text="${diaDiem.getTen()}">
-              </option>
-            </select>
+          <div class="container mt-3">
+
+            <div class="row mb-3">
+              <div class="col-12">
+                <div class="input-group">
+                  <span class="input-group-text spanCustom" id="inputGroup-sizing-default">Tên Tour</span>
+                  <input name="ten" type="text" id="tenTour" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                </div>
+                <div id="errorNameTour"></div>
+              </div>
+            </div>
+
+
+            <div class="row">
+
+              <div class="col-md-6">
+                <div class="input-group mb-3">
+                  <span class="input-group-text spanCustom">Giá Tour</span>
+                  <input id="giaTour" class="form-control" type="number" value="100000" min="100000" max="1000000000" step="100000" aria-label="Amount (to the nearest dollar)">
+                  <span class="input-group-text">VND</span>
+                </div>
+                <div id="errorGiaTour"></div>
+
+                <div class="input-group mb-3">
+                  <span class="input-group-text spanCustom">Địa điểm khởi hành</span>
+                  <select class="form-select" id="diaDiemKH" name="diaDiemKH">
+                    <option th:each="diaDiem : ${dsDiaDiem}" th:value="${diaDiem.getId()}" th:text="${diaDiem.getTen()}"></option>
+                  </select>
+                </div>
+              </div>
+
+
+              <div class="col-md-6">
+                <div class="input-group mb-3">
+                  <span class="input-group-text spanCustom">Địa điểm tham quan</span>
+                  <select class="form-select" data-control="select2" id="diaDiemTQ">
+                    <option th:each="diaDiem : ${dsDiaDiem}" th:value="${diaDiem.getId()}" th:text="${diaDiem.getTen()}"></option>
+                  </select>
+                </div>
+
+                <div class="input-group mb-3">
+                  <span class="input-group-text spanCustom">Phương tiện di chuyển</span>
+                  <select class="form-select" id="ptDiChuyen">
+                    <option>Xe du lịch</option>
+                    <option>Máy bay</option>
+                    <option>Máy bay , Xe du lịch</option>
+                  </select>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div class="input-group mb-3">
-            <span class="input-group-text">Phương tiện di chuyển</span>
-            <select class="form-select" id="ptDiChuyen" >
-              <option>Xe du lịch</option>
-              <option>Máy bay</option>
-              <option>Xe du lịch , Máy bay</option>
-            </select>
-          </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-target="#thietkeTourModalAdd">Close</button>
-            <button id="btnAddTour" type="button" data-bs-target="#chitietLichTrinh" data-bs-toggle="modal" class="btn btn-primary" onclick="">Thêm chi tiết lịch trình</button>
+<!--            <button id="btnAddTour" type="button" data-bs-target="#chitietLichTrinh" data-bs-toggle="modal" class="btn btn-primary" onclick="">Thêm chi tiết lịch trình</button>-->
+              <button id="btnOpenLichTrinh" type="button" class="btn btn-primary" onclick="">Thêm chi tiết lịch trình</button>
           </div>
 
         </div>
@@ -100,12 +126,12 @@
               <div class="col-sm">
                 <img src="/img/empty.jpg" th:id="'imgN'+${day}" class="img-thumbnail" style="width: 100%;height: 225px" alt="...">
                 <div class="input-group mb-3">
-                  <input type="file" accept="image/*" class="imgInput form-control" th:data-id="${day}" th:id="'inputGroupFile' + ${day}">
+                  <input type="file" accept="image/*" th:id="'imgInputN'+${day}" class="imgInput form-control" th:data-id="${day}" >
                 </div>
               </div>
               <div class="col-sm-8">
                 <div class="input-group mb-3">
-                  <span class="input-group-text">Tên chi tiết</span>
+                  <span class="input-group-text spanCustom">Tên chi tiết</span>
                   <input th:id="'tenN' + ${day}" type="text" class="form-control">
                 </div>
                 <div class="input-group mb-3">
@@ -121,7 +147,7 @@
                   </div>
                 </div>
                 <div class="input-group mb-3" style="margin-top: -8px">
-                  <span class="input-group-text">Mô tả chi tiết</span>
+                  <span class="input-group-text spanCustom">Mô tả chi tiết</span>
                   <textarea class="form-control" th:id="'motaN'+ ${day}" rows="6"></textarea>
                 </div>
               </div>
@@ -132,7 +158,8 @@
 
 
         <div class="modal-footer">
-          <button class="btn btn-primary" data-bs-target="#thietkeTourModalAdd" data-bs-toggle="modal">Quay lại</button>
+          <button class="btn btn-secondary" data-bs-target="#thietkeTourModalAdd" data-bs-toggle="modal">Quay lại</button>
+          <button class="btn btn-primary" id="btnAddTour" >Thêm mới mẫu Tour</button>
         </div>
       </div>
     </div>
@@ -151,6 +178,9 @@
     $("#thoiGian").inputSpinner({
       buttonsOnly: true
     });
+    // $("#moneyInput").inputSpinner({
+    //
+    // });
   });
 </script>
 <script th:src="@{/js/thietketour/addTour.js}"></script>

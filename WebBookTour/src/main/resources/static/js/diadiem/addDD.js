@@ -1,7 +1,7 @@
 $(document).ready(function() {
     $('#btnAdd').on('click', function() {
         const ten = document.getElementById("ten").value.trim();
-        const vungMien = document.getElementById("vungMien").value
+        const vungMien = document.getElementById("vungMien").value;
 
         // Create DTO to send to RestController
         const diadiemDto = {
