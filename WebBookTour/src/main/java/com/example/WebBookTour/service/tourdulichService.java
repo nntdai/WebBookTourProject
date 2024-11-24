@@ -1,24 +1,22 @@
 package com.example.WebBookTour.service;
 
 import com.example.WebBookTour.entity.Tourdulich;
-import com.example.WebBookTour.exceptions.DataNotFoundException;
 import com.example.WebBookTour.model.tourdulichDTO;
-import com.example.WebBookTour.repository.tourdulichRepository;
-import com.example.WebBookTour.repository.diadiemRepository;
+import com.example.WebBookTour.repository.TourdulichRepository;
+import com.example.WebBookTour.repository.DiadiemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.DateTimeException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class tourdulichService {
     @Autowired
-    private tourdulichRepository tourRepository;
+    private TourdulichRepository tourRepository;
 
     @Autowired
-    private diadiemRepository ddRepository;
+    private DiadiemRepository ddRepository;
 
 
     // Phương thức chuyển đổi từ Tourdulich sang tourdulichDTO
