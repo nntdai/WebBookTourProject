@@ -8,6 +8,12 @@ $(document).ready(function() {
     const cBChieu="btncheck3N";
     const cBToi="btncheck4N";
     const moTa="motaN";
+    const errorIMG="errorImgN";
+    const errorTen="errorTenN";
+    const errorMota="errorMotaN";
+
+
+
     let previousValue = $("#thoiGian").val();      // Thời gian khi khởi tạo
 
     $(document).on('click','#btnAddTour',function (){
@@ -21,6 +27,7 @@ $(document).ready(function() {
         var thoiGian = day +"N" + (day-1) +"Đ";
         // } Các giá trị của các DOM trên form ;
 
+
         var complete=true; // Lính canh để validate .
 
 
@@ -33,9 +40,16 @@ $(document).ready(function() {
             let hinhAnh = $("#" + imgInput + i).prop('files')[0];
             let moTaText = $("#" + moTa + i).val();
 
-            if (tenChiTiet == "") complete = false;
-            if (hinhAnh == null) complete = false;
-            if (moTaText == "") complete = false;
+            if (tenChiTiet == "") {
+                complete = false;
+            }
+            if (hinhAnh == null) {
+                complete = false;
+            }
+            if (moTaText == "")
+            {
+                complete = false;
+            }
         }
 
             if (complete===true) {
@@ -53,7 +67,6 @@ $(document).ready(function() {
                                 id:diaDiemTQ
                             },
                         phuongTienDiChuyen:ptDiChuyen,
-                        chitietlichtrinhs: lichTrinhList,
                         status:1
                     }
                 // console.log(tourDuLichDTO);
@@ -63,6 +76,7 @@ $(document).ready(function() {
                     contentType: 'application/json',
                     data: JSON.stringify(tourDuLichDTO),
                     success: function(response) {
+                        var formData = new FormData();
                         for (let i=1;i<=day;i++)
                         {
                             let lichTrinhDTO =
@@ -74,22 +88,24 @@ $(document).ready(function() {
                                     buaTrua: $("#" + cBTrua + i).is(':checked') ? 1 : 0,
                                     buaChieu: $("#" + cBChieu + i).is(':checked') ? 1 : 0,
                                     buaToi: $("#" + cBToi + i).is(':checked') ? 1 : 0,
-                                    hinhAnh: $("#" + imgInput + i).prop('files')[0].name,
                                     mota: $("#" + moTa + i).val()
                                 }
+                            formData.append('files',$("#" + imgInput + i).prop('files')[0]);
                             lichTrinhList.push(lichTrinhDTO);
                         }
-                        console.log(lichTrinhList);
+                        formData.append('lichTrinhList', JSON.stringify(lichTrinhList));
                         $.ajax({
                             url: '/api/admin/lichtrinh/add',
                             type: 'POST',
-                            contentType: 'application/json',
-                            data: JSON.stringify(lichTrinhList),
-                            success: function (response) {
-                                console.log(response)
+                            data: formData,
+                            processData: false,  // Không tự động xử lý dữ liệu
+                            contentType: false,  // Để ngăn jQuery tự động gán Content-Type
+                            success: function(response) {
+                                console.log("Thành công");
+                                location.reload();
                             },
-                            error: function (xhr) {
-
+                            error: function(xhr, status, error) {
+                                console.error("Lỗi:", error);
                             }
                         });
                     },
@@ -153,6 +169,7 @@ $(document).ready(function() {
                 reader.readAsDataURL(file); // Mấu chốt để thực hiện đoạn trên
             } else {
                 alert("Vui lòng chọn một tệp ảnh hợp lệ!");
+                $(this).val('');
             }
         }
         else

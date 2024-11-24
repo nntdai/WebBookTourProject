@@ -37,6 +37,16 @@ public class ThietKeTourController {
 
         return "admin";
     }
+    @GetMapping("/{page}")
+    public String diaDiemList(Model model,@PathVariable int page)
+    {
+        Page<TourdulichDto> dsTour = thietketourService.getTourDuLich(page,10);
+        int totalPage = dsTour.getTotalPages();
+        model.addAttribute("dsTour", dsTour);
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("page", page);
+        return "thietketour/thietketour :: tableTourDesign";
+    }
 
 //    @GetMapping("/getModalContent")
 //    @ResponseBody

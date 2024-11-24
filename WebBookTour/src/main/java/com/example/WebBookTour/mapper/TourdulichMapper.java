@@ -3,9 +3,11 @@ package com.example.WebBookTour.mapper;
 import com.example.WebBookTour.dto.TourdulichDto;
 import com.example.WebBookTour.entity.Tourdulich;
 import org.mapstruct.*;
+import org.mapstruct.ReportingPolicy;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, uses = ChitietlichtrinhMapper.class)
 public interface TourdulichMapper {
+
     Tourdulich toEntity(TourdulichDto tourdulichDto);
 
     @AfterMapping

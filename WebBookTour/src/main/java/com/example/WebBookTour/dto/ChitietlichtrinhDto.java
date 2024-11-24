@@ -2,6 +2,7 @@ package com.example.WebBookTour.dto;
 
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * DTO for {@link com.example.WebBookTour.entity.Chitietlichtrinh}

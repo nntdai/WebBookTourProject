@@ -3,8 +3,7 @@ $(document).ready(function() {
 
     $(document).on('click','.page-item',function ()
     {
-        $('#loading').hide();
-        // $('#loading').hide();
+
         const pageSelected = $(this).data('page');
         const pagePresent =$('.page-item.active').data('page');
         const totalPage =$('#dataTable').attr('data-id')-1 ;
