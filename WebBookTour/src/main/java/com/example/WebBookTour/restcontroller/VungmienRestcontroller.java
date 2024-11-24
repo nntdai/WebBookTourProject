@@ -1,29 +1,27 @@
-package com.example.WebBookTour.controller;
+package com.example.WebBookTour.restcontroller;
 
 import com.example.WebBookTour.dto.VungmienDto;
 import com.example.WebBookTour.entity.Vungmien;
 import com.example.WebBookTour.service.VungmienService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Controller
-@RequestMapping("/")
-public class RouteController {
+@RestController
+@RequestMapping("api/admin/vungmien")
+public class VungmienRestcontroller {
+
     @Autowired
     private VungmienService vungmienService;
 
-
     @GetMapping
-    public String getHomePage(Model model)
-    {
-        List<VungmienDto> vungmienDtos = vungmienService.getAllVungMien();
-        model.addAttribute("vungmienDtos", vungmienDtos);
-        return "client/homepage";
+    public List<VungmienDto> getAllVungmien() {
+        return vungmienService.getAllVungMien();
     }
+
+   
 
 }

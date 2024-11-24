@@ -3,6 +3,7 @@ package com.example.WebBookTour.service;
 import com.example.WebBookTour.dto.DiadiemDto;
 import com.example.WebBookTour.entity.Diadiem;
 import com.example.WebBookTour.mapper.DiadiemMapper;
+import com.example.WebBookTour.mapper.VungmienMapper;
 import com.example.WebBookTour.repository.DiadiemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class DiadiemService {
     private final DiadiemRepository diaDiemRepository;
     @Autowired
     private DiadiemMapper diadiemMapper;
+    @Autowired
+    private VungmienMapper vungmienMapper;
 
 //    public List<Diadiem> findAll()
 //    {
@@ -55,7 +58,9 @@ public class DiadiemService {
     public DiadiemDto findDiaDiemById(int id)
     {
         Diadiem diadiemE = diaDiemRepository.findById(id).get();
-        return diadiemMapper.toDto(diadiemE);
+        DiadiemDto diadiemDto=diadiemMapper.toDto(diadiemE);
+        diadiemMapper.linkVungmien(diadiemDto, diadiemE, vungmienMapper);
+        return diadiemDto;
     }
 
     public void deleteDiaDiem(int diaDiemId)
@@ -65,14 +70,36 @@ public class DiadiemService {
     public List<DiadiemDto> getAllDiaDiems()
     {
         List<Diadiem> dsDiaDiem = diaDiemRepository.findAll();
-        List<DiadiemDto> diadiemDtos= dsDiaDiem.stream().map(diadiemMapper::toDto).collect(Collectors.toList());
+        List<DiadiemDto> diadiemDtos = dsDiaDiem.stream()  // Start the stream on the dsDiaDiem list
+                .map(diadiem -> {
+                    // Ánh xạ Diadiem thành DiadiemDto
+                    DiadiemDto diadiemDto = diadiemMapper.toDto(diadiem);
+
+                    // Gọi @AfterMapping để ánh xạ thêm thông tin Vungmien
+                    diadiemMapper.linkVungmien(diadiemDto, diadiem, vungmienMapper);
+
+                    return diadiemDto; // Trả về DiadiemDto đã được ánh xạ
+                })
+                .collect(Collectors.toList());
         return diadiemDtos;
     }
 
     public Page<DiadiemDto> getDiaDiems(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Diadiem> dsDiaDiem = diaDiemRepository.findAll(pageable);
-        Page<DiadiemDto> diadiemDTOPage = dsDiaDiem.map(diadiem -> diadiemMapper.toDto(diadiem));
+
+        Page<DiadiemDto> diadiemDTOPage = dsDiaDiem.map(diadiem -> {
+            // Ánh xạ Diadiem thành DiadiemDto
+            DiadiemDto diadiemDto = diadiemMapper.toDto(diadiem);
+
+            // Gọi @AfterMapping để ánh xạ thêm thông tin Vungmien
+            diadiemMapper.linkVungmien(diadiemDto, diadiem, vungmienMapper);
+
+            return diadiemDto; // Trả về DiadiemDto đã được ánh xạ
+        });
+
         return diadiemDTOPage;
     }
+
+
 }

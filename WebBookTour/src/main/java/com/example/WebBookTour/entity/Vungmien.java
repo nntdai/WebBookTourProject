@@ -1,6 +1,8 @@
 package com.example.WebBookTour.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +12,7 @@ import java.util.Set;
 
 @Getter
 @Setter
+@JsonIgnoreProperties({"diadiems"})
 @Entity
 @Table(name = "vungmien")
 public class Vungmien {
@@ -20,8 +23,8 @@ public class Vungmien {
 
     @Column(name = "ten", nullable = false, length = 100)
     private String ten;
-
-//    @OneToMany(mappedBy = "idVungMien")            //Bo di vi tranh bi lap
-//    private Set<Diadiem> diadiems;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "idVungMien",fetch = FetchType.LAZY)            //Bo di vi tranh bi lap
+    private Set<Diadiem> diadiems;
 
 }

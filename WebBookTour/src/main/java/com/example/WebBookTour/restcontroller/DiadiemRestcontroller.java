@@ -1,9 +1,6 @@
 package com.example.WebBookTour.restcontroller;
 
 import com.example.WebBookTour.dto.DiadiemDto;
-import com.example.WebBookTour.dto.VungmienDto;
-import com.example.WebBookTour.entity.Diadiem;
-import com.example.WebBookTour.entity.Vungmien;
 import com.example.WebBookTour.service.DiadiemService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
