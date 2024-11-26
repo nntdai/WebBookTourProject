@@ -49,7 +49,7 @@
 
                 <tbody>
 
-                <!--/*@thymesVar id="dsDiaDiem" type="java.util.List<com.example.WebBookTour.entity.Diadiem>"*/-->
+
                 <tr th:each="diadiem : ${dsDiaDiem.content}">
                   <th th:text="${diadiem.getId()}"></th>
                   <th th:text="${diadiem.getTen()}"></th>

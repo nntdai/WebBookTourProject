@@ -44,7 +44,7 @@ public class Tourdulich {
     @Column(name = "status")
     private Boolean status;
 
-    @OneToMany(mappedBy = "idTour")
+    @OneToMany(mappedBy = "idTour",cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Chitietlichtrinh> chitietlichtrinhs = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "idDatCho")

@@ -2,6 +2,7 @@ package com.example.WebBookTour.service;
 
 import com.example.WebBookTour.dto.TourdulichDto;
 import com.example.WebBookTour.entity.Tourdulich;
+import com.example.WebBookTour.mapper.ChitietlichtrinhMapper;
 import com.example.WebBookTour.repository.TourdulichRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +20,29 @@ public class ThietketourService {
     TourdulichRepository tourdulichRepository;
     @Autowired
     private TourdulichMapper TourdulichMapper;
+    @Autowired
+    private ChitietlichtrinhMapper ChitietlichtrinhMapper;
     public Page<TourdulichDto> getTourDuLich(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Tourdulich> dsTour = tourdulichRepository.findAll(pageable);
-        Page<TourdulichDto> tourdulichDtoPage = dsTour.map(tourdulich -> TourdulichMapper.toDto(tourdulich));
+        Page<TourdulichDto> tourdulichDtoPage = dsTour.map(tourdulich ->
+                {
+                    TourdulichDto tourdulichDto = TourdulichMapper.toDto(tourdulich);
+                    TourdulichMapper.linkChitietlichtrinhs(tourdulichDto,tourdulich,ChitietlichtrinhMapper);
+                    return tourdulichDto;
+                }
+        );
+
         return tourdulichDtoPage;
     }
     public List<Tourdulich> getAllTourDuLich() {
         return tourdulichRepository.findAll();
     }
-    public int addTourDulich(TourdulichDto tourdulichDto) {
+    public String addTourDulich(TourdulichDto tourdulichDto) {
         Tourdulich tourdulich = TourdulichMapper.toEntity(tourdulichDto);
-        int TourID= tourdulichRepository.save(tourdulich).getId();
-        return TourID;
+        ChitietlichtrinhMapper.linkTourDuLich(tourdulich);
+//        int TourID= tourdulichRepository.save(tourdulich).getId();
+         tourdulichRepository.save(tourdulich);
+        return "Thành Công";
     }
 }

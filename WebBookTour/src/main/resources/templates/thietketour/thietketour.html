@@ -61,7 +61,7 @@
                                 <th th:text="${tour.getDiaDiemThamQuan().getTen()}"></th>
                                 <th th:text="${tour.getThoiGian()}"></th>
                                 <th th:text="${tour.getGiaTour()}"></th>
-                                <th><button type="button" class="btnEdit btn btn-warning" th:data-id="${tour.getId()}">Edit</button></th>
+                                <th><button type="button" class="btnEdit btn btn-warning" th:data-dto="${jsonUtils.toJson(tour)}">Edit</button></th>
                                 <th><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" th:data-id="${tour.getId()}">Delete</button></th>
                             </tr>
                             </tbody>

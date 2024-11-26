@@ -13,6 +13,48 @@
     padding: 10px;
     margin-bottom: 15px;
   }
+  .alertError
+  {
+    font-size: medium;
+    margin-top: -7px;
+    height:40px;
+    padding-top: 10px
+  }
+  .btn-group {
+    display: flex;
+    width: 100%;
+  }
+
+  .cheDoAn {
+    width: 330px; /* Giới hạn chiều rộng cho div chứa checkbox */
+  }
+
+  .cheDoAn .btn-group {
+    width: 100%; /* Đảm bảo nhóm nút (btn-group) chiếm 100% chiều rộng của .cheDoAn */
+  }
+
+  input.btn-check {
+    width: auto; /* Đảm bảo các checkbox không chiếm quá nhiều không gian */
+  }
+
+  label.btn-outline-info {
+    padding: 5px 10px; /* Giảm bớt khoảng cách trong các label để vừa với không gian 225px */
+  }
+  /* Bo góc cho phần tử đầu và cuối trong nhóm */
+  .btn-group .btn-check:first-child + .btn {
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+  }
+
+  .btn-group .btn-check:last-child + .btn {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+  }
+
+  /* Đảm bảo các phần tử trong btn-group không bị chen chúc */
+  .btn-group .btn-check + .btn {
+    margin-left: 0;
+  }
 </style>
 <div>
 
@@ -123,38 +165,46 @@
           <div class="modal-content" th:fragment="modalLichTrinh">
             <p class="h1">Ngày <span th:text="${day}"></span></p>
             <div class="row g-2">
-              <div class="col-sm">
-                <img src="/img/empty.jpg" th:id="'imgN'+${day}" class="img-thumbnail" style="width: 100%;height: 225px" alt="...">
-                <div class="input-group mb-3">
-                  <input type="file" accept="image/*" th:id="'imgInputN'+${day}" class="imgInput form-control" th:data-id="${day}" >
+              <!-- Cột bên trái: Chế độ ăn và hình ảnh -->
+              <div class="col-sm-4" style="max-width: 330px; width: 330px;height:400px">
+                <!-- Chế độ ăn -->
+                <div class="btn-group" style="width: 100%" role="group" aria-label="First group">
+                  <input type="checkbox" class="btn-check" th:id="'btncheck1N' + ${day}" autocomplete="off">
+                  <label class="btn btn-outline-info" th:for="'btncheck1N' + ${day}">Ăn sáng</label>
+                  <input type="checkbox" class="btn-check" th:id="'btncheck2N' + ${day}" autocomplete="off">
+                  <label class="btn btn-outline-info" th:for="'btncheck2N' + ${day}">Ăn trưa</label>
+                  <input type="checkbox" class="btn-check" th:id="'btncheck3N' + ${day}" autocomplete="off">
+                  <label class="btn btn-outline-info" th:for="'btncheck3N' + ${day}">Ăn chiều</label>
+                  <input type="checkbox" class="btn-check" th:id="'btncheck4N' + ${day}" autocomplete="off">
+                  <label class="btn btn-outline-info" th:for="'btncheck4N' + ${day}">Ăn tối</label>
                 </div>
-                <div th:id="'errorImgN'+${day}"></div>
+
+                <!-- Hình ảnh và input nhập file -->
+                <div class="mt-3" style="padding-top: 30px">
+                  <img src="/img/empty.jpg" th:id="'imgN'+${day}" class="img-thumbnail" style="width: 100%; height: 225px" alt="...">
+                  <div class="input-group mb-3">
+                    <input type="file" accept="image/*" th:id="'imgInputN'+${day}" class="imgInput form-control" th:data-id="${day}">
+                  </div>
+                  <div class="alertError alert alert-danger fade" role="alert" th:id="'errorImgN'+${day}"></div>
+                </div>
               </div>
+
+              <!-- Cột bên phải: Tên chi tiết và mô tả -->
               <div class="col-sm-8">
                 <div class="input-group mb-3">
                   <span class="input-group-text spanCustom">Tên chi tiết</span>
                   <input th:id="'tenN' + ${day}" type="text" class="form-control">
                 </div>
-                <div th:id="'errorTenN'+${day}"></div>
-                <div class="input-group mb-3">
-                  <div class="btn-group" style="width: 100%" role="group" aria-label="First group">
-                    <input type="checkbox" class="btn-check" th:id="'btncheck1N' + ${day}" autocomplete="off">
-                    <label class="btn btn-outline-info" th:for="'btncheck1N' + ${day}">Ăn sáng</label>
-                    <input type="checkbox" class="btn-check" th:id="'btncheck2N' + ${day}" autocomplete="off">
-                    <label class="btn btn-outline-info" th:for="'btncheck2N' + ${day}">Ăn trưa</label>
-                    <input type="checkbox" class="btn-check" th:id="'btncheck3N' + ${day}" autocomplete="off">
-                    <label class="btn btn-outline-info" th:for="'btncheck3N' + ${day}">Ăn chiều</label>
-                    <input type="checkbox" class="btn-check" th:id="'btncheck4N' + ${day}" autocomplete="off">
-                    <label class="btn btn-outline-info" th:for="'btncheck4N' + ${day}">Ăn tối</label>
-                  </div>
-                </div>
-                <div class="input-group mb-3" style="margin-top: -8px">
+                <div class="alertError alert alert-danger fade" role="alert" th:id="'errorTenN'+${day}"></div>
+
+                <div class="input-group mb-3" style="margin-top: -6px">
                   <span class="input-group-text spanCustom">Mô tả chi tiết</span>
-                  <textarea class="form-control" th:id="'motaN'+ ${day}" rows="6"></textarea>
+                  <textarea class="form-control" th:id="'motaN'+ ${day}" rows="10"></textarea>
                 </div>
-                <div th:id="'errorMotaN'+${day}"></div>
+                <div class="alertError alert alert-danger fade" role="alert" th:id="'errorMotaN'+${day}"></div>
               </div>
             </div>
+
           </div>
         </div>
 
