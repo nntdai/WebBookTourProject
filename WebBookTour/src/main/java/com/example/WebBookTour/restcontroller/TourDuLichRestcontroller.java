@@ -24,11 +24,11 @@ public class TourDuLichRestcontroller {
     @Autowired
     private ChitietlichtrinhService chitietlichtrinhService;
 
-    @GetMapping("/getall")
-    public List<Tourdulich> getAllDiaDiem() {
-        return thietketourService.getAllTourDuLich();
-
-    }
+//    @GetMapping("/getall")
+//    public List<Tourdulich> getAllDiaDiem() {
+//        return thietketourService.getAllTourDuLich();
+//
+//    }
 
     @GetMapping("/getpage")
     public Page<TourdulichDto> getTourDuLich() {

@@ -2,6 +2,7 @@ package com.example.WebBookTour.mapper;
 
 import com.example.WebBookTour.dto.TourdulichDto;
 import com.example.WebBookTour.entity.Chitietlichtrinh;
+import com.example.WebBookTour.entity.Tochuctour;
 import com.example.WebBookTour.entity.Tourdulich;
 import org.mapstruct.*;
 import org.mapstruct.ReportingPolicy;
@@ -28,10 +29,14 @@ public interface TourdulichMapper {
 //        tourdulich.getThongtinhanhkhaches().forEach(thongtinhanhkhach -> thongtinhanhkhach.setIdDatCho(tourdulich));
 //    }
 
-//    @AfterMapping
-//    default void linkTochuctours(@MappingTarget Tourdulich tourdulich) {
-//        tourdulich.getTochuctours().forEach(tochuctour -> tochuctour.setIdTourDuLich(tourdulich));
-//    }
+    @AfterMapping
+        default void linkTochuctours(@MappingTarget TourdulichDto tourdulichDto,Tourdulich tourdulich,TochuctourMapper TochuctourMapper) {
+        Set<Tochuctour> tochuctours = tourdulich.getTochuctours();
+        if (tochuctours != null) {
+            tourdulichDto.setTochuctours(tochuctours.stream().map(TochuctourMapper::toDto).collect(Collectors.toSet()));
+        }
+    }
+    @Mapping(target = "tochuctours", ignore = true)
     @Mapping(target = "chitietlichtrinhs", ignore = true)
     TourdulichDto toDto(Tourdulich tourdulich);
 
