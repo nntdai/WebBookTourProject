@@ -1,10 +1,10 @@
 package com.example.WebBookTour.controller;
 
-import com.example.WebBookTour.dto.ChitietlichtrinhDto;
-import com.example.WebBookTour.dto.DiadiemDto;
-import com.example.WebBookTour.dto.TourdulichDto;
+import com.example.WebBookTour.dto.*;
 import com.example.WebBookTour.service.DiadiemService;
+import com.example.WebBookTour.service.NhansuService;
 import com.example.WebBookTour.service.ThietketourService;
+import com.example.WebBookTour.service.TochuctourService;
 import com.example.WebBookTour.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,6 +30,10 @@ public class ThietKeTourController {
 
     @Autowired
     private JsonUtils jsonUtils;
+    @Autowired
+    private TochuctourService tochuctourService;
+    @Autowired
+    private NhansuService nhansuService;
 
     List<DiadiemDto> dsDiaDiem;
 
@@ -91,8 +95,23 @@ public class ThietKeTourController {
         tourdulichDto.setChitietlichtrinhs(sortedSet);
         model.addAttribute("tourdulichDto",tourdulichDto);
         model.addAttribute("dsDiaDiem", dsDiaDiem);
+        System.out.println(tourdulichDto.getThoiGian().split("[^0-9]")[0]);
         model.addAttribute("day",tourdulichDto.getThoiGian().split("[^0-9]")[0]);
         return "thietketour/thietketouredit";
+    }
+
+    @GetMapping("/getToChucTour")
+    public String getToChucTour(Model model,@RequestParam int idTour,@RequestParam String day) {
+        Page<TochuctourDto> dsTochuctour = tochuctourService.getAllTochuctours(0,10,idTour);
+        int totalPage = dsTochuctour.getTotalPages();
+        List<NhansuDto> dsHDV = nhansuService.getAllHDV();
+        model.addAttribute("dsHDV", dsHDV);
+        model.addAttribute("day", day.split("[^0-9]")[0]);  // Add the date to the model
+        model.addAttribute("idTour",idTour);
+        model.addAttribute("dsTochuctour", dsTochuctour);
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("page", 0);
+        return "thietketour/tochuctour";
     }
 
 

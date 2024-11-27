@@ -16,10 +16,14 @@ public class NhansuService {
     private NhansuRepository nhansuRepository;
     @Autowired
     NhansuMapper nhansuMapper;
-    public List<NhansuDto> getAll()
+    public List<NhansuDto> getAllHDV()
     {
-        List<Nhansu> nhansu = nhansuRepository.findAll();
-        return nhansu.stream().map(nhansuMapper::toDto).collect(Collectors.toList());
+        List<Nhansu> dsnhansu = nhansuRepository.findAll();
+        List<NhansuDto> nhansuDto = dsnhansu.stream()
+                .filter(nhansu -> nhansu.getTaikhoanadmin() != null && nhansu.getTaikhoanadmin().getId() == 2)
+                .map(nhansuMapper::toDto)
+                .collect(Collectors.toList());
+       return nhansuDto;
 
     }
 

@@ -84,12 +84,6 @@
             <div class="row">
 
               <div class="col-md-6">
-                <div class="input-group mb-3">
-                  <span class="input-group-text spanCustom">Giá Tour</span>
-                  <input id="giaTour" class="form-control" type="number" value="100000" min="100000" max="1000000000" step="100000" aria-label="Amount (to the nearest dollar)">
-                  <span class="input-group-text">VND</span>
-                </div>
-                <div id="errorGiaTour"></div>
 
                 <div class="input-group mb-3">
                   <span class="input-group-text spanCustom">Địa điểm khởi hành</span>
@@ -97,6 +91,15 @@
                     <option th:each="diaDiem : ${dsDiaDiem}" th:value="${diaDiem.getId()}" th:text="${diaDiem.getTen()}"></option>
                   </select>
                 </div>
+
+                <div class="input-group mb-3">
+                  <span class="input-group-text spanCustom">Giá Tour</span>
+                  <input id="giaTour" class="form-control" type="number" value="100000" min="100000" max="1000000000" step="100000" aria-label="Amount (to the nearest dollar)">
+                  <span class="input-group-text">VND</span>
+                </div>
+                <div id="errorGiaTour"></div>
+
+
               </div>
 
 

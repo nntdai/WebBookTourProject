@@ -2,10 +2,12 @@ package com.example.WebBookTour.restcontroller;
 
 import com.example.WebBookTour.dto.ChitietlichtrinhDto;
 
+import com.example.WebBookTour.dto.TochuctourDto;
 import com.example.WebBookTour.dto.TourdulichDto;
 import com.example.WebBookTour.entity.Tourdulich;
 import com.example.WebBookTour.service.ChitietlichtrinhService;
 import com.example.WebBookTour.service.ThietketourService;
+import com.example.WebBookTour.service.TochuctourService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +22,31 @@ import java.util.List;
 @RequestMapping("api/admin/toudulich")
 public class TourDuLichRestcontroller {
     @Autowired
-    ThietketourService thietketourService;
+    private ThietketourService thietketourService;
+
+
     @Autowired
     private ChitietlichtrinhService chitietlichtrinhService;
+
+    @Autowired
+    private TochuctourService tochuctourService;
 
 //    @GetMapping("/getall")
 //    public List<Tourdulich> getAllDiaDiem() {
 //        return thietketourService.getAllTourDuLich();
 //
 //    }
+
+    @PostMapping("/addToChucTour")
+    public String addToChucTour(@RequestBody TochuctourDto tochuctourDto) {
+        return tochuctourService.addToChucTour(tochuctourDto);
+    }
+
+    @GetMapping("/getToChucTour/{i}")
+    public Page<TochuctourDto> getToChucTour(@PathVariable int i) {
+
+        return tochuctourService.getAllTochuctours(0,10,i);
+    }
 
     @GetMapping("/getpage")
     public Page<TourdulichDto> getTourDuLich() {

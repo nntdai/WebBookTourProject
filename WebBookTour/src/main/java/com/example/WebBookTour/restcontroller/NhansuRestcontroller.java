@@ -21,7 +21,7 @@ public class NhansuRestcontroller {
     @GetMapping("/getall")
     public List<NhansuDto> getAll()
         {
-            return nhansuService.getAll();
+            return nhansuService.getAllHDV();
         }
 
 }

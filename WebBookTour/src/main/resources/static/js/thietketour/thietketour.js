@@ -53,6 +53,27 @@ $(document).ready(function()
         }
     });
 
+    $(document).on('click','.btnAddToChuc', function() {
+        var idTour = this.getAttribute("data-id");
+        var day =this.getAttribute("data-dto")
+        if (!$('#toChucTourModal').hasClass('show')) {
+            $.ajax({
+                url: '/admin/tourdesign/getToChucTour',
+                type: 'GET',
+                data: {
+                    idTour: idTour,
+                    day: day
+                },
+                success: function (data) {
+                    $('#modalContainer').html(data);
+                    $('#toChucTourModal').modal('show');
+                },
+                error: function (xhr, status, error) {
+                    console.error("Không thể tải nội dung modal:", error);
+                }
+            });
+        }
+    });
 
     $(document).on('click','.btnEdit', function() {
         const tourDTOJson = this.getAttribute("data-dto");    // Tour Du Lịch DTO Json

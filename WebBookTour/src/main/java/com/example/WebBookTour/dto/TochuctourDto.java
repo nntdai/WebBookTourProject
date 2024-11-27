@@ -1,5 +1,6 @@
 package com.example.WebBookTour.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -22,5 +23,5 @@ public class TochuctourDto {
     private Instant ngayVe;
     private Integer soCho;
     private Integer soChoCon;
-    private Boolean status = false;
+    private Boolean status = true;
 }

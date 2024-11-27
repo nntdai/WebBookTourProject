@@ -10,6 +10,7 @@ import org.mapstruct.*;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface TochuctourMapper {
+
     Tochuctour toEntity(TochuctourDto tochuctourDto);
     @Mapping(target="idTourDuLich",ignore=true)
     TochuctourDto toDto(Tochuctour tochuctour);
