@@ -54,7 +54,7 @@ public class ThietKeTourController {
         return "admin";
     }
     @GetMapping("/{page}")
-    public String diaDiemList(Model model,@PathVariable int page)
+    public String TourList(Model model,@PathVariable int page)
     {
         Page<TourdulichDto> dsTour = thietketourService.getTourDuLich(page,10);
         int totalPage = dsTour.getTotalPages();
@@ -112,6 +112,18 @@ public class ThietKeTourController {
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("page", 0);
         return "thietketour/tochuctour";
+    }
+
+    @GetMapping("/getToChucTour/reload")
+    public String getTableToChucTour(Model model,@RequestParam int idTour)
+    {
+        Page<TochuctourDto> dsTochuctour = tochuctourService.getAllTochuctours(0,10,idTour);
+        int totalPage = dsTochuctour.getTotalPages();
+        model.addAttribute("idTour",idTour);
+        model.addAttribute("dsTochuctour", dsTochuctour);
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("page", 0);
+        return "thietketour/tochuctour :: tableToChucTour";
     }
 
 

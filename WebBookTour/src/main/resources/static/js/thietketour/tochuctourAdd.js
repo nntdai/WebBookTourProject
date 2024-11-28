@@ -64,6 +64,18 @@ $(document).ready(function() {
                 data: JSON.stringify(datChoTourDTO),
                 success: function(respone) {
                     alertSucess(respone);
+                    $.ajax({
+                        url: '/admin/tourdesign/getToChucTour/reload',
+                        type: 'GET',
+                        contentType: 'application/json',
+                        data: { idTour: idTour },
+                        success: function(data) {
+                            $("#tableToChucTour").html(data);
+                        },
+                        error: function(xhr) {
+
+                        }
+                    });
                 },
                 error: function(xhr) {
 
