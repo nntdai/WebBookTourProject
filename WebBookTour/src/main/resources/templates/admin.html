@@ -47,12 +47,12 @@
             padding: 10px; /* Thêm khoảng đệm trên và dưới thông báo */
 
         }
-        .table thead th {
-            font-size: 16px; /* Kích thước chữ */
-        }
-        .table tbody th {
-            font-size: 16px; /* Kích thước chữ */
-        }
+    .table thead th {
+    font-size: 16px; /* Kích thước chữ */
+    }
+    .table tbody th {
+    font-size: 16px; /* Kích thước chữ */
+    }
     </style>
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
@@ -80,6 +80,7 @@
     </div>
 </div>
 
+
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -100,7 +101,7 @@
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
                 <a class="nav-link" href="/admin/dashboard">
-                    <i class="fas fa-fw fa-table"></i>
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Thống kê</span></a>
             </li>
 
@@ -176,7 +177,7 @@
 <!--                </div>-->
 <!--            </li>-->
 
-            <!-- Nav Item - Charts -->
+<!--            &lt;!&ndash; Nav Item - Charts &ndash;&gt;-->
 <!--            <li class="nav-item">-->
 <!--                <a class="nav-link" href="charts.html">-->
 <!--                    <i class="fas fa-fw fa-chart-area"></i>-->
@@ -234,7 +235,6 @@
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-
 
 
 
@@ -375,7 +375,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" th:src="@{/img/undraw_profile_2.svg}"
+                                        <img class="rounded-circle"th:src="@{/img/undraw_profile_2.svg}"
                                             alt="...">
                                         <div class="status-indicator"></div>
                                     </div>
@@ -387,7 +387,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" th:src="@{/img/undraw_profile_3.svg}"
+                                        <img class="rounded-circle"  th:src="@{/img/undraw_profile_3.svg}"
                                             alt="...">
                                         <div class="status-indicator bg-warning"></div>
                                     </div>
@@ -421,7 +421,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
                                 <img class="img-profile rounded-circle"
-                                    th:src="@{img/undraw_profile.svg}">
+                                     th:src="@{img/undraw_profile.svg}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

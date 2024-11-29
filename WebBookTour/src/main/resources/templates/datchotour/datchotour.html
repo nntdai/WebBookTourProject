@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <!-- Sidebar -->
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Quản lý đặt tour
+
+            <div style="float:right">
+                <button id="SearchButton" style="width: 100px" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Lọc
+                </button>
+                <div id="modalContainer">
+
+                </div>
+            </div>
+        </h1>
+
+
+
+        <!-- DataTales Example -->
+        <div id="tableDatchotour">
+
+            <!--            <div class="spinner-border" role="status">-->
+            <!--              <span class="visually-hidden">Loading...</span>-->
+            <!--            </div>-->
+
+            <div th:fragment="tableDatchotour"  class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary"></h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" th:data-id="${totalPage}">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Giá tiền</th>
+                                <th>Ngày đặt chỗ</th>
+                                <th>Điểm tích lũy cộng</th>
+                                <th>Điểm tích lũy dùng</th>
+                                <th>Tour tổ chức</th>
+                                <th>Số điện thoại</th>
+                                <th>Mã khuyễn mãi</th>
+                                <th>Xem chi tiết</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+
+                            <!--/*@thymesVar id="dsDatchotour" type="java.util.List<com.example.WebBookTour.dto.DatchotourDto>"*/-->
+                            <!--/*@thymesVar id="datchotour" type="com.example.WebBookTour.dto.DatchotourDto"*/-->
+                            <tr th:each="datchotour : ${dsDatchotour.content}">
+                                <th th:text="${datchotour.getId()}"></th>
+                                <th th:text="${datchotour.getTongTien()}"></th>
+                                <th th:text="${datchotour.getNgayDatCho()}"></th>
+                                <th th:text="${datchotour.getDiemTLCong() != null ? datchotour.getDiemTLCong() : '0'}"></th>
+                                <th th:text="${datchotour.getDiemTLDung() != null ? datchotour.getDiemTLDung() : '0'}"></th>
+                                <th th:text="${datchotour.getIdToChucTour().getIdTourDuLich().getTen()}"></th>
+                                <th th:text="${datchotour.getSdtKhachHang().getSoDienThoai()}"></th>
+                                <th th:text="${datchotour.getIdKhuyenMai() != null ? datchotour.getIdKhuyenMai().getTen() : 'Không có khuyến mãi'}"></th>
+                                <th><button type="button" class="btnView btn btn-warning" th:data-id="${datchotour.getId()}">Xem chi tiết</button></th>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" data-page="-1">
+                            <a class="page-link" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li th:each="i : ${#numbers.sequence(0, totalPage - 1)}" th:class="${ i == page ? 'page-item active' : 'page-item'  }" th:data-page="${i}"  ><a class="page-link" th:text="${i+1}" ></a></li>
+                        <li class="page-item" data-page="+1">
+                            <a class="page-link"  aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<!-- For Bootstrap 5 -->
+<!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
+<script th:src="@{/js/datchotour/datchotour.js}"></script>
+
+</body>
+</html>
