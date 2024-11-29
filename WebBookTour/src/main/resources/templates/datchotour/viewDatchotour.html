@@ -1,0 +1,51 @@
+<div class="modal fade" id="ViewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Quản lý đặt tour</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-target="#ViewModal" aria-label="Close"></button>
+            </div>
+            <form method="get">
+                <!--/*@thymesVar id="datchotour" type="com.example.WebBookTour.dto.DatchotourDto"*/-->
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" style="width: 160px">Mã đặt tour</span>
+                    <input type="text" id="madattour" th:value="${datchotour.getId()}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" style="width: 160px">Tổng tiền</span>
+                    <input type="text" id="tongtien" th:value="${datchotour.getTongTien()}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" style="width: 160px">Ngày đặt chỗ</span>
+                    <input type="text" id="ngaydatcho" th:value="${datchotour.getNgayDatCho()}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" style="width: 160px">Điểm tích lũy cộng</span>
+                    <input type="text" id="diemtlcong" th:value="${datchotour.getDiemTLCong() != null ? datchotour.getDiemTLCong() : '0'}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" style="width: 160px">Điểm tích lũy dùng</span>
+                    <input type="text" id="diemtldung" th:value="${datchotour.getDiemTLDung() != null ? datchotour.getDiemTLDung() : '0'}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" style="width: 160px">Tour tổ chức</span>
+                    <input type="text" id="tochuctour" th:value="${datchotour.getIdToChucTour().getIdTourDuLich().getTen()}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" style="width: 160px">SĐT Khách hàng</span>
+                    <input type="text" id="sdtkhachhang" th:value="${datchotour.getSdtKhachHang().getSoDienThoai()}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" style="width: 160px">Mã khuyến mãi </span>
+                    <input type="text" id="makhuyenmai" th:value="${datchotour.getIdKhuyenMai() != null ? datchotour.getIdKhuyenMai().getTen() : 'Không dùng mã khuyến mãi'}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-target="#ViewModal" data-bs-dismiss="modal">Xác nhận</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--<script th:src="@{/js/datchotour/datchotour.js}"></script>-->

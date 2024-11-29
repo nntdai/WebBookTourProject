@@ -9,5 +9,5 @@ import org.mapstruct.*;
 
     TourdulichDto toDto(Tourdulich tourdulich);
 
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)Tourdulich partialUpdate(TourdulichDto tourdulichDto, @MappingTarget Tourdulich tourdulich);
+//    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)Tourdulich partialUpdate(TourdulichDto tourdulichDto, @MappingTarget Tourdulich tourdulich);
 }

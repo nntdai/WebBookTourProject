@@ -10,5 +10,5 @@ public interface DiadiemMapper {
 
     DiadiemDto toDto(Diadiem diadiem);
 
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)Diadiem partialUpdate(DiadiemDto diadiemDto, @MappingTarget Diadiem diadiem);
+//    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)Diadiem partialUpdate(DiadiemDto diadiemDto, @MappingTarget Diadiem diadiem);
 }

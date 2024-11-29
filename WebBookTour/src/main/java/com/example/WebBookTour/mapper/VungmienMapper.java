@@ -9,5 +9,5 @@ import org.mapstruct.*;
 
     VungmienDto toDto(Vungmien vungmien);
 
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)Vungmien partialUpdate(VungmienDto vungmienDto, @MappingTarget Vungmien vungmien);
+//    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)Vungmien partialUpdate(VungmienDto vungmienDto, @MappingTarget Vungmien vungmien);
 }

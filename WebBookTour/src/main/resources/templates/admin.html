@@ -163,7 +163,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="/admin/">
+                <a class="nav-link" href="/admin/datchotour">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Quản lý đặt tour</span></a>
             </li>
@@ -222,8 +222,8 @@
                     <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Nhập thông tin cần tìm"
+                                aria-label="Search" aria-describedby="basic-addon2" id="Search_text" value="">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="button">
                                     <i class="fas fa-search fa-sm"></i>
@@ -231,6 +231,7 @@
                             </div>
                         </div>
                     </form>
+
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -470,6 +471,7 @@
 
     <!-- Custom scripts for all pages-->
     <script th:src="@{/js/sb-admin-2.min.js}"></script>
+<!--    <script th:src="@{/js/datchotour/datchotour.js}"></script>-->
 
     <!-- Page level plugins -->
 <!--    <script th:src="@{/vendor/chart.js/Chart.min.js}"></script>-->
