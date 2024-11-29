@@ -39,7 +39,7 @@ public class TochuctourService {
 
         // Map và lọc kết quả
         List<TochuctourDto> filteredDtos = dsToChucTour.getContent().stream()
-                .filter(tochuctour -> tochuctour.getIdTourDuLich().getId() == idTour) // Chỉ lấy các bản ghi có idTour khớp
+                .filter(tochuctour -> tochuctour.getIdTourDuLich().getId() == idTour)
                 .map(tochuctour -> {
                     TochuctourDto tochuctourDto = tochuctourMapper.toDto(tochuctour);
                     tochuctourMapper.linkTourDuLich(tochuctourDto, tochuctour, tourdulichMapper);

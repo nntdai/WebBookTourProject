@@ -41,8 +41,18 @@ public class ThietketourService {
 
         return tourdulichDtoPage;
     }
-    public List<Tourdulich> getAllTourDuLich() {
-        return tourdulichRepository.findAll();
+    public List<TourdulichDto> getAllTourDuLich() {
+        List<Tourdulich> tourduliches = tourdulichRepository.findAll();
+        List<TourdulichDto> tourdulichDtoList = tourduliches.stream()
+                .map(tourdulich -> {
+                    TourdulichDto tourdulichDto = TourdulichMapper.toDto(tourdulich);
+                    TourdulichMapper.linkTochuctours(tourdulichDto, tourdulich, TochuctourMapper);
+                    TourdulichMapper.linkChitietlichtrinhs(tourdulichDto, tourdulich, ChitietlichtrinhMapper);
+                    return tourdulichDto;
+                })
+                .toList();
+
+        return tourdulichDtoList;
     }
 
     public String addTourDulich(TourdulichDto tourdulichDto) {
@@ -51,6 +61,14 @@ public class ThietketourService {
 //        int TourID= tourdulichRepository.save(tourdulich).getId();
          tourdulichRepository.save(tourdulich);
         return "Thành Công";
+    }
+
+    public TourdulichDto getTourDulich(int id) {
+        Tourdulich tourdulich = tourdulichRepository.findById(id).orElse(null);
+        TourdulichDto tourdulichDto =TourdulichMapper.toDto(tourdulich);
+        TourdulichMapper.linkTochuctours(tourdulichDto,tourdulich,TochuctourMapper);
+        TourdulichMapper.linkChitietlichtrinhs(tourdulichDto,tourdulich,ChitietlichtrinhMapper);
+        return tourdulichDto;
     }
 
 

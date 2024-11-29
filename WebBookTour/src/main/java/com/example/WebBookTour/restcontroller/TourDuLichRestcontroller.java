@@ -37,6 +37,11 @@ public class TourDuLichRestcontroller {
 //
 //    }
 
+    @GetMapping("/tour/{id}")
+    public TourdulichDto getTourdulich(@PathVariable int id) {
+        return thietketourService.getTourDulich(id);
+    }
+
     @PostMapping("/addToChucTour")
     public String addToChucTour(@RequestBody TochuctourDto tochuctourDto) {
         return tochuctourService.addToChucTour(tochuctourDto);
@@ -46,6 +51,12 @@ public class TourDuLichRestcontroller {
     public Page<TochuctourDto> getToChucTour(@PathVariable int i) {
 
         return tochuctourService.getAllTochuctours(0,10,i);
+    }
+
+    @GetMapping("/getAll")
+    public List<TourdulichDto> getAllTourDuLich() {
+
+        return thietketourService.getAllTourDuLich();
     }
 
     @GetMapping("/getpage")
