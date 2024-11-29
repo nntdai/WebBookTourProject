@@ -1,0 +1,193 @@
+<style>
+
+    .table thead th {
+        font-size: 16px; /* Kích thước chữ */
+    }
+    .table tbody th {
+        font-size: 16px; /* Kích thước chữ */
+    }
+    /* Giảm kích thước phân trang */
+    .pagination {
+        font-size: 0.85rem; /* Tăng kích thước chữ */
+    }
+    .pagination .page-link {
+        padding: 0.35rem 0.7rem; /* Tăng padding bên trong nút */
+        font-size: 0.85rem; /* Kích thước chữ lớn hơn một chút */
+    }
+    .alertError
+    {
+        font-size: medium;
+        margin-top: -7px;
+        height:40px;
+        padding-top: 10px;
+
+    }
+    /*.pagination .page-item {*/
+    /*    margin: 0 0.2rem; !* Tăng khoảng cách giữa các nút *!*/
+    /*}*/
+</style>
+<div>
+    <div class="modal fade" id="toChucTourModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thêm mới</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" data-bs-target="#toChucTourModal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" >
+                    <div class="modal-body">
+                        <div class="container mt-3">
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text spanCustom">Ngày khởi hành </span>
+                                        <input class="form-control" type="datetime-local" value="" id="ngayKH" th:data-id="${day}" name="ngayKH">
+                                    </div>
+                                    <div class="alertError alert alert-danger" role="alert" id="ngayKhoiHanhError"></div>
+
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text spanCustom">Số chỗ</span>
+                                        <input id="soLuong" class="form-control" type="number" value="1" min="1" max="1000" step="1" aria-label="Amount (to the nearest dollar)">
+                                        <span class="input-group-text">VND</span>
+                                    </div>
+                                    <div class="alertError alert alert-danger" role="alert" id="errorGiaTour"></div>
+
+
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text spanCustom">Ngày về</span>
+                                        <input class="form-control" type="datetime-local" id="ngayVe" name="ngayVe" readonly>
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text spanCustom">Hướng dẫn viên</span>
+                                        <select class="form-select" id="idNhanSu">
+                                            <option th:each="nhansu : ${dsHDV}" th:value="${nhansu.getId()}" th:text="${nhansu.getTen()}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-target="#toChucTourModal">Close</button>
+                            <button id="btnAddToChucTour" th:data-id="${idTour}" type="button" class="btn btn-primary" onclick="">Thêm</button>
+                        </div>
+                        <div id="tableToChucTour">
+
+                            <!--            <div class="spinner-border" role="status">-->
+                            <!--              <span class="visually-hidden">Loading...</span>-->
+                            <!--            </div>-->
+
+                            <div th:fragment="tableToChucTour"  class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h class="m-0 font-weight-bold text-primary">Danh sách tổ chức Tour</h>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered"  width="100%" cellspacing="0" th:data-id="${totalPage}">
+                                            <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Ngày khởi hành</th>
+                                                <th>Ngày về</th>
+                                                <th>Hướng dẫn viên</th>
+                                                <th>Số chỗ còn</th>
+                                                <th>Tình trạng</th>
+                                                <th>Xem / Sửa </th>
+                                                <th>Xóa</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+
+                                            <!--/*@thymesVar id="tourdulichDto" type="java.util.List<com.example.WebBookTour.dto.TourdulichDto>"*/-->
+                                            <!--/*@thymesVar id="tochuctour" type="com.example.WebBookTour.dto.TochuctourDto"*/-->
+                                            <tr th:each="tochuctour : ${dsTochuctour}">
+                                                <th th:text="${tochuctour.getId()}"></th>
+                                                <th th:text="${tochuctour.getNgayKH()}"></th>
+                                                <th th:text="${tochuctour.getNgayVe()}"></th>
+                                                <th th:text="${tochuctour.getIdHDV().getTen()}"></th>
+                                                <th th:text="${tochuctour.getSoChoCon()}"></th>
+                                                <th th:text="${tochuctour.getStatus()}"></th>
+                                                <th><button type="button" class="btnEdit btn btn-warning" >Edit</button></th>
+                                                <th><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" th:data-id="${tochuctour.getId()}">Delete</button></th>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <!--                                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+                                        <!--                                            <div class="modal-dialog">-->
+                                        <!--                                                <div class="modal-content">-->
+                                        <!--                                                    <div class="modal-header">-->
+                                        <!--                                                        <h5 class="modal-title" id="exampleModalLabel">Thông báo xác nhận</h5>-->
+                                        <!--                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-target="#deleteModal" aria-label="Close"></button>-->
+                                        <!--                                                    </div>-->
+                                        <!--                                                    <div class="modal-body">-->
+                                        <!--                                                        Xác nhận xóa mẫu thiết kế tour này ?-->
+                                        <!--                                                    </div>-->
+                                        <!--                                                    <div class="modal-footer">-->
+                                        <!--                                                        <button type="button" class="btn btn-secondary" data-bs-target="#deleteModal" data-bs-dismiss="modal">Đóng</button>-->
+                                        <!--                                                        <button type="button" class="btn btn-primary" id="btnCDelete">Xóa</button>-->
+                                        <!--                                                    </div>-->
+                                        <!--                                                </div>-->
+                                        <!--                                            </div>-->
+                                        <!--                                        </div>-->
+
+                                    </div>
+                                </div>
+
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                        <li class="page-item" data-page="-1">
+                                            <a class="page-link" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li th:each="i : ${#numbers.sequence(0, totalPage - 1)}" th:class="${ i == page ? 'page-item active' : 'page-item'  }" th:data-page="${i}"  ><a class="page-link" th:text="${i+1}" ></a></li>
+                                        <li class="page-item" data-page="+1">
+                                            <a class="page-link"  aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/thietketour/tochuctourAdd.js}"></script>
+<script>
+
+    document.getElementById('ngayKH').addEventListener('change', function() {
+        var ngayKH = new Date(this.value);
+        var daysToAdd = parseInt(document.getElementById('ngayKH').getAttribute('data-id'));
+        var ngayVe = new Date(ngayKH);
+        ngayVe.setDate(ngayKH.getDate() + daysToAdd);
+        var ngayVeInput = document.getElementById('ngayVe');
+        ngayVeInput.value = ngayVe.toISOString().slice(0, 16);
+    });
+    $('.form-select').select2({
+        placeholder: 'Select an option',
+        dropdownParent: '#toChucTourModal',
+        theme: 'bootstrap-5'
+
+    });
+    const today = new Date();
+    today.setDate(today.getDate() + 3);
+    const minDate = today.toISOString().slice(0, 16);
+    document.getElementById('ngayKH').setAttribute('min', minDate);
+</script>

@@ -8,9 +8,9 @@ $(document).ready(function() {
     const cBChieu="btncheck3N";
     const cBToi="btncheck4N";
     const moTa="motaN";
-    const errorIMG="errorImgN";
-    const errorTen="errorTenN";
-    const errorMota="errorMotaN";
+    const errorIMGDom="errorImgN";
+    const errorTenDom="errorTenN";
+    const errorMotaDom="errorMotaN";
 
 
 
@@ -27,11 +27,7 @@ $(document).ready(function() {
         var thoiGian = day +"N" + (day-1) +"Đ";
         // } Các giá trị của các DOM trên form ;
 
-
         var complete=true; // Lính canh để validate .
-
-
-
         const lichTrinhList=[];     // Danh sách chi tiết lịch trình DTO
 
 
@@ -39,20 +35,59 @@ $(document).ready(function() {
             let tenChiTiet = $("#" + textTenDom + i).val();
             let hinhAnh = $("#" + imgInput + i).prop('files')[0];
             let moTaText = $("#" + moTa + i).val();
-
+            let errorTen = $("#" + errorTenDom + i);
+            let errorImg =  $("#" + errorIMGDom + i);
+            let errorMota = $("#" + errorMotaDom + i);
             if (tenChiTiet == "") {
                 complete = false;
+                errorTen.removeClass('fade').show();
+                errorTen.text("Tên không được để trống !");
+            }
+            else
+            {
+                errorTen.text("");
+                errorTen.fadeOut();
             }
             if (hinhAnh == null) {
                 complete = false;
+                errorImg.removeClass('fade').show();
+                errorImg.text("Hình ảnh không được trống");
+            }
+            else
+            {
+                errorImg.text("");
+                errorImg.fadeOut();
             }
             if (moTaText == "")
             {
                 complete = false;
+                errorMota.removeClass('fade').show();
+                errorMota.text("Mô tả không được trống ");
+            }
+            else
+            {
+                errorMota.text("");
+                errorMota.fadeOut();
             }
         }
 
             if (complete===true) {
+                var formData = new FormData();
+                for (let i=1;i<=day;i++) {
+
+                    formData.append('files',$("#" + imgInput + i).prop('files')[0]);
+                    let lichTrinhDTO =
+                        {
+                            tenChiTiet: $("#" + textTenDom + i).val(),
+                            ngayThu: i,
+                            buaSang: $("#" + cBSang + i).is(':checked') ? 1 : 0,
+                            buaTrua: $("#" + cBTrua + i).is(':checked') ? 1 : 0,
+                            buaChieu: $("#" + cBChieu + i).is(':checked') ? 1 : 0,
+                            buaToi: $("#" + cBToi + i).is(':checked') ? 1 : 0,
+                            mota: $("#" + moTa + i).val()
+                        }
+                    lichTrinhList.push(lichTrinhDTO);
+                }
                 let tourDuLichDTO =
                     {
                         ten:tenTour,
@@ -67,47 +102,21 @@ $(document).ready(function() {
                                 id:diaDiemTQ
                             },
                         phuongTienDiChuyen:ptDiChuyen,
+                        chitietlichtrinhs:lichTrinhList,
                         status:1
                     }
-                // console.log(tourDuLichDTO);
+                formData.append('tourDuLichDTO',JSON.stringify(tourDuLichDTO))
                 $.ajax({
                     url: '/api/admin/toudulich/add',
                     type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify(tourDuLichDTO),
+                    data: formData,
+                    processData: false,  // Không tự động xử lý dữ liệu
+                    contentType: false,  // Để ngăn jQuery tự động gán Content-Type
                     success: function(response) {
-                        var formData = new FormData();
-                        for (let i=1;i<=day;i++)
-                        {
-                            let lichTrinhDTO =
-                                {
-                                    idIdTour: response,
-                                    idTenChiTiet: $("#" + textTenDom + i).val(),
-                                    ngayThu: i,
-                                    buaSang: $("#" + cBSang + i).is(':checked') ? 1 : 0,
-                                    buaTrua: $("#" + cBTrua + i).is(':checked') ? 1 : 0,
-                                    buaChieu: $("#" + cBChieu + i).is(':checked') ? 1 : 0,
-                                    buaToi: $("#" + cBToi + i).is(':checked') ? 1 : 0,
-                                    mota: $("#" + moTa + i).val()
-                                }
-                            formData.append('files',$("#" + imgInput + i).prop('files')[0]);
-                            lichTrinhList.push(lichTrinhDTO);
-                        }
-                        formData.append('lichTrinhList', JSON.stringify(lichTrinhList));
-                        $.ajax({
-                            url: '/api/admin/lichtrinh/add',
-                            type: 'POST',
-                            data: formData,
-                            processData: false,  // Không tự động xử lý dữ liệu
-                            contentType: false,  // Để ngăn jQuery tự động gán Content-Type
-                            success: function(response) {
-                                console.log("Thành công");
-                                location.reload();
-                            },
-                            error: function(xhr, status, error) {
-                                console.error("Lỗi:", error);
-                            }
-                        });
+                        alertSucess("Thêm tour du lịch thành công");
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1000); // 3000ms = 3 giây
                     },
                     error: function(xhr, status, error) {
                         console.error("AJAX error: " + error);
@@ -116,7 +125,7 @@ $(document).ready(function() {
             }
             else
             {
-                alert("Thông tin nhập không hợp lệ !");
+                alertError("Thông tin nhập không hợp lệ !");
             }
 
 
@@ -168,7 +177,7 @@ $(document).ready(function() {
 
                 reader.readAsDataURL(file); // Mấu chốt để thực hiện đoạn trên
             } else {
-                alert("Vui lòng chọn một tệp ảnh hợp lệ!");
+                alertError("Vui lòng chọn một tệp ảnh hợp lệ!");
                 $(this).val('');
             }
         }

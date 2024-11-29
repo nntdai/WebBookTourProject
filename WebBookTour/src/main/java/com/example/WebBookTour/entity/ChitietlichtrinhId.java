@@ -2,6 +2,7 @@ package com.example.WebBookTour.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
@@ -13,12 +14,14 @@ import java.util.Objects;
 @Setter
 @Embeddable
 public class ChitietlichtrinhId implements Serializable {
-    private static final long serialVersionUID = 7593833303001697417L;
+    private static final long serialVersionUID = -4232565368626133586L;
+    @NotNull
     @Column(name = "idTour", nullable = false)
     private Integer idTour;
 
-    @Column(name = "tenChiTiet", nullable = false, length = 50)
-    private String tenChiTiet;
+    @NotNull
+    @Column(name = "ngayThu", nullable = false)
+    private Integer ngayThu;
 
     @Override
     public boolean equals(Object o) {
@@ -26,12 +29,12 @@ public class ChitietlichtrinhId implements Serializable {
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         ChitietlichtrinhId entity = (ChitietlichtrinhId) o;
         return Objects.equals(this.idTour, entity.idTour) &&
-                Objects.equals(this.tenChiTiet, entity.tenChiTiet);
+                Objects.equals(this.ngayThu, entity.ngayThu);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idTour, tenChiTiet);
+        return Objects.hash(idTour, ngayThu);
     }
 
 }

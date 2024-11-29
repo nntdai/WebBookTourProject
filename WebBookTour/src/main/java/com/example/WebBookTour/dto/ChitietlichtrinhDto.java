@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Accessors(chain = true)
 public class ChitietlichtrinhDto {
     private Integer idIdTour;
-    private String idTenChiTiet;
+    private String tenChiTiet;
     private Integer ngayThu;
     private Boolean buaSang = false;
     private Boolean buaTrua = false;

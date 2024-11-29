@@ -1,8 +1,5 @@
 package com.example.WebBookTour.service;
 
-import com.example.WebBookTour.dto.ChitietlichtrinhDto;
-import com.example.WebBookTour.entity.Chitietlichtrinh;
-import com.example.WebBookTour.entity.Tourdulich;
 import com.example.WebBookTour.mapper.ChitietlichtrinhMapper;
 import com.example.WebBookTour.repository.ChitietlichtrinhRepository;
 import com.example.WebBookTour.repository.TourdulichRepository;
@@ -14,7 +11,6 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -53,17 +49,17 @@ public class ChitietlichtrinhService {
         }
     }
 
-    public List<Chitietlichtrinh> saveListLichTrinh(List<ChitietlichtrinhDto> chitietlichtrinhDtoList)
-    {
-        List<Chitietlichtrinh> chitietlichtrinhList = chitietlichtrinhMapper.toEntityList(chitietlichtrinhDtoList);
-        for (Chitietlichtrinh chitietlichtrinh : chitietlichtrinhList) {
-            if (chitietlichtrinh.getId().getIdTour() != null) {
-                Tourdulich tourdulich = tourdulichRepository.findById(chitietlichtrinh.getId().getIdTour())
-                        .orElseThrow(() -> new RuntimeException("Tour not found"));
-                chitietlichtrinh.setIdTour(tourdulich); // Gán đúng đối tượng Tourdulich
-            }
-        }
-        return chitietlichtrinhRepository.saveAll(chitietlichtrinhList);
-
-    }
+//    public List<Chitietlichtrinh> saveListLichTrinh(List<ChitietlichtrinhDto> chitietlichtrinhDtoList)
+//    {
+//        List<Chitietlichtrinh> chitietlichtrinhList = chitietlichtrinhMapper.toEntityList(chitietlichtrinhDtoList);
+//        for (Chitietlichtrinh chitietlichtrinh : chitietlichtrinhList) {
+//            if (chitietlichtrinh.getId().getIdTour() != null) {
+//                Tourdulich tourdulich = tourdulichRepository.findById(chitietlichtrinh.getId().getIdTour())
+//                        .orElseThrow(() -> new RuntimeException("Tour not found"));
+//                chitietlichtrinh.setIdTour(tourdulich); // Gán đúng đối tượng Tourdulich
+//            }
+//        }
+//        return chitietlichtrinhRepository.saveAll(chitietlichtrinhList);
+//
+//    }
 }

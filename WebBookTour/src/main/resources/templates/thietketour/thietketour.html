@@ -45,8 +45,9 @@
                                 <th>Địa điểm tham quan</th>
                                 <th>Thời gian</th>
                                 <th>Giá Tour </th>
-                                <th>Xem / Sửa </th>
-                                <th>Xóa</th>
+                                <th>Xem</th>
+                                <th>Tổ chức</th>
+                                <th>Ẩn</th>
                             </tr>
                             </thead>
 
@@ -61,8 +62,9 @@
                                 <th th:text="${tour.getDiaDiemThamQuan().getTen()}"></th>
                                 <th th:text="${tour.getThoiGian()}"></th>
                                 <th th:text="${tour.getGiaTour()}"></th>
-                                <th><button type="button" class="btnEdit btn btn-warning" th:data-id="${tour.getId()}">Edit</button></th>
-                                <th><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" th:data-id="${tour.getId()}">Delete</button></th>
+                                <th><button type="button" class="btnEdit btn btn-warning" th:data-dto="${jsonUtils.toJson(tour)}">Xem</button></th>
+                                <th><button type="button" class="btnAddToChuc btn btn-primary" th:data-dto="${tour.getThoiGian()}" th:data-id="${tour.getId()}">Tổ chức</button></th>
+                                <th><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" th:data-id="${tour.getId()}">Ẩn</button></th>
                             </tr>
                             </tbody>
                         </table>

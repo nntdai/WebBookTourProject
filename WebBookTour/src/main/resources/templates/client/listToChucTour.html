@@ -1,0 +1,215 @@
+<style>
+    .container {
+        display: flex;
+        padding: 20px;
+        gap: 10px;
+        width: 100%; /* Cho container chiếm toàn bộ chiều rộng */
+        max-width: 1400px; /* Hoặc giới hạn chiều rộng lớn hơn */
+        margin: 0 auto; /* Căn giữa nếu cần */
+
+    }
+
+    .filter-section {
+        flex: 3 1 30%; /* Tăng tỷ lệ phân chia */
+        max-width: 60%; /* Tăng giới hạn chiều rộng */
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        height:fit-content;
+    }
+
+    .tour-list {
+        flex: 3 1 70%; /* Giảm tỷ lệ phân chia */
+
+        max-width: 70%;
+
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+
+
+
+
+    .tour-item {
+        display: flex;
+        flex-direction: row;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .tour-item img {
+        width: 300px; /* Đặt ảnh full-width trong container */
+        height: 100%; /* Tự động điều chỉnh tỷ lệ */
+        max-height: 300px; /* Giới hạn chiều cao */
+    }
+    .tour-item-content {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: calc(100% - 300px);  /* Cân đối lại không gian */
+    }
+
+    .tour-item-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    .tour-item-desc {
+        font-size: 14px;
+        color: #666;
+    }
+
+    .tour-item-price {
+        margin-top: 10px;
+        color: #004080;
+        font-weight: bold;
+    }
+
+    .tour-item-time,
+    .tour-item-location {
+        font-size: 12px;
+        margin-top: 5px;
+        color: #666;
+    }
+
+    .tour-item-dates {
+        margin-top: 10px;
+        display: flex;
+        overflow-x: auto;  /* Đảm bảo thanh cuộn ngang hoạt động */
+        gap: 10px;
+        white-space: nowrap;  /* Đảm bảo các ngày không bị chia thành dòng mới */
+        max-width: 100%;  /* Đảm bảo phần tử không vượt quá chiều rộng của container */
+        padding: 5px;  /* Thêm padding để các phần tử không bị dính vào nhau */
+    }
+
+    .tour-item-dates::-webkit-scrollbar {
+        height: 8px; /* Đặt độ cao cho thanh cuộn */
+    }
+
+    .tour-item-dates::-webkit-scrollbar-thumb {
+        background-color: #007bff;
+        border-radius: 4px; /* Tạo hình tròn cho thanh cuộn */
+    }
+
+    .tour-item-dates::-webkit-scrollbar-track {
+        background-color: #f1f1f1;
+    }
+    .tour-item-dates .tour-date {
+        padding: 8px;
+        background-color: #f1f1f1;
+        border-radius: 4px;
+        white-space: nowrap;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .tour-item-dates .tour-date:hover {
+        background-color: #007bff;
+        color: white;
+    }
+</style>
+
+<div class="container">
+    <!-- Bộ lọc tìm kiếm -->
+    <div class="filter-section">
+        <h2>Bộ lọc tìm kiếm</h2>
+        <form>
+            <label for="destination">Điểm đến:</label>
+            <select id="destination" name="destination">
+                <option value="all">Tất cả</option>
+                <option value="north">Miền Bắc</option>
+                <option value="south">Miền Nam</option>
+                <option value="central">Miền Trung</option>
+            </select>
+
+            <label for="price">Khoảng giá:</label>
+            <input type="range" id="price" name="price" min="0" max="10000000" step="100000">
+
+            <label for="date">Ngày khởi hành:</label>
+            <input type="date" id="date" name="date">
+
+            <button type="submit" class="btn">Tìm kiếm</button>
+        </form>
+    </div>
+
+    <!-- Danh sách tour -->
+    <div class="tour-list">
+        <!--/*@thymesVar id="dsTourDuLich" type="java.util.List<com.example.WebBookTour.dto.TourdulichDto>"*/-->
+        <div class="tour-item" th:each="tour :${dsTourDuLich}">
+            <span th:each="chitiet, iterStat : ${tour.getChitietlichtrinhs()}">
+    <img th:if="${iterStat.index == 0}" th:src="'https://webbooktourimg.s3.ap-southeast-1.amazonaws.com/' + ${chitiet.getHinhAnh()}" alt="Tour Image">
+</span>
+            <div class="tour-item-content">
+                <div class="tour-item-title" th:text="${tour.getTen()}"></div>
+                <div class="tour-item-desc" th:text="'Điểm khởi hành :  ' + ${tour.getDiaDiemKH().getTen()}"></div>
+
+
+                <!-- Thêm thời gian đi và ngày khởi hành -->
+                <div class="tour-item-time" th:text="'Thời gian:' + ${tour.getThoiGian()}"></div>
+                <div class="tour-item-location" th:text="'Phương tiện di chuyển :  ' + ${tour.getPhuongTienDiChuyen()}"></div>
+                <div class="tour-item-price" th:data-number="${tour.getGiaTour()}"></div>
+                <!-- Danh sách ngày khởi hành với thanh cuộn ngang -->
+                <div class="tour-item-dates">
+                    <span class="tour-date" th:each="toChuc :${tour.getTochuctours()}"  th:text="${#dates.format(toChuc.getNgayKH(), 'dd/MM/yyyy')}"></span>
+
+                    <!-- Bạn có thể thêm nhiều ngày khởi hành vào đây -->
+                </div>
+
+                <button type="button" class="btn btn-info"  th:id="${tour.getId()}" onclick="chuyenTrang(this)">Đặt tour</button>
+            </div>
+        </div>
+
+<!--        <div class="tour-item">-->
+<!--            <img src="https://via.placeholder.com/150" alt="Tour Image">-->
+<!--            <div class="tour-item-content">-->
+<!--                <div class="tour-item-title">Tour Miền Bắc 3 Ngày 2 Đêm</div>-->
+<!--                <div class="tour-item-desc">Thăm quan Hà Nội, Hạ Long, Ninh Bình...</div>-->
+<!--                <div class="tour-item-price">5,000,000 VND</div>-->
+
+<!--                &lt;!&ndash; Thêm thời gian đi và ngày khởi hành &ndash;&gt;-->
+<!--                <div class="tour-item-time">Thời gian: 3 ngày 2 đêm</div>-->
+<!--                <div class="tour-item-location">Điểm khởi hành: Hà Nội</div>-->
+
+<!--                &lt;!&ndash; Danh sách ngày khởi hành với thanh cuộn ngang &ndash;&gt;-->
+<!--                <div class="tour-item-dates">-->
+<!--                    <span class="tour-date">15/12/2024</span>-->
+<!--                    <span class="tour-date">20/12/2024</span>-->
+<!--                    <span class="tour-date">25/12/2024</span>-->
+<!--                    <span class="tour-date">30/12/2024</span>-->
+<!--                    <span class="tour-date">05/01/2025</span>-->
+<!--                    &lt;!&ndash; Bạn có thể thêm nhiều ngày khởi hành vào đây &ndash;&gt;-->
+<!--                </div>-->
+
+<!--                <button type="button" class="btn btn-info">Đặt tour</button>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+</div>
+<script>
+    function chuyenTrang(button)
+    {
+
+        window.location.href="/tour/"+button.id;
+    }
+    // Hàm định dạng số
+    function formatCurrency(number) {
+        return new Intl.NumberFormat('vi-VN').format(number) + " VND";
+    }
+
+    // Lấy tất cả các div có class "tour-item-price"
+    const priceDivs = document.querySelectorAll('.tour-item-price');
+
+    // Duyệt qua từng phần tử và áp dụng định dạng
+    priceDivs.forEach(div => {
+        const number = parseFloat(div.getAttribute('data-number')); // Lấy số từ thuộc tính
+        div.textContent = formatCurrency(number); // Gán nội dung đã format
+    });
+</script>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <title>Thông tin Tour</title>
+    <style>
+        pre {
+            font-family: Arial, sans-serif;  /* Thay đổi font chữ */
+            font-size: 16px;                 /* Điều chỉnh kích thước chữ */
+            line-height: 1.5;                /* Điều chỉnh khoảng cách giữa các dòng */
+            white-space: pre-wrap;           /* Giữ nguyên định dạng nhưng có thể xuống dòng tự động */
+            word-wrap: break-word;           /* Cho phép từ dài bị cắt khi hết dòng */
+            background-color: #f4f4f4;      /* Thêm màu nền */
+            padding: 10px;                   /* Khoảng cách giữa văn bản và viền */
+            border-radius: 5px;              /* Bo góc */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Thêm bóng đổ */
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #dddddd;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .main-content {
+            flex: 3;
+            padding-right: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .tour-title {
+            font-size: 2.0rem;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        .tour-images {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .main-image img {
+            width: 450px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .image-thumbnails {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 300px; /* Giới hạn chiều cao của phần hình ảnh thu nhỏ */
+            overflow-y: scroll; /* Thêm thanh cuộn dọc luôn hiển thị khi cần */
+            padding-right: 10px; /* Thêm khoảng cách cho thanh cuộn */
+        }
+
+        .image-thumbnails img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .image-thumbnails img:hover {
+            transform: scale(1.1);
+        }
+
+        /* Cải thiện thanh cuộn */
+        .image-thumbnails::-webkit-scrollbar {
+            width: 8px; /* Độ rộng của thanh cuộn */
+        }
+
+        .image-thumbnails::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        .image-thumbnails::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .itinerary {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .itinerary h2 {
+            text-align: center;
+            color: #3498db;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+
+
+        .sidebar {
+            flex: 1;
+            position: sticky;
+            top: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-left: 20px;
+            height: fit-content; /* Đảm bảo chiều cao của sidebar là tự động theo nội dung */
+            min-height: 100%; /* Đảm bảo sidebar không bị nhỏ hơn chiều cao của .tour-info */
+        }
+
+        .tour-info {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 1.1rem;
+            color: #34495e;
+
+        }
+
+        .tour-info div {
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        .tour-info strong {
+            color: #3498db;
+        }
+
+        .btn-book {
+            padding: 12px;
+            width: 100%;
+        }
+
+        .btn-book:hover {
+            background-color: #1c294e;
+        }
+
+        .btn-book:active {
+            background-color: #1c294e;
+        }
+        .tour-date-picker {
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .tour-date-picker label {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .tour-date-picker input {
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .tour-date-picker input:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+        }
+        @media screen and (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .main-content {
+                flex: 1;
+                padding-right: 0;
+            }
+
+            .tour-images {
+                flex-direction: column;
+            }
+
+            .main-image img {
+                width: 100%;
+                height: auto;
+            }
+
+            .image-thumbnails img {
+                width: 120px;
+                height: 120px;
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Bố cục chính -->
+    <div class="main-content">
+        <h1 class="tour-title" th:text="${tourDulich.getTen()}"></h1>
+
+        <div class="tour-images">
+            <div class="main-image">
+                 <span th:each="chitiet, iterStat : ${tourDulich.getChitietlichtrinhs()}">
+                     <img id="mainImage" th:if="${iterStat.index == 0}" th:src="'https://webbooktourimg.s3.ap-southeast-1.amazonaws.com/' + ${chitiet.getHinhAnh()}" alt="Tour Image"></span>
+            </div>
+
+            <div class="image-thumbnails">
+                <img class="thumbnail" onclick="changeMainImage(this)" th:each="chitiet :${tourDulich.getChitietlichtrinhs()}" th:src="'https://webbooktourimg.s3.ap-southeast-1.amazonaws.com/' + ${chitiet.getHinhAnh()}" alt="Tour Image">
+
+            </div>
+        </div>
+        <div class="tour-date-picker">
+            <label for="tourDate">Chọn ngày:</label>
+            <input type="text" id="tourDate" name="tourDate" placeholder="Chọn ngày">
+        </div>
+        <!-- Lịch trình Tour -->
+        <div class="itinerary">
+            <h2>Lịch Trình</h2>
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <!--/*@thymesVar id="tourDulich" type="com.example.WebBookTour.dto.TourdulichDto"*/-->
+                <div class="accordion-item" th:each="chitiet :${tourDulich.getChitietlichtrinhs()}">
+                    <h2 class="accordion-header" th:id="'flush-heading'+${chitiet.getNgayThu()}">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" th:data-bs-target="'#flush-collapse' +${chitiet.getNgayThu()}" aria-expanded="false" aria-controls="flush-collapseOne" th:text="'Ngày ' + ${chitiet.getNgayThu()}+': '+${chitiet.getTenChiTiet()}">
+
+                        </button>
+                    </h2>
+                    <div th:id="'flush-collapse' +${chitiet.getNgayThu()}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body"> <pre th:utext="${#strings.replace(chitiet.getMota(), '\n', '<br/>')}"></pre></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Bố cục phụ (Right Sidebar) -->
+    <div class="sidebar">
+        <div class="tour-info">
+            <!--/*@thymesVar id="tourDulich" type="com.example.WebBookTour.dto.TourdulichDto"*/-->
+            <div id="giaTour" th:data-number="${tourDulich.getGiaTour()}"><strong>Giá:    </strong><div id="giaTourDisplay"></div></div>
+            <div><strong>Mã Tour:    </strong>[[${tourDulich.getId()}]]</div>
+            <div><strong>Khởi hành:    </strong>[[${tourDulich.getDiaDiemKH().getTen()}]]</div>
+            <div><strong>Thời gian:    </strong>[[${tourDulich.getThoiGian()}]]</div>
+            <div><strong>Ngày Khởi hành:    </strong><div id="ngayKH"></div></div>
+            <div><strong>Số chỗ còn:    </strong><div id="soChoCon"></div></div>
+            <button class="btn btn-primary btn-book " id="btnDatTour" onclick="bookTour(this)">Đặt Tour</button>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+    function formatCurrency(number) {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(number);
+    }
+
+    // Lấy giá trị từ thuộc tính data-number và định dạng
+    const number = parseFloat($("#giaTour").attr('data-number'));
+    $("#giaTourDisplay").text(formatCurrency(number));
+    $(document).ready(function() {
+
+        let validDatesWithIds = /*[[${validDatesWithIds}]]*/;
+
+// Thiết lập Date Picker
+        $("#tourDate").datepicker({
+            dateFormat: "yy-mm-dd",
+            beforeShowDay: function(date) {
+                const dateString = $.datepicker.formatDate("yy-mm-dd", date);
+                if (validDatesWithIds[dateString]) {
+                    return [true, "", ""];
+                } else {
+                    return [false];
+                }
+            },
+            onSelect: function(dateText, inst) {
+                const selectedDate = dateText;
+                const selectedInfo = validDatesWithIds[selectedDate];
+                $('#ngayKH').html(selectedDate);
+                $('#soChoCon').html(selectedInfo[1]);
+                $('#btnDatTour').val(selectedInfo[0]);
+                console.log("Ngày đã chọn: " + selectedDate + ", ID: " + selectedInfo[0] + ", Số chỗ còn: " + selectedInfo[1]);
+            }
+        });
+    });
+function changeMainImage(thumbnail) {
+
+    var newSrc = thumbnail.src;
+
+    document.getElementById('mainImage').src = newSrc;
+}
+function toggleDescription(button) {
+    const description = button.nextElementSibling;
+    if (description.style.display === "block") {
+        description.style.display = "none";
+    } else {
+        description.style.display = "block";
+    }
+}
+
+function bookTour(button) {
+    if (button.value!="") {
+
+        if ($('#soChoCon').text()<=0)
+        {
+            alertError("Tour ngày này đã hết chỗ ! Xin vui lòng chọn ngày khởi hành khác !");
+        }
+        else
+        {
+            window.location.href = '/tour/book/' + button.value;
+        }
+    }
+    else
+    {
+        alertError("Vui lòng chọn ngày khởi hành !");
+    }
+}
+</script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+</body>
+</html>

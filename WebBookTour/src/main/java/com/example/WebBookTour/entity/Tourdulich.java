@@ -1,5 +1,6 @@
 package com.example.WebBookTour.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 @Getter
 @Setter
+@JsonIgnoreProperties({"diaDiemKH","diaDiemThamQuan","chitietlichtrinhs","thongtinhanhkhaches","tochuctours"})
 @Entity
 @Table(name = "tourdulich")
 public class Tourdulich {
@@ -42,16 +44,13 @@ public class Tourdulich {
     @Column(name = "status")
     private Boolean status;
 
-    @OneToMany(mappedBy = "idTour")
-    @JsonManagedReference
+    @OneToMany(mappedBy = "idTour",cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Chitietlichtrinh> chitietlichtrinhs = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "idDatCho")
-    @JsonManagedReference
     private Set<Thongtinhanhkhach> thongtinhanhkhaches = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "idTourDuLich")
-    @JsonManagedReference
     private Set<Tochuctour> tochuctours = new LinkedHashSet<>();
 
 }
