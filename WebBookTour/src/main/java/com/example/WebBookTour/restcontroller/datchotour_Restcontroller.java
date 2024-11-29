@@ -24,17 +24,17 @@ public class datchotour_Restcontroller {
     public DatchotourDto getDatchotourDto(DatchotourDto dto) {
         return datchotour_service.getDatchotourDto(dto.getId());
     }
-    @GetMapping("/search")
-    public ResponseEntity<Page<DatchotourDto>> searchDatchotour(
-            @RequestParam String keyword,
-            @RequestParam int page,
-            @RequestParam int size){
-        System.out.println(page + " " +size+" "+keyword);
-        Page<DatchotourDto> rs=datchotour_service.getSearchDatchotour(page, size, keyword);
-        if (rs == null) {
-            throw new RuntimeException("Không tìm thấy dữ liệu với ID: ");
-        }
-        System.out.println("Đã tìm thấy đối tượng: " + rs);
-        return ResponseEntity.ok(rs);
-    }
+//    @GetMapping("/search")
+//    public ResponseEntity<Page<DatchotourDto>> searchDatchotour(
+//            @RequestParam String keyword,
+//            @RequestParam int page,
+//            @RequestParam int size){
+//        System.out.println(page + " " +size+" "+keyword);
+//        Page<DatchotourDto> rs=datchotour_service.getSearchDatchotour(page, size, keyword);
+//        if (rs == null) {
+//            throw new RuntimeException("Không tìm thấy dữ liệu với ID: ");
+//        }
+//        System.out.println("Đã tìm thấy đối tượng: " + rs);
+//        return ResponseEntity.ok(rs);
+//    }
 }

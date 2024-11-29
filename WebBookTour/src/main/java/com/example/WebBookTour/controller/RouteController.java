@@ -71,6 +71,7 @@ public class RouteController {
     public String xemThongTinTour(Model model, @PathVariable int id)
     {
         LocalDate today = LocalDate.now();
+        List<VungmienDto> vungmienDtos = vungmienService.getAllVungMien();
         TourdulichDto tourdulichDto =thietketourService.getTourDulich(id);
         Set<ChitietlichtrinhDto> sortedSet = tourdulichDto.getChitietlichtrinhs()
                 .stream()
@@ -96,6 +97,7 @@ public class RouteController {
         System.out.println(validDatesWithIds);
         model.addAttribute("validDatesWithIds", validDatesWithIds);
         model.addAttribute("tourDulich", tourdulichDto);
+        model.addAttribute("vungmienDtos", vungmienDtos);
         model.addAttribute("var","client/thongTinTour");
         return "client/homepage";
     }
