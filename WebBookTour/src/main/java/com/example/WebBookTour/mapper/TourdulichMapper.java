@@ -24,11 +24,6 @@ public interface TourdulichMapper {
 
     }
 
-//    @AfterMapping
-//    default void linkThongtinhanhkhaches(@MappingTarget Tourdulich tourdulich) {
-//        tourdulich.getThongtinhanhkhaches().forEach(thongtinhanhkhach -> thongtinhanhkhach.setIdDatCho(tourdulich));
-//    }
-
     @AfterMapping
         default void linkTochuctours(@MappingTarget TourdulichDto tourdulichDto,Tourdulich tourdulich,TochuctourMapper TochuctourMapper) {
         Set<Tochuctour> tochuctours = tourdulich.getTochuctours();

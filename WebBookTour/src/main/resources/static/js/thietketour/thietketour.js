@@ -1,6 +1,6 @@
 $(document).ready(function()
 {
-    $(document).on('click','.page-item',function ()
+    $(document).on('click','.thietketour',function ()
     {
 
         const pageSelected = $(this).data('page');
@@ -34,9 +34,9 @@ $(document).ready(function()
             }
         });
     });
-    // $(document).on('hidden.bs.modal', '#addTourDesignModal', function () {
-    //     $('#modalContainer').html('');
-    // });
+    $(document).on('hidden.bs.modal', '#addTourDesignModal', function () {
+        $('#modalContainer').html('');
+    });
     $(document).on('click','#addTourDesignModal', function() {
         if (!$('#thietkeTourModalAdd').hasClass('show')) {
             $.ajax({

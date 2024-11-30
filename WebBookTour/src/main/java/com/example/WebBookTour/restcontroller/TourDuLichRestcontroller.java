@@ -53,6 +53,12 @@ public class TourDuLichRestcontroller {
         return tochuctourService.getAllTochuctours(0,10,i);
     }
 
+    @GetMapping("/getToChucTourId/{i}")
+    public TochuctourDto getToChucTourById(@PathVariable int i) {
+
+        return tochuctourService.getToChucTourById(i);
+    }
+
     @GetMapping("/getAll")
     public List<TourdulichDto> getAllTourDuLich() {
 

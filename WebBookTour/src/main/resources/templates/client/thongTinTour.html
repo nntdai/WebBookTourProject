@@ -265,12 +265,12 @@
     <div class="sidebar">
         <div class="tour-info">
             <!--/*@thymesVar id="tourDulich" type="com.example.WebBookTour.dto.TourdulichDto"*/-->
-            <div id="giaTour" th:data-number="${tourDulich.getGiaTour()}"><strong>Giá:    </strong><div id="giaTourDisplay"></div></div>
-            <div><strong>Mã Tour:    </strong>[[${tourDulich.getId()}]]</div>
-            <div><strong>Khởi hành:    </strong>[[${tourDulich.getDiaDiemKH().getTen()}]]</div>
-            <div><strong>Thời gian:    </strong>[[${tourDulich.getThoiGian()}]]</div>
-            <div><strong>Ngày Khởi hành:    </strong><div id="ngayKH"></div></div>
-            <div><strong>Số chỗ còn:    </strong><div id="soChoCon"></div></div>
+            <div id="giaTour" th:data-number="${tourDulich.getGiaTour()}">Giá:    <div id="giaTourDisplay"></div></div>
+            <div>Mã Tour:    [[${tourDulich.getId()}]]</div>
+            <div>Khởi hành:   [[${tourDulich.getDiaDiemKH().getTen()}]]</div>
+            <div>Thời gian:    [[${tourDulich.getThoiGian()}]]</div>
+            <div>Ngày Khởi hành:   <div id="ngayKH"></div></div>
+            <div>Số chỗ còn:    <div id="soChoCon"></div></div>
             <button class="btn btn-primary btn-book " id="btnDatTour" onclick="bookTour(this)">Đặt Tour</button>
         </div>
     </div>

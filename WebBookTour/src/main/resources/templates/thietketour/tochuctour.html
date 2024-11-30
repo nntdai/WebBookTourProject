@@ -78,7 +78,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-target="#toChucTourModal">Close</button>
-                            <button id="btnAddToChucTour" th:data-id="${idTour}" type="button" class="btn btn-primary" onclick="">Thêm</button>
+                            <button id="btnAddToChucTour" th:data-id="${idTour}" type="button" class="btn btn-primary">Thêm</button>
                         </div>
                         <div id="tableToChucTour">
 
@@ -145,13 +145,13 @@
 
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination justify-content-center">
-                                        <li class="page-item" data-page="-1">
+                                        <li class="tochucpage page-item " data-page="-1">
                                             <a class="page-link" aria-label="Previous">
                                                 <span aria-hidden="true">&laquo;</span>
                                             </a>
                                         </li>
-                                        <li th:each="i : ${#numbers.sequence(0, totalPage - 1)}" th:class="${ i == page ? 'page-item active' : 'page-item'  }" th:data-page="${i}"  ><a class="page-link" th:text="${i+1}" ></a></li>
-                                        <li class="page-item" data-page="+1">
+                                        <li th:each="i : ${#numbers.sequence(0, totalPage - 1)}" th:class="${ i == page ? 'tochucpage page-item active' : 'tochucpage page-item'  }" th:data-page="${i}"  ><a class="page-link" th:text="${i+1}" ></a></li>
+                                        <li class="tochucpage page-item" data-page="+1">
                                             <a class="page-link"  aria-label="Next">
                                                 <span aria-hidden="true">&raquo;</span>
                                             </a>
@@ -186,8 +186,8 @@
         theme: 'bootstrap-5'
 
     });
-    const today = new Date();
+    var today = new Date();
     today.setDate(today.getDate() + 3);
-    const minDate = today.toISOString().slice(0, 16);
+    var minDate = today.toISOString().slice(0, 16);
     document.getElementById('ngayKH').setAttribute('min', minDate);
 </script>

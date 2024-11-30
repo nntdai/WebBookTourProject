@@ -30,6 +30,8 @@ public class RouteController {
 
     @Autowired
     private ThietketourService thietketourService;
+    @Autowired
+    private TochuctourService tochuctourService;
 
     @GetMapping
     public String getHomePage(Model model)
@@ -67,6 +69,7 @@ public class RouteController {
         model.addAttribute("var","client/listToChucTour");
         return "client/homepage";
     }
+
     @GetMapping("/tour/{id}")
     public String xemThongTinTour(Model model, @PathVariable int id)
     {
@@ -102,4 +105,15 @@ public class RouteController {
         return "client/homepage";
     }
 
+    @GetMapping("/tour/book/{id}")
+    public String bookTour(Model model, @PathVariable int id) {
+        {
+            List<VungmienDto> vungmienDtos = vungmienService.getAllVungMien();
+            TochuctourDto tochuctourDto = tochuctourService.getToChucTourById(id);
+            model.addAttribute("var","client/datTour");
+            model.addAttribute("tochuctourDto",tochuctourDto);
+            model.addAttribute("vungmienDtos", vungmienDtos);
+            return "client/homepage";
+        }
+    }
 }

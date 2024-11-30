@@ -104,6 +104,7 @@ public class ThietKeTourController {
     public String getToChucTour(Model model,@RequestParam int idTour,@RequestParam String day) {
         Page<TochuctourDto> dsTochuctour = tochuctourService.getAllTochuctours(0,10,idTour);
         int totalPage = dsTochuctour.getTotalPages();
+        System.out.println(totalPage);
         List<NhansuDto> dsHDV = nhansuService.getAllHDV();
         model.addAttribute("dsHDV", dsHDV);
         model.addAttribute("day", day.split("[^0-9]")[0]);  // Add the date to the model
@@ -123,6 +124,17 @@ public class ThietKeTourController {
         model.addAttribute("dsTochuctour", dsTochuctour);
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("page", 0);
+        return "thietketour/tochuctour :: tableToChucTour";
+    }
+    @GetMapping("/getpageToChuc")
+    public String getToChuc(Model model,@RequestParam int idTour,@RequestParam int page)
+    {
+        Page<TochuctourDto> dsTochuctour = tochuctourService.getAllTochuctours(page,10,idTour);
+        int totalPage = dsTochuctour.getTotalPages();
+        model.addAttribute("idTour",idTour);
+        model.addAttribute("dsTochuctour", dsTochuctour);
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("page", page);
         return "thietketour/tochuctour :: tableToChucTour";
     }
 

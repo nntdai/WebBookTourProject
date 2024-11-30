@@ -37,10 +37,18 @@ public class SecutityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/img/**", "/css/**", "/js/**", "/vendor/**").permitAll()
                         .requestMatchers("/").permitAll() // cho qua mà không cần authenticate
-                        .requestMatchers("/admin/**").permitAll() // với endpoint /customer/** sẽ yêu cầu authenticate
+                        .requestMatchers("/admin/**").authenticated() // với endpoint /customer/** sẽ yêu cầu authenticate
+                        .requestMatchers("/api/**").authenticated()
                         .anyRequest().permitAll()
                 )
                 .formLogin(Customizer.withDefaults())
+                .logout(logout -> logout
+                        .logoutUrl("/logout") // URL để logout
+                        .logoutSuccessUrl("/admin") // Redirect về trang chủ sau khi logout
+                        .invalidateHttpSession(true) // Vô hiệu hóa session
+                        .clearAuthentication(true) // Xóa thông tin xác thực
+                        .deleteCookies("JSESSIONID") // Xóa cookie session
+                )
                 .httpBasic(Customizer.withDefaults())
                 .build();
     }

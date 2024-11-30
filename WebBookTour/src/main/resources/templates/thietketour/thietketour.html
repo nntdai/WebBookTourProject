@@ -91,13 +91,13 @@
 
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
-                        <li class="page-item" data-page="-1">
+                        <li class="thietketour page-item" data-page="-1">
                             <a class="page-link" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
-                        <li th:each="i : ${#numbers.sequence(0, totalPage - 1)}" th:class="${ i == page ? 'page-item active' : 'page-item'  }" th:data-page="${i}"  ><a class="page-link" th:text="${i+1}" ></a></li>
-                        <li class="page-item" data-page="+1">
+                        <li th:each="i : ${#numbers.sequence(0, totalPage - 1)}" th:class="${ i == page ? 'thietketour page-item active' : 'thietketour page-item'  }" th:data-page="${i}"  ><a class="page-link" th:text="${i+1}" ></a></li>
+                        <li class="thietketour page-item" data-page="+1">
                             <a class="page-link"  aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>

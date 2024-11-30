@@ -114,9 +114,11 @@ $(document).ready(function() {
                     contentType: false,  // Để ngăn jQuery tự động gán Content-Type
                     success: function(response) {
                         alertSucess("Thêm tour du lịch thành công");
+                        $("#modalBodyLichTrinh").hide();
                         setTimeout(function () {
                             location.reload();
                         }, 1000); // 3000ms = 3 giây
+
                     },
                     error: function(xhr, status, error) {
                         console.error("AJAX error: " + error);

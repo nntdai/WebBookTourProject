@@ -18,8 +18,10 @@ $(document).ready(function() {
             contentType: 'application/json',
             data: JSON.stringify(diadiemDto),
             success: function(respone) {
-                alert("Thành cong");
-                location.reload();
+                alertSucess("Sửa địa điểm mới thành công !");
+                setTimeout(function () {
+                    location.reload();
+                }, 500); // 3000ms = 3 giây
             },
             error: function(xhr) {
                 var errorMessages = xhr.responseText;
