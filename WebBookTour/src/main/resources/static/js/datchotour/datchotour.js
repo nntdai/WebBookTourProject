@@ -48,9 +48,9 @@ $(document).ready(function(){
     $(document).on('hidden.bs.modal', '#ViewModal', function () {
         $('#modalContainer').html('');
     });
-    $(document).on('click', '.btn', function (){
-       const value=$('#Search_text').val();
-       alert(value);
+    $(document).on('click', '#btnSearch', function (){
+        const value=$('#Search_text').val();
+        alert(value);
         $('#loading').hide();
         const pageSelected = $(this).data('page');
         const pagePresent =$('.page-item.active').data('page');
@@ -71,11 +71,10 @@ $(document).ready(function(){
             type :'GET',
             data:{
                 keyword : value,
-                page : page,
-                size : 10
             },
             contentType :'application/json',
             success: function (respone){
+                console.log(respone);
                 $('#tableDatchotour').html(respone);
             },
             error: function (xhr, status, error){
@@ -84,4 +83,7 @@ $(document).ready(function(){
             }
         });
     });
+    $(document).on('click', '#SearchButton', function (){
+        $('#SearchModal').modal('show');
+    })
 })

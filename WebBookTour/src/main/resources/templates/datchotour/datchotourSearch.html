@@ -1,0 +1,58 @@
+<div class="modal fade" id="ViewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Lọc</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-target="#ViewModal" aria-label="Close"></button>
+      </div>
+      <form method="get">
+        <!--/*@thymesVar id="datchotour" type="com.example.WebBookTour.dto.DatchotourDto"*/-->
+        <div class="modal-body">
+          <div class="input-group mb-3">
+            <span class="input-group-text" style="width: 160px">Mã đặt tour</span>
+            <input type="text" id="madattour" value="" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+          </div>
+          <div class="input-group mb-3">
+            <label for="customRange1" class="form-label">Tổng tiền</label>
+            <input type="range" class="form-range" id="customRange1">
+          </div>
+          <div class="container px-1 px-sm-5 mx-auto">
+            <form autocomplete="off">
+              <div class="flex-row d-flex justify-content-center">
+                <div class="col-lg-6 col-11 px-1">
+                  <div class="input-group input-daterange">
+                    <input type="text" id="start" class="form-control text-left mr-2">
+                    <label class="ml-3 form-control-placeholder" id="start-p" for="start">Ngày đặt chỗ</label>
+                    <span class="fa fa-calendar" id="fa-1"></span>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" style="width: 160px">Tour tổ chức</span>
+            <input type="text" id="tochuctour" th:value="${datchotour.getIdToChucTour().getIdTourDuLich().getTen()}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" style="width: 160px">SĐT Khách hàng</span>
+            <input type="text" id="sdtkhachhang" th:value="${datchotour.getSdtKhachHang().getSoDienThoai()}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" style="width: 160px">Mã khuyến mãi </span>
+            <input type="text" id="makhuyenmai" th:value="${datchotour.getIdKhuyenMai() != null ? datchotour.getIdKhuyenMai().getTen() : 'Không dùng mã khuyến mãi'}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-target="#ViewModal" data-bs-dismiss="modal">Xác nhận</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.js"></script>
+<!--<script th:src="@{/js/datchotour/datchotour.js}"></script>-->
