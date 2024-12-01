@@ -8,10 +8,9 @@ import com.example.WebBookTour.entity.Tochuctour;
 import com.example.WebBookTour.entity.Tourdulich;
 import org.mapstruct.*;
 
-import java.util.Set;
-import java.util.stream.Collectors;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+
+@Mapper(componentModel = "spring")
 public interface DatchotourMapper {
     Datchotour toEntity(DatchotourDto datchotourDto);
     @Mapping(target = "idToChucTour", ignore = true)
