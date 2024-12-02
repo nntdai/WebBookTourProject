@@ -65,8 +65,8 @@
       text-transform: uppercase;
     }
 
-    .contact-info input,.passenger-details input,
-    .contact-info select, .passenger-details select {
+    .contact-info input,
+    .contact-info select {
       width: 100%;
       padding: 10px;
       margin: 10px 0;
@@ -163,7 +163,40 @@
     .tour-info strong {
       color: #3498db;
     }
+    .child {
+      display: flex; /* Bố trí các phần tử theo hàng ngang */
+      gap: 10px; /* Khoảng cách giữa các phần tử */
+      align-items: center; /* Canh giữa các trường theo chiều dọc */
+    }
 
+    .child .form-group {
+      display: flex;
+      flex-direction: column; /* Đảm bảo nhãn và input nằm theo chiều dọc */
+    }
+
+    .child .form-group.flex-grow-1 {
+      flex: 1; /* Trường "Họ và Tên" chiếm nhiều không gian hơn */
+    }
+
+
+    .child {
+      display: flex; /* Bố trí các phần tử theo hàng ngang */
+      gap: 10px; /* Khoảng cách giữa các phần tử */
+      align-items: center; /* Canh giữa các trường theo chiều dọc */
+    }
+
+    .adult .form-group {
+      display: flex;
+      flex-direction: column; /* Đảm bảo nhãn và input nằm theo chiều dọc */
+    }
+
+    .adult .form-group.flex-grow-1 {
+      flex: 1; /* Trường "Họ và Tên" chiếm nhiều không gian hơn */
+    }
+
+    .me-2 {
+      margin-right: 0.5rem; /* Khoảng cách giữa các phần tử */
+    }
     @media screen and (max-width: 768px) {
       .container {
         flex-direction: column;
@@ -223,13 +256,13 @@
       <!-- Người lớn -->
       <div class="form-control-group">
         <label for="adults">Người lớn:</label>
-        <input class="form-control" type="number" id="adults" name="adults" value="1" min="1" max="10" required>
+        <input class="form-control" type="number" id="adults" name="adults" value="1" min="1" max="100" required>
       </div>
 
       <!-- Trẻ em -->
       <div class="form-control-group">
         <label for="children">Trẻ em:</label>
-        <input class="form-control" type="number" id="children" name="children" value="0" min="0" max="10" required>
+        <input class="form-control" type="number" id="children" name="children" value="0" min="0" max="100" required>
       </div>
     </div>
 
@@ -241,37 +274,31 @@
       <!-- Người lớn -->
       <div id="adultDetails">
         <h4>Người lớn</h4>
-        <div class="adult">
-          <label>Họ và Tên:</label>
-          <input type="text" name="adultName[]" required>
+        <div class="adult d-flex align-items-center">
+          <div class="form-group flex-grow-1 me-2">
+            <label>Họ và Tên:</label>
+            <input type="text" class="form-control" required>
+          </div>
 
-          <label>Giới tính:</label>
-          <select name="adultGender[]">
-            <option value="male">Nam</option>
-            <option value="female">Nữ</option>
-          </select>
+          <div class="form-group me-2">
+            <label>Giới tính:</label>
+            <select name="adultGender[]" class="form-select">
+              <option value="male">Nam</option>
+              <option value="female">Nữ</option>
+            </select>
+          </div>
 
-          <label>Ngày Sinh:</label>
-          <input type="date" name="adultDob[]" required>
+          <div class="form-group">
+            <label>Ngày Sinh:</label>
+            <input type="date" name="adultDob[]" class="form-control" required>
+          </div>
         </div>
       </div>
 
       <!-- Trẻ em -->
       <div id="childDetails">
         <h4>Trẻ em</h4>
-        <div class="child">
-          <label>Họ và Tên:</label>
-          <input type="text" name="childName[]" required>
 
-          <label>Giới tính:</label>
-          <select name="childGender[]">
-            <option value="male">Nam</option>
-            <option value="female">Nữ</option>
-          </select>
-
-          <label>Ngày Sinh:</label>
-          <input type="date" name="childDob[]" required>
-        </div>
       </div>
     </div>
   </div>
@@ -283,7 +310,8 @@
       <div>Người lớn :    </div>
       <div>Trẻ em :   </div>
       <div>Tổng tiền :    <!--/*@thymesVar id="tochuctourDto" type="com.example.WebBookTour.dto.TochuctourDto"*/-->
-      <div id="soChoCon" th:text="${tochuctourDto.getIdTourDuLich().getGiaTour()}"></div></div>
+      <div id="giaTour" th:data-number="${tochuctourDto.getIdTourDuLich().getGiaTour()}"></div>
+      </div>
       <button class="btn btn-primary btn-book " id="btnDatTour">Thanh Toán</button>
 
     </div>
@@ -300,58 +328,145 @@
       buttonsOnly: true
     });
 
-  function updatePassengerDetails() {
+
+
+  let SoChoNguoiLon = parseInt($("#adults").val(), 10);
+    let SoChoTreEm = parseInt($("#children").val(), 10);
+  $("#adults").on("input", function()
+  {
     const adults = parseInt($("#adults").val(), 10);
     const children = parseInt($("#children").val(), 10);
+    const tongSoCho = adults + children ;
+    let maxSoCho = [[${tochuctourDto.soChoCon}]];
+    maxSoCho = maxSoCho - adults;
+    maxSoCho = maxSoCho - children;
+    // console.log(tongSoCho);
+    // console.log(maxSoCho);
+    console.log(SoChoNguoiLon);
+    console.log(adults);
 
-    // Xóa các thông tin cũ
-    $("#adultDetails .adult").remove();
-    $("#childDetails .child").remove();
 
     // Thêm thông tin người lớn
-    for (let i = 1; i <= adults; i++) {
-      $("#adultDetails").append(`
-        <div class="adult">
-          <label>Họ và Tên (Người lớn ${i}):</label>
-          <input type="text" name="adultName[]" required>
+    if ((SoChoNguoiLon <= adults)){
+      if ((maxSoCho>=0)&&(SoChoNguoiLon!=adults)) {
+        $("#adultDetails").append(`
+        <div class="adult d-flex align-items-center">
+  <div class="form-group flex-grow-1 me-2">
+    <label>Họ và Tên:</label>
+    <input type="text" class="form-control" required>
+  </div>
 
-          <label>Giới tính:</label>
-          <select name="adultGender[]">
-            <option value="male">Nam</option>
-            <option value="female">Nữ</option>
-          </select>
+  <div class="form-group me-2">
+    <label>Giới tính:</label>
+    <select name="adultGender[]" class="form-select">
+      <option value="male">Nam</option>
+      <option value="female">Nữ</option>
+    </select>
+  </div>
 
-          <label>Ngày Sinh:</label>
-          <input type="date" name="adultDob[]" required>
-        </div>
+  <div class="form-group">
+    <label>Ngày Sinh:</label>
+    <input type="date" name="adultDob[]" class="form-control" required>
+  </div>
+</div>
       `);
+      }
+      else
+      {
+        alertError("Vượt quá số chỗ còn lại !");
+      }
+
+    } else
+    {
+      if (SoChoNguoiLon>1)  $("#adultDetails .adult").last().remove();
     }
+    SoChoNguoiLon = adults;
 
     // Thêm thông tin trẻ em
-    for (let i = 1; i <= children; i++) {
-      $("#childDetails").append(`
-        <div class="child">
-          <label>Họ và Tên (Trẻ em ${i}):</label>
-          <input type="text" name="childName[]" required>
+//     for (let i = 1; i <= children; i++) {
+//       $("#childDetails").append(`
+//         <div class="child d-flex align-items-center">
+//   <div class="form-group flex-grow-1 me-2">
+//     <label>Họ và Tên:</label>
+//     <input type="text"  class="form-control" required>
+//   </div>
+//
+//   <div class="form-group me-2">
+//     <label>Giới tính:</label>
+//     <select name="childGender[]" class="form-select">
+//       <option value="male">Nam</option>
+//       <option value="female">Nữ</option>
+//     </select>
+//   </div>
+//
+//   <div class="form-group">
+//     <label>Ngày Sinh:</label>
+//     <input type="date" name="childDob[]" class="form-control" required>
+//   </div>
+// </div>
+//       `);
+//
+//     }
+    $("#adults").attr("max",adults + maxSoCho);
+    $("#children").attr("max",children+ maxSoCho);
 
-          <label>Giới tính:</label>
-          <select name="childGender[]">
-            <option value="male">Nam</option>
-            <option value="female">Nữ</option>
-          </select>
 
-          <label>Ngày Sinh:</label>
-          <input type="date" name="childDob[]" required>
-        </div>
+  });
+    $("#children").on("input", function()
+    {
+      const adults = parseInt($("#adults").val(), 10);
+      const children = parseInt($("#children").val(), 10);
+      const tongSoCho = adults + children ;
+      let maxSoCho = [[${tochuctourDto.soChoCon}]];
+      maxSoCho = maxSoCho - adults;
+      maxSoCho = maxSoCho - children;
+      // console.log(tongSoCho);
+      // console.log(maxSoCho);
+      console.log(SoChoTreEm);
+      console.log(children);
+
+
+
+      if ((SoChoTreEm <= children)){
+        if ((children>=0)&&(SoChoTreEm!=children)) {
+                $("#childDetails").append(`
+        <div class="child d-flex align-items-center">
+  <div class="form-group flex-grow-1 me-2">
+    <label>Họ và Tên:</label>
+    <input type="text"  class="form-control" required>
+  </div>
+
+  <div class="form-group me-2">
+    <label>Giới tính:</label>
+    <select name="childGender[]" class="form-select">
+      <option value="male">Nam</option>
+      <option value="female">Nữ</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Ngày Sinh:</label>
+    <input type="date" name="childDob[]" class="form-control" required>
+  </div>
+</div>
       `);
-    }
-  }
+        }
+        else
+        {
+          alertError("Vượt quá số chỗ còn lại !");
+        }
 
+      } else
+      {
+        if (SoChoTreEm>0)  $("#childDetails .child").last().remove();
+      }
+      SoChoTreEm = children;
 
-  $("#adults, #children").on("change", updatePassengerDetails);
+      $("#adults").attr("max",adults + maxSoCho);
+      $("#children").attr("max",children+ maxSoCho);
+    });
 
-
-  updatePassengerDetails();
+  // updatePassengerDetails();
 
   function formatCurrency(number) {
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(number);
@@ -359,32 +474,7 @@
 
 
   const number = parseFloat($("#giaTour").attr('data-number'));
-  $("#giaTourDisplay").text(formatCurrency(number));
-  $(document).ready(function() {
-
-    let validDatesWithIds = /*[[${validDatesWithIds}]]*/;
-
-// Thiết lập Date Picker
-    $("#tourDate").datepicker({
-      dateFormat: "yy-mm-dd",
-      beforeShowDay: function(date) {
-        const dateString = $.datepicker.formatDate("yy-mm-dd", date);
-        if (validDatesWithIds[dateString]) {
-          return [true, "", ""];
-        } else {
-          return [false];
-        }
-      },
-      onSelect: function(dateText, inst) {
-        const selectedDate = dateText;
-        const selectedInfo = validDatesWithIds[selectedDate];
-        $('#ngayKH').html(selectedDate);
-        $('#soChoCon').html(selectedInfo[1]);
-        $('#btnDatTour').val(selectedInfo[0]);
-        console.log("Ngày đã chọn: " + selectedDate + ", ID: " + selectedInfo[0] + ", Số chỗ còn: " + selectedInfo[1]);
-      }
-    });
-  });
+  $("#giaTour").text(formatCurrency(number));
 
 
 
