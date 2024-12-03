@@ -35,18 +35,26 @@ public class Datchotour {
     @JoinColumn(name = "idToChucTour", nullable = false)
     private Tochuctour idToChucTour;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "sdtKhachHang", nullable = false)
     private Khachhang sdtKhachHang;
+
+    @Column(name = "email", nullable = false, length = 100)
+    private String email;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idKhuyenMai")
     private Khuyenmai idKhuyenMai;
+
+
 
     @Column(name = "status")
     private Boolean status;
 
     @OneToMany(mappedBy = "idDatCho")
     private Set<Huydatchotour> huydatchotours = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "idDatCho",cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Thongtinhanhkhach> thongtinhanhkhachs = new LinkedHashSet<>();
 
 }

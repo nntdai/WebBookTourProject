@@ -2,11 +2,12 @@ package com.example.WebBookTour.service;
 
 import com.example.WebBookTour.dto.DatchotourDto;
 import com.example.WebBookTour.entity.Datchotour;
-import com.example.WebBookTour.mapper.DatchotourMapper;
-import com.example.WebBookTour.mapper.KhachhangMapper;
-import com.example.WebBookTour.mapper.TochuctourMapper;
-import com.example.WebBookTour.mapper.TourdulichMapper;
+import com.example.WebBookTour.entity.Khachhang;
+import com.example.WebBookTour.entity.Tochuctour;
+import com.example.WebBookTour.mapper.*;
 import com.example.WebBookTour.repository.DatchotourRepository;
+import com.example.WebBookTour.repository.KhachhangRepository;
+import com.example.WebBookTour.repository.TochuctourRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,11 +15,18 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class datchotour_Service {
     @Autowired
     private final DatchotourRepository datchotourRepository;
+
+    @Autowired
+    private final KhachhangRepository khachhangRepository;
+    @Autowired
+    private TochuctourRepository tochuctourRepository;
 
     @Autowired
     private DatchotourMapper datchotourMapper;
@@ -31,6 +39,9 @@ public class datchotour_Service {
 
     @Autowired
     private KhachhangMapper khachhangMapper;
+    @Autowired
+    private ThongtinhanhkhachMapper thongtinhanhkhachMapper;
+
     public Page<DatchotourDto> getDatchotour(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Datchotour> ds = datchotourRepository.findAll(pageable);
@@ -51,6 +62,30 @@ public class datchotour_Service {
         tochuctourMapper.linkTourDuLich(datchotourDto.getIdToChucTour(),rs.getIdToChucTour(),tourdulichMapper);
         datchotourMapper.linkKhachHang(datchotourDto,rs,khachhangMapper);
         return datchotourDto;
+    }
+
+    public DatchotourDto addDatChoTour(DatchotourDto datchotourDto) {
+        Datchotour datchotour = datchotourMapper.toEntity(datchotourDto);
+        String soDienThoai = datchotour.getSdtKhachHang().getSoDienThoai();
+        Optional<Khachhang> existingKhachhang = khachhangRepository.findBySoDienThoai(soDienThoai);
+        Optional<Tochuctour> existingtoChucTour = tochuctourRepository.findById(datchotourDto.getIdToChucTour().getId());
+        if (existingtoChucTour.isPresent())
+        {
+            Tochuctour tochuctour = existingtoChucTour.get();
+            tochuctour.setSoChoCon(datchotourDto.getIdToChucTour().getSoChoCon());
+            tochuctourRepository.save(tochuctour);
+        }
+        if (existingKhachhang.isPresent()) {
+            datchotour.setSdtKhachHang(existingKhachhang.get());
+        } else {
+            Khachhang newKhachhang = datchotour.getSdtKhachHang();
+            newKhachhang.setDiemTichLuy(0);
+            khachhangRepository.save(newKhachhang);
+            datchotour.setSdtKhachHang(newKhachhang);
+        }
+        thongtinhanhkhachMapper.linkDatChoTour(datchotour);
+        Datchotour savedDatchotour = datchotourRepository.save(datchotour);
+        return datchotourMapper.toDto(savedDatchotour);
     }
 //    public Page<DatchotourDto> getSearchDatchotour(int page, int size, String value) {
 //        Pageable pageable = PageRequest.of(page, size);

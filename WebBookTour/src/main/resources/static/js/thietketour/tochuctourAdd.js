@@ -6,7 +6,7 @@ $(document).ready(function() {
     $(document).on('click','.tochucpage',function ()
     {
         $('#btnAddToChucTour').prop('disabled', true);
-        console.log(hi);
+
         var idTour=$("#btnAddToChucTour").attr('data-id');
         const pageSelected = $(this).data('page');
         const pagePresent =$('.page-item.active').data('page');
@@ -43,7 +43,7 @@ $(document).ready(function() {
     });
 
     $(document).on('click','#btnAddToChucTour',function(){
-        console.log('hi');
+
         var ngayKH = $("#ngayKH").val();
         var ngayVe = $("#ngayVe").val();
         var soLuong =$("#soLuong").val();
