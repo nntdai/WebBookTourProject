@@ -11,6 +11,7 @@ import java.util.List;
 
 @Repository
 public interface DatchotourRepository extends JpaRepository<Datchotour, Integer> {
+
     @Query(value = "SELECT d.* "
     + "FROM datchotour d "
     + "LEFT JOIN tochuctour t ON d.idToChucTour = t.id "

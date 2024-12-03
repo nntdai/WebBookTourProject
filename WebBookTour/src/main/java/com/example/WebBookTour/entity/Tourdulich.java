@@ -46,8 +46,6 @@ public class Tourdulich {
     @OneToMany(mappedBy = "idTour",cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Chitietlichtrinh> chitietlichtrinhs = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "idDatCho")
-    private Set<Thongtinhanhkhach> thongtinhanhkhaches = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "idTourDuLich")
     private Set<Tochuctour> tochuctours = new LinkedHashSet<>();

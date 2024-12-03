@@ -1,11 +1,9 @@
 package com.example.WebBookTour.controller;
 
-import com.example.WebBookTour.dto.ChitietlichtrinhDto;
-import com.example.WebBookTour.dto.TochuctourDto;
-import com.example.WebBookTour.dto.TourdulichDto;
-import com.example.WebBookTour.dto.VungmienDto;
+import com.example.WebBookTour.dto.*;
 import com.example.WebBookTour.entity.Tourdulich;
 import com.example.WebBookTour.entity.Vungmien;
+import com.example.WebBookTour.service.NhomtuoiService;
 import com.example.WebBookTour.service.ThietketourService;
 import com.example.WebBookTour.service.TochuctourService;
 import com.example.WebBookTour.service.VungmienService;
@@ -32,6 +30,9 @@ public class RouteController {
     private ThietketourService thietketourService;
     @Autowired
     private TochuctourService tochuctourService;
+
+    @Autowired
+    private NhomtuoiService nhomtuoiService;
 
     @GetMapping
     public String getHomePage(Model model)
@@ -110,8 +111,10 @@ public class RouteController {
         {
             List<VungmienDto> vungmienDtos = vungmienService.getAllVungMien();
             TochuctourDto tochuctourDto = tochuctourService.getToChucTourById(id);
+            List<NhomtuoiDto> nhomtuoiDtos = nhomtuoiService.getAllNhomTuoi();
             model.addAttribute("var","client/datTour");
             model.addAttribute("tochuctourDto",tochuctourDto);
+            model.addAttribute("nhomtuoiDtos",nhomtuoiDtos);
             model.addAttribute("vungmienDtos", vungmienDtos);
             return "client/homepage";
         }
