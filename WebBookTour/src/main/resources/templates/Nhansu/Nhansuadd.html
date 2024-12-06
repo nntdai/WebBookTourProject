@@ -1,0 +1,53 @@
+<div class="modal fade" id="ViewNSModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Thông tin nhân viên</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-target="#ViewModal" aria-label="Close"></button>
+            </div>
+            <form method="get">
+                <div class="modal-body">
+                    <div style="margin-bottom: 10px; margin-right: 10px; float: left; width: 28%">
+                        <img id="previewImage" th:value="" class="img-thumbnail" style="width: 100%; height: 250px">
+                    </div>
+                    <div style="float: right; width: 70%">
+                        <div class="input-group mb-3" style="width: 100%">
+                            <span class="input-group-text" style="width: 160px">Mã nhân sự</span>
+                            <input type="text" id="ma_ns" th:value="" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
+                        </div>
+                        <div class="input-group mb-3" style="width: 100%">
+                            <label class="input-group-text" for="inputGroupFile02">Chọn hình ảnh</label>
+                            <input type="file" class="form-control" id="inputGroupFile02" th:value="" onchange="changePic()" style="opacity: 0; position: absolute;">
+                            <input type="text" id="img_ns" th:value="" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" disabled>
+                        </div>
+                        <div class="input-group mb-3" style="width: 100%">
+                            <span class="input-group-text" style="width: 160px">Tên</span>
+                            <input type="text" id="ten_ns" th:value="" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" >
+                        </div>
+                        <div class="input-group mb-3" style="width: 100%">
+                            <span class="input-group-text" style="width: 160px">Địa chỉ</span>
+                            <input type="text" id="dc_ns" th:value="" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        <div class="input-group mb-3" style="width: 100%">
+                            <span class="input-group-text" style="width: 160px">CMND</span>
+                            <input type="text" id="cmnd_ns" th:value="" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        <div class="input-group mb-3" style="width: 100%">
+                            <span class="input-group-text" style="width: 160px">Số điện thoại</span>
+                            <input type="text" id="sdt_ns" th:value="" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        <div class="input-group mb-3" style="width: 100%">
+                            <span class="input-group-text" style="width: 160px">Email</span>
+                            <input type="text" id="email_ns" th:value="" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="width: 100%">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-target="#editModalLocation">Đóng</button>
+                    <button id="btnEditNhansu" type="button" class="btn btn-primary" th:data-id="" onclick="">Thêm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/Nhansu/nhansuedit.js}"></script>

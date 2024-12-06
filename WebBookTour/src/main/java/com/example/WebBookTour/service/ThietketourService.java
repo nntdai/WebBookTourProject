@@ -71,5 +71,9 @@ public class ThietketourService {
         return tourdulichDto;
     }
 
+    public List<Tourdulich> getAllEntityTourDulich() {
+        return tourdulichRepository.findAll();
+    }
+
 
 }

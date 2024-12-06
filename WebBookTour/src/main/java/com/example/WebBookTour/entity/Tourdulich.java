@@ -12,7 +12,6 @@ import java.util.Set;
 
 @Getter
 @Setter
-@JsonIgnoreProperties({"diaDiemKH","diaDiemThamQuan","chitietlichtrinhs","thongtinhanhkhaches","tochuctours"})
 @Entity
 @Table(name = "tourdulich")
 public class Tourdulich {

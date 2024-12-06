@@ -64,6 +64,10 @@ public class TourDuLichRestcontroller {
 
         return thietketourService.getAllTourDuLich();
     }
+    @GetMapping("/getEntity")
+    public List<Tourdulich> getTourDuLichEntity() {
+        return thietketourService.getAllEntityTourDulich();
+    }
 
     @GetMapping("/getpage")
     public Page<TourdulichDto> getTourDuLich() {

@@ -51,14 +51,39 @@ public class datchotour_Service {
         datchotourMapper.linkKhachHang(datchotourDto,rs,khachhangMapper);
         return datchotourDto;
     }
-//    public Page<DatchotourDto> getSearchDatchotour(int page, int size, String value) {
-//        Pageable pageable = PageRequest.of(page, size);
-//        Page<Datchotour> ds=datchotourRepository.searchDatchoTourByKeyword(value, pageable);
-//        Page<DatchotourDto> datchotourDtos = ds.map(datchotour -> datchotourMapper.toDto(datchotour));
-//        if(datchotourDtos == null){
-//            System.out.println("Không có dữ liệu");
-//        }
-//        System.out.println("Có dữ liệu");
-//        return datchotourDtos;
-//    }
+    public Page<DatchotourDto> getSearchDatchotour(int page, int size, String value) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Datchotour> ds=datchotourRepository.searchDatchoTourByKeyword(value, pageable);
+        Page<DatchotourDto> datchotourDTOPage = ds.map(datchotour ->
+        {
+            DatchotourDto datchotourDto =datchotourMapper.toDto(datchotour);
+            datchotourMapper.linkToChucTour(datchotourDto,datchotour,tochuctourMapper);
+            tochuctourMapper.linkTourDuLich(datchotourDto.getIdToChucTour(),datchotour.getIdToChucTour(),tourdulichMapper);
+            datchotourMapper.linkKhachHang(datchotourDto,datchotour,khachhangMapper);
+            return datchotourDto;
+        });
+        if(datchotourDTOPage == null){
+            System.out.println("Không có dữ liệu");
+        }
+        System.out.println("Có dữ liệu");
+        return datchotourDTOPage;
+    }
+    public Page<DatchotourDto> getFilterDatchotour(int page, int size, String matour, String tourdl, String sdt) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Datchotour> ds=datchotourRepository.searchDatchoTour(matour, sdt, tourdl, pageable);
+        Page<DatchotourDto> datchotourDTOPage = ds.map(datchotour ->
+        {
+            DatchotourDto datchotourDto =datchotourMapper.toDto(datchotour);
+            datchotourMapper.linkToChucTour(datchotourDto,datchotour,tochuctourMapper);
+            tochuctourMapper.linkTourDuLich(datchotourDto.getIdToChucTour(),datchotour.getIdToChucTour(),tourdulichMapper);
+            datchotourMapper.linkKhachHang(datchotourDto,datchotour,khachhangMapper);
+            return datchotourDto;
+        });
+        if(datchotourDTOPage == null){
+            System.out.println("Không có dữ liệu");
+        }
+        System.out.println("Có dữ liệu");
+        return datchotourDTOPage;
+    }
+
 }

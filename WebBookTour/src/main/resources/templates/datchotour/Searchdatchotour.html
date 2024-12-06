@@ -1,0 +1,75 @@
+<div class="modal fade" id="SearchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Lọc</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-target="#ViewModal" aria-label="Close"></button>
+            </div>
+            <form method="get">
+                <!--/*@thymesVar id="datchotour" type="com.example.WebBookTour.dto.DatchotourDto"*/-->
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" style="width: 140px">Mã đặt tour</span>
+                        <input type="text" id="madattour" value="" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+<!--                    <div class="input-group mb-3">-->
+<!--                        <span class="input-group-text spanCustom" style="width: 140px">Ngày khởi hành </span>-->
+<!--                        <input class="form-control" type="datetime-local" value="" id="ngayDC" name="ngayDC">-->
+<!--                    </div>-->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"  style="width: 140px">Tour du lịch</span>
+                        <select class="form-select" id="tourdl" name="tourdl" >
+                            <option value="0">Chọn</option>
+                            <option th:each="tochuctour : ${dsTochuctour}"
+                                    th:value="${tochuctour.getId()}"
+                                    th:text="${tochuctour.getIdTourDuLich().getTen()}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Số điện thoại khách hàng</span>
+                        <select class="form-select" id="sdtKH" name="sdtKH" >
+                            <option value="0">Chọn</option>
+                            <option th:each="kh : ${dsKhachhang}"
+                                    th:value="${kh.getSoDienThoai()}"
+                                    th:text="${kh.getSoDienThoai()}">
+                            </option>
+                        </select>
+                    </div>
+<!--                    <div class="input-group mb-3">-->
+<!--                        <span class="input-group-text"  style="width: 140px">Mã khuyến mãi</span>-->
+<!--                        <select class="form-select" id="makhuyenmai" name="makhuyenmai" >-->
+<!--                            <option value="-1">Chọn</option>-->
+<!--                            <option value="0">Không có mã khuyến mãi</option>-->
+<!--                            <option th:each="maKM : ${dsKhuyenmai}"-->
+<!--                                    th:value="${maKM.getId()}"-->
+<!--                                    th:text="${maKM.getTen()}">-->
+<!--                            </option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" id="Acceptbtn" data-bs-dismiss="modal">Xác nhận</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+
+    document.getElementById('ngayDC').addEventListener('change', function() {
+        var ngayKH = new Date(this.value);
+        var daysToAdd = parseInt(document.getElementById('ngayDC').getAttribute('data-id'));
+    });
+    $('.form-select').select2({
+        placeholder: 'Select an option',
+        dropdownParent: '#SearchModal',
+        theme: 'bootstrap-5'
+
+    });
+    var today = new Date();
+    today.setDate(today.getDate() + 3);
+    var minDate = today.toISOString().slice(0, 16);
+    document.getElementById('ngayDC').setAttribute('min', minDate);
+</script>
