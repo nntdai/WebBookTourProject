@@ -14,7 +14,7 @@ public class ClientRestcontroller {
     @Autowired
     private datchotour_Service datchotour_service;
     @PostMapping("/add")
-    public DatchotourDto addDatchotour(@RequestBody DatchotourDto datchotourDto) {
-        return datchotour_service.addDatChoTour(datchotourDto);
+    public Integer addDatchotour(@RequestBody DatchotourDto datchotourDto) {
+        return datchotour_service.addDatChoTour(datchotourDto).getId();
     }
 }

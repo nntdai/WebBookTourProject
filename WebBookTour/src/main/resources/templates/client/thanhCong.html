@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Success</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<div class="container text-center mt-5">
+  <div class="alert" role="alert">
+    <i class="fa-solid fa-circle-check fa-3x text-success mb-3"></i>
+    <h1 class="alert-heading" style="color: #0d6aad">Đặt Chỗ Tour Thành Công</h1>
+    <p>Cảm ơn bạn đã đặt chỗ tour tại hệ thống của chúng tôi !.</p>
+    <p>Mã đặt tour của bạn là:</p>
+    <h1 class="text-danger" th:text="${idDatCho}"></h1>
+    <p class="mb-0">Mã đặt tour này dùng để tra cứu thông tin đặt tour  .</p>
+    <hr>
+    <a href="/" class="btn btn-primary mt-3">Quay lại trang chủ</a>
+  </div>
+
+</div>
+<script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

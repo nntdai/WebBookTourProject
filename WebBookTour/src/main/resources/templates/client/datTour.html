@@ -4,8 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" th:href="@{/css/blue.css}">
   <title>Thông tin Tour</title>
   <style>
+    .icheckbox_flat-blue, .iradio_flat-blue {
+      top:-2px;
+      margin-right:5px;
+    }
+    .txtGray {color:#798594;}
     .alertError
     {
       font-size: medium;
@@ -344,6 +350,22 @@
 
       </div>
     </div>
+
+    <div class="passenger-details">
+      <h3>Vui lòng chọn hình thức thanh toán:</h3>
+      <div class="mb-1">
+        <label><input type="radio" name="iCheck" class="hinhThucThanhToan iradio_flat-blue"> Ví Zalopay <img src="/images/logo-zalopay.svg" alt=""></label>
+      </div>
+      <div class="mb-1">
+        <label><input type="radio" name="iCheck" class="hinhThucThanhToan iradio_flat-blue"> Visa, Mastercard, JCB <span class="txtGray">(qua cổng ZaloPay)</span></label>
+      </div>
+      <div class="mb-1">
+        <label><input type="radio" name="iCheck" class="hinhThucThanhToan iradio_flat-blue" checked> Thẻ ATM <span class="txtGray">(qua cổng ZaloPay)</span></label>
+      </div>
+
+
+
+    </div>
   </div>
 
   <!-- Bố cục phụ (Right Sidebar) -->
@@ -378,7 +400,20 @@
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-input-spinner@3.1.6/src/bootstrap-input-spinner.min.js"></script>
+<script src="/js/icheck.min.js"></script>
 <script th:inline="javascript">
+  $("#adults").inputSpinner({
+    buttonsOnly: true
+  });
+
+  $("#children").inputSpinner({
+    buttonsOnly: true
+  });
+    $('.hinhThucThanhToan').iCheck({
+      checkboxClass: 'icheckbox_flat-blue',
+      radioClass: 'iradio_flat-blue'
+    });
+
   function formatCurrency(number) {
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(number);
   }
@@ -386,13 +421,7 @@
 
   const number = parseFloat($("#giaTour").attr('data-number'));
   $("#giaTour").text(formatCurrency(number));
-    $("#adults").inputSpinner({
-      buttonsOnly: true
-    });
 
-    $("#children").inputSpinner({
-      buttonsOnly: true
-    });
 
     const giaVe =[[${tochuctourDto.idTourDuLich.giaTour}]];
     const giaVeTreEm =giaVe * [[${nhomtuoiDtos[1].phanTram}]] / 100 ;

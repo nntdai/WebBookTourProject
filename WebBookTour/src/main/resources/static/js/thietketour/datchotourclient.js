@@ -1,6 +1,30 @@
 $(document).ready(function()
 {
+    function checkPaymentStatus(apptransid) {
+        if (!apptransid) {
+            alert("Không tìm thấy apptransid. Vui lòng thử lại.");
+            return;
+        }
 
+        $.ajax({
+            url: "/api/zalopay/check-status",
+            method: "GET",
+            data: { apptransid: apptransid },
+            success: function (response) {
+                const status = JSON.parse(response).returncode;
+                console.log("apptransid"+apptransid);
+                console.log("Status ="  + status) ;
+                if (status === 1) {
+
+                } else {
+                    alert("Thanh toán chưa hoàn thành, vui lòng thử lại.");
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Lỗi khi kiểm tra trạng thái thanh toán: ", xhr.responseText);
+            }
+        });
+    }
     var varHoTen = "hoTen";       // các quy tắc đặt tên của thông tin khách hàng
     var gioiTinh ="gioiTinh";
     var ngaySinhDom = "ngaySinh";
@@ -168,19 +192,54 @@ $(document).ready(function()
         }
         console.log(datTourDto);
             $.ajax({
-                url: '/api/user/datchotour/add',
+                url: '/api/zalopay/create-order',
                 type: 'POST',
-                data: JSON.stringify(datTourDto),
-                contentType: 'application/json',
-                success: function(response) {
-                    alertSucess("Thêm tour thành công ! " + response);
+                data: JSON.stringify(datTourDto), // Gửi dữ liệu DTO
+                contentType: 'application/json', // Cấu hình đúng định dạng dữ liệu
+                success: function(data) {
 
+                    const apptransid = data.apptransid;
 
+                    // Lưu apptransid vào Session Storage hoặc biến toàn cục
+
+                    window.location.href= data.orderurl;
+                    // checkPaymentStatus();
                 },
                 error: function(xhr, status, error) {
                     console.error("AJAX error: " + error);
                 }
             });
+
+            // $.ajax({
+            //     url: '/api/user/datchotour/add',
+            //     type: 'POST',
+            //     data: JSON.stringify(datTourDto),
+            //     contentType: 'application/json',
+            //     success: function(response) {
+            //         $.ajax({
+            //             url: '/api/email/send',
+            //             type: 'POST',
+            //             data: {
+            //                 email: email,
+            //                 bookingCode: response
+            //             },
+            //             success: function(data) {
+            //                 console.log("Email đã được gửi thành công.");
+            //             },
+            //             error: function(xhr, status, error) {
+            //                 console.error("AJAX error: " + error);
+            //             }
+            //         });
+            //         window.location.replace("/success/"+response);
+            //
+            //
+            //
+            //     },
+            //     error: function(xhr, status, error) {
+            //         console.error("AJAX error: " + error);
+            //     },
+            //
+            // });
 
 
     }

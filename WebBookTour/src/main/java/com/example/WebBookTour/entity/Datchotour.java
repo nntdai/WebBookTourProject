@@ -35,7 +35,7 @@ public class Datchotour {
     @JoinColumn(name = "idToChucTour", nullable = false)
     private Tochuctour idToChucTour;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sdtKhachHang", nullable = false)
     private Khachhang sdtKhachHang;
 
