@@ -1,18 +1,19 @@
 package com.example.WebBookTour.controller;
 
+import com.example.WebBookTour.API.Zalopay.ZaloPayService;
 import com.example.WebBookTour.dto.*;
 import com.example.WebBookTour.entity.Tourdulich;
 import com.example.WebBookTour.entity.Vungmien;
-import com.example.WebBookTour.service.NhomtuoiService;
-import com.example.WebBookTour.service.ThietketourService;
-import com.example.WebBookTour.service.TochuctourService;
-import com.example.WebBookTour.service.VungmienService;
+import com.example.WebBookTour.service.*;
+import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -30,9 +31,17 @@ public class RouteController {
     private ThietketourService thietketourService;
     @Autowired
     private TochuctourService tochuctourService;
+    @Autowired
+    private datchotour_Service datchotour_service;
 
     @Autowired
     private NhomtuoiService nhomtuoiService;
+
+    @Autowired
+    private ZaloPayService zaloPayService;
+
+    @Autowired
+    private EmailService emailService;
 
     @GetMapping
     public String getHomePage(Model model)
@@ -70,7 +79,42 @@ public class RouteController {
         model.addAttribute("var","client/listToChucTour");
         return "client/homepage";
     }
+    @GetMapping("/success")
+    public String datTourThanhCong(Model model,@RequestParam String apptransid,HttpSession session) throws MessagingException {
+        DatchotourDto datTourDto = (DatchotourDto) session.getAttribute("datTourDto");
+        System.out.println(datTourDto);
 
+        int status = 0;
+        try {
+            status = zaloPayService.checkPaymentStatus(apptransid);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        if (status == 1) {
+            // Thanh toán thành công
+            int id = datchotour_service.addDatChoTour(datTourDto).getId();
+            Map<String, Object> templateModel = new HashMap<>();
+
+            templateModel.put("bookingCode", id);
+
+            emailService.sendEmail(datTourDto.getEmail(), "Xác nhận đặt tour", templateModel);
+            model.addAttribute("idDatCho", id);
+            model.addAttribute("var", "client/thanhCong");
+            return "client/homepage"; // Trả về trang thành công
+        } else {
+            // Thanh toán thất bại
+            model.addAttribute("message", "Thanh toán không thành công. Vui lòng thử lại!");
+            model.addAttribute("var", "client/error");
+
+        }
+        return "client/homepage";
+    }
+//    @GetMapping("/checkTrangThai")
+//    public String datTourThanhCong(@RequestParam String apptransid, Model model) throws Exception {
+//        // Gọi API ZaloPay để kiểm tra trạng thái giao dịch
+//
+//    }
     @GetMapping("/tour/{id}")
     public String xemThongTinTour(Model model, @PathVariable int id)
     {
