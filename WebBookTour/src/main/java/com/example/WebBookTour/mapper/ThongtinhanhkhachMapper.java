@@ -7,16 +7,18 @@ import com.example.WebBookTour.entity.Tochuctour;
 import com.example.WebBookTour.entity.Tourdulich;
 import org.mapstruct.*;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)public interface ThongtinhanhkhachMapper {
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
+public interface ThongtinhanhkhachMapper {
 
     @AfterMapping
     default void linkDatChoTour(@MappingTarget Datchotour datchotour) {
         datchotour.getThongtinhanhkhachs().forEach(thongtin -> thongtin.setIdDatCho(datchotour));
     }
-
+    @Mapping(target = "idDatCho", ignore = true)
     Thongtinhanhkhach toEntity(ThongtinhanhkhachDto thongtinhanhkhachDto);
-
+    @Mapping(target = "idDatCho", ignore = true)
     ThongtinhanhkhachDto toDto(Thongtinhanhkhach thongtinhanhkhach);
 
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)Thongtinhanhkhach partialUpdate(ThongtinhanhkhachDto thongtinhanhkhachDto, @MappingTarget Thongtinhanhkhach thongtinhanhkhach);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    Thongtinhanhkhach partialUpdate(ThongtinhanhkhachDto thongtinhanhkhachDto, @MappingTarget Thongtinhanhkhach thongtinhanhkhach);
 }

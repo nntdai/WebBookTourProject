@@ -29,10 +29,6 @@
         gap: 15px;
     }
 
-
-
-
-
     .tour-item {
         display: flex;
         flex-direction: row;
@@ -69,13 +65,14 @@
 
     .tour-item-price {
         margin-top: 10px;
-        color: #004080;
+        color: #800000;
         font-weight: bold;
+        font-size: 22px;
     }
 
     .tour-item-time,
     .tour-item-location {
-        font-size: 12px;
+        font-size: 14px;
         margin-top: 5px;
         color: #666;
     }
@@ -153,7 +150,7 @@
 
 
                 <!-- Thêm thời gian đi và ngày khởi hành -->
-                <div class="tour-item-time" th:text="'Thời gian:' + ${tour.getThoiGian()}"></div>
+                <div class="tour-item-time" th:text="'Thời gian : ' + ${tour.getThoiGian()}"></div>
                 <div class="tour-item-location" th:text="'Phương tiện di chuyển :  ' + ${tour.getPhuongTienDiChuyen()}"></div>
                 <div class="tour-item-price" th:data-number="${tour.getGiaTour()}"></div>
                 <!-- Danh sách ngày khởi hành với thanh cuộn ngang -->

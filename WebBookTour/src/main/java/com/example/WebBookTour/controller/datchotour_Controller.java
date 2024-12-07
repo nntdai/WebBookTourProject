@@ -1,13 +1,8 @@
 package com.example.WebBookTour.controller;
 
-import com.example.WebBookTour.dto.DatchotourDto;
-import com.example.WebBookTour.dto.KhachhangDto;
-import com.example.WebBookTour.dto.KhuyenmaiDto;
-import com.example.WebBookTour.dto.TochuctourDto;
-import com.example.WebBookTour.service.Khachhang_Service;
-import com.example.WebBookTour.service.Khuyenmai_Service;
-import com.example.WebBookTour.service.Tochuctour_Service;
-import com.example.WebBookTour.service.datchotour_Service;
+import com.example.WebBookTour.dto.*;
+import com.example.WebBookTour.model.tourdulichDTO;
+import com.example.WebBookTour.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -29,10 +24,16 @@ public class datchotour_Controller {
     @Autowired
     Khuyenmai_Service khuyenmai_service;
     @Autowired
+    tourdulichService tourdulichService;
+    @Autowired
+    ThongtinhanhkhachService thongtinhanhkhachService;
+    @Autowired
     Khachhang_Service khachhang_service;
     private List<TochuctourDto> dsTochuctour;
     private List<KhachhangDto> dsKhachhang;
     private List<KhuyenmaiDto> dsKhuyenmai;
+    private List<TourdulichDto> dsTourdulich;
+    private List<ThongtinhanhkhachDto> dsThongtinhanhkhach;
     @GetMapping
     public String datchotourPage(Model model) {
         Page<DatchotourDto> dsDatchotour = datchotour_service.getDatchotour(0, 10);
@@ -86,12 +87,14 @@ public class datchotour_Controller {
         dsTochuctour=tochuctour_service.getAllTochuctour();
         dsKhachhang=khachhang_service.getAllKhachhang();
         dsKhuyenmai=khuyenmai_service.getAllKhuyenmai();
+        dsTourdulich=tourdulichService.getAllTourdulich();
         if(dsTochuctour == null){
             System.out.println("dsTochuctour is null");
         }
         System.out.println("dsTochuctour not null");
         System.out.println(dsTochuctour.get(0).getIdTourDuLich().getTen());
         model.addAttribute("dsTochuctour", dsTochuctour);
+        model.addAttribute("dsTourdulich", dsTourdulich);
         model.addAttribute("dsKhachhang",dsKhachhang);
         model.addAttribute("dsKhuyenmai",dsKhuyenmai);
         return "datchotour/Searchdatchotour";

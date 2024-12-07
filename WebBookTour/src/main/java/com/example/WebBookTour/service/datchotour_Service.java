@@ -62,6 +62,7 @@ public class datchotour_Service {
         datchotourMapper.linkToChucTour(datchotourDto,rs,tochuctourMapper);
         tochuctourMapper.linkTourDuLich(datchotourDto.getIdToChucTour(),rs.getIdToChucTour(),tourdulichMapper);
         datchotourMapper.linkKhachHang(datchotourDto,rs,khachhangMapper);
+        datchotourMapper.linkThongtinkhachhang(datchotourDto, rs, thongtinhanhkhachMapper);
         return datchotourDto;
     }
 

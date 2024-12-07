@@ -49,14 +49,14 @@ public interface DatchotourRepository extends JpaRepository<Datchotour, Integer>
             + "WHERE "
             + "(d.id LIKE %:matour% OR :matour is null) AND "
             + "(d.sdtKhachHang LIKE %:sdt% OR :sdt is null) AND  "
-            + "(t.id LIKE %:tourdl% OR :tourdl is null) ", countQuery = "SELECT COUNT(*) FROM datchotour d "
+            + "(td.id LIKE %:tourdl% OR :tourdl is null) ", countQuery = "SELECT COUNT(*) FROM datchotour d "
             + "LEFT JOIN tochuctour t ON d.idToChucTour = t.id "
             + "LEFT JOIN tourdulich td ON t.idTourDuLich = td.id "
             + "LEFT JOIN khuyenmai km ON d.idKhuyenMai = km.id "
             + "LEFT JOIN khachhang k ON d.sdtKhachHang = k.soDienThoai "
             + "WHERE (d.id LIKE %:matour% OR :matour is null) AND "
             + "(d.sdtKhachHang LIKE %:sdt% OR :sdt is null) AND  "
-            + "(t.id LIKE %:tourdl% OR :tourdl is null) ",nativeQuery = true)
+            + "(td.id LIKE %:tourdl% OR :tourdl is null) ",nativeQuery = true)
     Page<Datchotour> searchDatchoTour(@Param("matour") String matour,
                                       @Param("sdt") String sdt,
                                       @Param("tourdl") String tourdl,

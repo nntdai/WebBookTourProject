@@ -21,7 +21,7 @@
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #dddddd;
+            background-color: #fff;
             color: #333;
         }
 
@@ -29,7 +29,7 @@
             display: flex;
             justify-content: space-between;
             padding: 20px;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -37,7 +37,7 @@
             flex: 3;
             padding-right: 20px;
             background-color: #fff;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);*/
             border-radius: 8px;
         }
 
@@ -59,8 +59,9 @@
         }
 
         .main-image img {
-            width: 450px;
-            height: 300px;
+            margin-left: 20px;
+            width: 800px;
+            height: 400px;
             object-fit: cover;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
@@ -70,14 +71,14 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            max-height: 300px; /* Giới hạn chiều cao của phần hình ảnh thu nhỏ */
+            max-height: 400px; /* Giới hạn chiều cao của phần hình ảnh thu nhỏ */
             overflow-y: scroll; /* Thêm thanh cuộn dọc luôn hiển thị khi cần */
             padding-right: 10px; /* Thêm khoảng cách cho thanh cuộn */
         }
 
         .image-thumbnails img {
-            width: 100px;
-            height: 100px;
+            width: 150px;
+            height: 150px;
             object-fit: cover;
             border-radius: 8px;
             cursor: pointer;
@@ -103,7 +104,7 @@
         }
 
         .itinerary {
-            margin-top: 40px;
+            margin: 40px 0px 20px 20px;
             padding: 20px;
             background-color: #fff;
             border-radius: 8px;
@@ -136,7 +137,7 @@
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);*/
             font-size: 1.1rem;
             color: #34495e;
 
@@ -164,7 +165,7 @@
             background-color: #1c294e;
         }
         .tour-date-picker {
-            margin-top: 20px;
+            margin: 20px 0px 20px 20px;
             background-color: #fff;
             padding: 15px;
             border-radius: 8px;
@@ -265,12 +266,12 @@
     <div class="sidebar">
         <div class="tour-info">
             <!--/*@thymesVar id="tourDulich" type="com.example.WebBookTour.dto.TourdulichDto"*/-->
-            <div id="giaTour" th:data-number="${tourDulich.getGiaTour()}">Giá:    <div id="giaTourDisplay"></div></div>
-            <div>Mã Tour:    [[${tourDulich.getId()}]]</div>
-            <div>Khởi hành:   [[${tourDulich.getDiaDiemKH().getTen()}]]</div>
-            <div>Thời gian:    [[${tourDulich.getThoiGian()}]]</div>
-            <div>Ngày Khởi hành:   <div id="ngayKH"></div></div>
-            <div>Số chỗ còn:    <div id="soChoCon"></div></div>
+            <div id="giaTour" th:data-number="${tourDulich.getGiaTour()}">Giá tour :    <div id="giaTourDisplay"></div></div>
+            <div>Mã Tour :    [[${tourDulich.getId()}]]</div>
+            <div>Khởi hành :   [[${tourDulich.getDiaDiemKH().getTen()}]]</div>
+            <div>Thời gian :    [[${tourDulich.getThoiGian()}]]</div>
+            <div>Ngày Khởi hành :   <div id="ngayKH"></div></div>
+            <div>Số chỗ còn :    <div id="soChoCon"></div></div>
             <button class="btn btn-primary btn-book " id="btnDatTour" onclick="bookTour(this)">Đặt Tour</button>
         </div>
     </div>

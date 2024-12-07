@@ -44,9 +44,9 @@ $(document).ready(function(){
             });
         }
     });
-    $(document).on('hidden.bs.modal', '#ViewModal', function () {
-        $('#modalContainer').html('');
-    });
+    // $(document).on('hidden.bs.modal', '#ViewModal', function () {
+    //     $('#modalContainer').html('');
+    // });
     $(document).on('click', '#btnSearch', function (){
         const value=$('#Search_text').val();
         alert(value);
@@ -134,5 +134,13 @@ $(document).ready(function(){
                 console.error("Không thể tải nội dung modal:", error);
             }
         });
+    })
+    $(document).on('click', '#detailbtn', function (){
+        $('#ViewModal').modal('hide');
+        $('#ChiTietModal').modal('show');
+    });
+    $(document).on('click', '#Backbtn', function (){
+        $('#ChiTietModal').modal('hide');
+        $('#ViewModal').modal('show');
     })
 })

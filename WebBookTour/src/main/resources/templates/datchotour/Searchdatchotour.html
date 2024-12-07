@@ -20,9 +20,9 @@
                         <span class="input-group-text"  style="width: 140px">Tour du lịch</span>
                         <select class="form-select" id="tourdl" name="tourdl" >
                             <option value="0">Chọn</option>
-                            <option th:each="tochuctour : ${dsTochuctour}"
-                                    th:value="${tochuctour.getId()}"
-                                    th:text="${tochuctour.getIdTourDuLich().getTen()}">
+                            <option th:each="tourdulich : ${dsTourdulich}"
+                                    th:value="${tourdulich.getId()}"
+                                    th:text="${tourdulich.getTen()}">
                             </option>
                         </select>
                     </div>
@@ -58,18 +58,17 @@
 </div>
 <script>
 
-    document.getElementById('ngayDC').addEventListener('change', function() {
-        var ngayKH = new Date(this.value);
-        var daysToAdd = parseInt(document.getElementById('ngayDC').getAttribute('data-id'));
-    });
+    // document.getElementById('ngayDC').addEventListener('change', function() {
+    //     var ngayKH = new Date(this.value);
+    //     var daysToAdd = parseInt(document.getElementById('ngayDC').getAttribute('data-id'));
+    // });
     $('.form-select').select2({
         placeholder: 'Select an option',
         dropdownParent: '#SearchModal',
         theme: 'bootstrap-5'
-
     });
-    var today = new Date();
-    today.setDate(today.getDate() + 3);
-    var minDate = today.toISOString().slice(0, 16);
-    document.getElementById('ngayDC').setAttribute('min', minDate);
+    // var today = new Date();
+    // today.setDate(today.getDate() + 3);
+    // var minDate = today.toISOString().slice(0, 16);
+    // document.getElementById('ngayDC').setAttribute('min', minDate);
 </script>

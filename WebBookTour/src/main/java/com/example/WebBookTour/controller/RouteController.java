@@ -21,6 +21,8 @@ import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.lang.Integer.parseInt;
+
 @Controller
 @RequestMapping("/")
 public class RouteController {
@@ -162,5 +164,16 @@ public class RouteController {
             model.addAttribute("vungmienDtos", vungmienDtos);
             return "client/homepage";
         }
+    }
+    @GetMapping("/datchoSearch/{value}")
+    public String datchoSearch(Model model, @PathVariable String value) {
+        DatchotourDto rs=datchotour_service.getDatchotourDto(parseInt(value));
+        if (rs == null) {
+            throw new RuntimeException("Không tìm thấy dữ liệu với ID: " + value);
+        }
+        System.out.println("Đã tìm thấy đối tượng: " + rs);
+        model.addAttribute("datchotour",rs);
+        model.addAttribute("var","client/datchoSearch");
+        return "client/homepage";
     }
 }

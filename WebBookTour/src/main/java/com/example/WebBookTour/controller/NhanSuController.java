@@ -58,4 +58,8 @@ public class NhanSuController {
         model.addAttribute("nhansu", nhansuDto);
         return "Nhansu/Nhansuedit";
     }
+    @GetMapping("/add")
+    public String showAddLocationForm(Model model) {
+        return "Nhansu/Nhansuadd";
+    }
 }

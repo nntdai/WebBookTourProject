@@ -45,20 +45,19 @@ $(document).ready(function() {
         }
     });
     $(document).on('click', '#addButton', function () {
-        $('#AddNSModal').modal('show');
-        // if(!$('#ViewModal').hasClass('show')){
-        //     $.ajax({
-        //         url: '/admin/nhansu/add/',
-        //         type:'GET',
-        //         contentType: 'application/json',
-        //         success: function (respone){
-        //             $('#modalContainer').html(respone);
-        //             $('#AddNSModal').modal('show');
-        //         },
-        //         error: function (xhr, status, error){
-        //             console.error("Không thể tải nội dung modal:",error);
-        //         }
-        //     });
-        // }
+        if(!$('#ViewModal').hasClass('show')){
+            $.ajax({
+                url: '/admin/nhansu/add',
+                type:'GET',
+                contentType: 'application/json',
+                success: function (respone){
+                    $('#modalContainer').html(respone);
+                    $('#AddNSModal').modal('show');
+                },
+                error: function (xhr, status, error){
+                    console.error("Không thể tải nội dung modal:",error);
+                }
+            });
+        }
     });
 })

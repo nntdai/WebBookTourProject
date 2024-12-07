@@ -193,8 +193,8 @@
         <!--        </li>-->
       </ul>
       <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Mã đặt chỗ" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <input class="form-control me-2" type="search" placeholder="Mã đặt chỗ" id="searchdatcho" value="" aria-label="Search">
+        <button class="btn btn-outline-success" type="button" onclick="changePage(this)">Search</button>
       </form>
     </div>
   </div>
@@ -290,6 +290,12 @@
       alertSucess.classList.remove('show');
     }, 3000); // Thời gian hiển thị thông báo (3 giây)
   };
+    function changePage(button)
+    {
+      const value = document.getElementById("searchdatcho").value;
+      alert(value)
+      window.location.href="/datchoSearch/"+ value;
+    }
 </script>
 <!-- Page level plugins -->
 <!--    <script th:src="@{/vendor/chart.js/Chart.min.js}"></script>-->
