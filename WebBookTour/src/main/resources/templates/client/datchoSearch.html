@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+      color: #333;
+    }
+    .container {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .main-content {
+      flex: 3;
+      padding-right: 20px;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+    .main_text{
+      text-align: center;
+      font-size: 25px;
+      color: #34495e;
+    }
+    .more_content{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-evenly;
+      width: 100%;
+      margin: 10px;
+    }
+    .child_container{
+      width: 30%;
+      margin: 20px;
+      border-right: solid 0.5px #34495e;
+    }
+    .deltail_content{
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="main-content">
+    <div class="main_text">Thông tin đặt tour </div>
+    <!--/*@thymesVar id="datchotour" type="com.example.WebBookTour.dto.DatchotourDto"*/-->
+    <div style="margin: 30px"  th:text="'Tour đặt : ' + ${datchotour.getIdToChucTour().getIdTourDuLich().getTen()}"></div>
+    <div class="more_content">
+      <div class="child_container">
+        <div class="deltail_content" th:text="'Mã đặt tour : ' + ${datchotour.getId()}"></div>
+        <div class="deltail_content" th:text="'Khách đặt tour : ' + ${datchotour.getSdtKhachHang().getTen()}"></div>
+      </div>
+      <div class="child_container">
+        <div class="deltail_content" th:text="'Địa điểm khởi hành : ' + ${datchotour.getIdToChucTour().getIdTourDuLich().getDiaDiemKH().getTen()}"></div>
+        <div class="deltail_content" th:text="'Thời gian : ' + ${datchotour.getIdToChucTour().getIdTourDuLich().getThoiGian()}"></div>
+        <div class="deltail_content" th:text="'Phương tiện di chuyển : ' + ${datchotour.getIdToChucTour().getIdTourDuLich().getPhuongTienDiChuyen()}"></div>
+      </div>
+      <div class="child_container" style="border-right: none">
+        <div class="deltail_content" th:text="'Ngày đặt tour : ' + ${datchotour.getNgayDatCho()}"></div>
+        <div class="deltail_content" th:text="'Ngày khởi hành : ' + ${datchotour.getIdToChucTour().getNgayKH()}"></div>
+        <div class="deltail_content" th:text="'Ngày về : ' + ${datchotour.getIdToChucTour().getNgayVe()}"></div>
+      </div>
+    </div>
+    <div style="margin: 0px 30px 30px 30px ; width: 97%">
+      <label style="font-size: 16px">Danh sách hành khách</label>
+      <div id="tableThongTin">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+          <tr>
+            <th>STT</th>
+            <th>Tên</th>
+            <th>Giới tính</th>
+            <th>Ngày sinh</th>
+            <th>Nhóm tuổi</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="value, dem : ${datchotour.getThongtinhanhkhachs()}">
+            <th th:text="${dem.index+1}"></th>
+            <th th:text="${value.getTenHanhKhach()}"></th>
+            <th th:text="${value.getGioiTinh() == true ? 'Nam' : 'Nữ'}"></th>
+            <th th:text="${value.getNgaySinh()}"></th>
+            <th th:text="${value.getNhomTuoi().getTen()}"></th>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

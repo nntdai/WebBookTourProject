@@ -18,17 +18,17 @@
 <!--                    </div>-->
                     <div class="input-group mb-3">
                         <span class="input-group-text"  style="width: 140px">Tour du lịch</span>
-                        <select class="selectLocTour form-select" id="tourdl" name="tourdl" >
+                        <select class="form-select" id="tourdl" name="tourdl" >
                             <option value="0">Chọn</option>
-                            <option th:each="tochuctour : ${dsTochuctour}"
-                                    th:value="${tochuctour.getId()}"
-                                    th:text="${tochuctour.getIdTourDuLich().getTen()}">
+                            <option th:each="tourdulich : ${dsTourdulich}"
+                                    th:value="${tourdulich.getId()}"
+                                    th:text="${tourdulich.getTen()}">
                             </option>
                         </select>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text">Số điện thoại khách hàng</span>
-                        <select class="selectLocTour form-select" id="sdtKH" name="sdtKH" >
+                        <select class="form-select" id="sdtKH" name="sdtKH" >
                             <option value="0">Chọn</option>
                             <option th:each="kh : ${dsKhachhang}"
                                     th:value="${kh.getSoDienThoai()}"
@@ -58,17 +58,15 @@
 </div>
 <script>
 
-
-    $('.selectLocTour').select2({
-        placeholder: 'Select an option',
-        dropdownParent: '#SearchModal',
-        theme: 'bootstrap-5'
-
-    });
     // document.getElementById('ngayDC').addEventListener('change', function() {
     //     var ngayKH = new Date(this.value);
     //     var daysToAdd = parseInt(document.getElementById('ngayDC').getAttribute('data-id'));
     // });
+    $('.form-select').select2({
+        placeholder: 'Select an option',
+        dropdownParent: '#SearchModal',
+        theme: 'bootstrap-5'
+    });
     // var today = new Date();
     // today.setDate(today.getDate() + 3);
     // var minDate = today.toISOString().slice(0, 16);

@@ -1,6 +1,8 @@
 package com.example.WebBookTour.service;
 
+import com.example.WebBookTour.dto.TourdulichDto;
 import com.example.WebBookTour.entity.Tourdulich;
+import com.example.WebBookTour.mapper.TourdulichMapper;
 import com.example.WebBookTour.model.tourdulichDTO;
 import com.example.WebBookTour.repository.TourdulichRepository;
 import com.example.WebBookTour.repository.DiadiemRepository;
@@ -17,6 +19,9 @@ public class tourdulichService {
 
     @Autowired
     private DiadiemRepository ddRepository;
+
+    @Autowired
+    private TourdulichMapper tourdulichMapper;
 
 
     // Phương thức chuyển đổi từ Tourdulich sang tourdulichDTO
@@ -36,6 +41,9 @@ public class tourdulichService {
         return tourRepository.findAll().stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
+    }
+    public List<TourdulichDto> getAllTourdulich() {
+        return tourRepository.findAll().stream().map(tourdulichMapper::toDto).collect(Collectors.toList());
     }
 
     // Thêm một tour mới

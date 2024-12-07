@@ -1,9 +1,9 @@
-<div class="modal fade" id="ViewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+<div class="modal fade" id="ViewModal" aria-labelledby="exampleModalToggleLabel" aria-hidden="true"  tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Quản lý đặt tour</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-target="#ViewModal" aria-label="Close"></button>
+                <h2 class="modal-title fs-5" id="exampleModalToggleLabel">Quản lý đặt tour</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form method="get">
                 <!--/*@thymesVar id="datchotour" type="com.example.WebBookTour.dto.DatchotourDto"*/-->
@@ -41,11 +41,64 @@
                     <input type="text" id="makhuyenmai" th:value="${datchotour.getIdKhuyenMai() != null ? datchotour.getIdKhuyenMai().getTen() : 'Không dùng mã khuyến mãi'}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-target="#ViewModal" data-bs-dismiss="modal">Xác nhận</button>
-            </div>
             </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="detailbtn" data-bs-target="#ChiTietModal" data-bs-toggle="modal">Chi tiết hành khách</button>
+                <button class="btn btn-primary" data-bs-dismiss="modal">Xác nhận</button>
+            </div>
         </div>
     </div>
 </div>
+<div class="modal fade" id="ChiTietModal" tabindex="-1" aria-labelledby="exampleModalToggleLabel2" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Chi tiết hành khách</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="get">
+                <div class="modal-body">
+                    <div>
+                        <!--/*@thymesVar id="datchotour" type="com.example.WebBookTour.dto.DatchotourDto"*/-->
+                        <div class="input-group mb-3" style="width: 35%; float: left; margin-right: 10px">
+                            <span class="input-group-text">Mã đặt tour</span>
+                            <input type="text" id="madattour1" th:value="${datchotour.getId()}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
+                        </div>
+                        <div class="input-group mb-3" style="width: 63%; float: right">
+                            <span class="input-group-text">Khách đặt tour</span>
+                            <input type="text" id="khachdattour" th:value="${datchotour.getSdtKhachHang().getTen()}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
+                        </div>
+                        <div id="tableThongTin">
+                            <label style="font-size: 16px">Danh sách hành khách</label>
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                            <tr>
+                                                <th>STT</th>
+                                                <th>Tên</th>
+                                                <th>Giới tính</th>
+                                                <th>Ngày sinh</th>
+                                                <th>Nhóm tuổi</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="value, dem : ${datchotour.getThongtinhanhkhachs()}">
+                                                <th th:text="${dem.index+1}"></th>
+                                                <th th:text="${value.getTenHanhKhach()}"></th>
+                                                <th th:text="${value.getGioiTinh() == true ? 'Nam' : 'Nữ'}"></th>
+                                                <th th:text="${value.getNgaySinh()}"></th>
+                                                <th th:text="${value.getNhomTuoi().getTen()}"></th>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button data-bs-target="#ViewModal" class="btn btn-primary" id="Backbtn" data-bs-toggle="modal">Quay lại</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!--<script th:src="@{/js/datchotour/datchotour.js}"></script>-->
