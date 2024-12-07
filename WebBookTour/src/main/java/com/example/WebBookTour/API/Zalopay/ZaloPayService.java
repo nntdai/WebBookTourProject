@@ -125,7 +125,7 @@ private static final Map<String, String> config = new HashMap<String, String>() 
             put("apptransid",apptransid); // mã giao dich có định dạng yyMMdd_xxxx
             put("apptime", System.currentTimeMillis()); // Thời gian hiện tại tính theo milliseconds
             put("appuser", "demo");
-            put("amount", 50000);
+            put("amount",  datTourDto.getTongTien());
             put("description", "ZaloPay Integration Demo");
             put("bankcode", ""); // Bank code rỗng
             put("item", new JSONObject(item).toString()); // Danh sách item dưới dạng JSON

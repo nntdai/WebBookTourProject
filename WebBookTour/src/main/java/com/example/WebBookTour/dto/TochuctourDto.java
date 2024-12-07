@@ -24,4 +24,6 @@ public class TochuctourDto {
     private Integer soCho;
     private Integer soChoCon;
     private Boolean status = true;
+    private String formattedNgayKH;
+    private String formattedNgayVe;
 }

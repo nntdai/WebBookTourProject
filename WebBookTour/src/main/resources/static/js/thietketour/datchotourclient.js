@@ -1,30 +1,6 @@
 $(document).ready(function()
 {
-    function checkPaymentStatus(apptransid) {
-        if (!apptransid) {
-            alert("Không tìm thấy apptransid. Vui lòng thử lại.");
-            return;
-        }
 
-        $.ajax({
-            url: "/api/zalopay/check-status",
-            method: "GET",
-            data: { apptransid: apptransid },
-            success: function (response) {
-                const status = JSON.parse(response).returncode;
-                console.log("apptransid"+apptransid);
-                console.log("Status ="  + status) ;
-                if (status === 1) {
-
-                } else {
-                    alert("Thanh toán chưa hoàn thành, vui lòng thử lại.");
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error("Lỗi khi kiểm tra trạng thái thanh toán: ", xhr.responseText);
-            }
-        });
-    }
     var varHoTen = "hoTen";       // các quy tắc đặt tên của thông tin khách hàng
     var gioiTinh ="gioiTinh";
     var ngaySinhDom = "ngaySinh";

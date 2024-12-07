@@ -16,7 +16,9 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TochuctourService {
@@ -53,11 +55,30 @@ public class TochuctourService {
 //        return "Tổ chức 1 tour mới thành công!";
 //    }
 
-    public String addToChucTour(TochuctourDto tochuctourDto) {
-        Tochuctour tochuctour = tochuctourMapper.toEntity(tochuctourDto);
-        tochuctourRepository.save(tochuctour);
-        return "Tổ chức 1 tour mới thành công !";
+    public boolean addToChucTour(TochuctourDto tochuctourDto) {
+        List<TochuctourDto> dsToChucTour = getAllListTochuctours(tochuctourDto.getIdTourDuLich().getId());
+        Instant ngayKHInstant = tochuctourDto.getNgayKH();
+
+        // Chuyển Instant thành LocalDate (chỉ lấy phần ngày, không quan tâm đến giờ)
+        LocalDate ngayKH = ngayKHInstant.atZone(ZoneId.of("Asia/Ho_Chi_Minh")).toLocalDate();
+
+        // Kiểm tra nếu có tour nào trong danh sách đã có với ngày khởi hành này
+        boolean isDateExists = dsToChucTour.stream()
+                .anyMatch(tour -> tour.getNgayKH().atZone(ZoneId.of("Asia/Ho_Chi_Minh")).toLocalDate().equals(ngayKH));
+
+        if (isDateExists) {
+            // Nếu có tour trùng ngày khởi hành
+            return false;
+//            return "Ngày khởi hành đã có trong hệ thống. Vui lòng chọn ngày khác!";
+        } else {
+            // Nếu không có tour trùng ngày khởi hành, tiếp tục lưu tour mới
+            Tochuctour tochuctour = tochuctourMapper.toEntity(tochuctourDto);
+            tochuctourRepository.save(tochuctour);
+//            return "Tổ chức 1 tour mới thành công!";
+            return true;
+        }
     }
+
     public TochuctourDto getToChucTourById(int i) {
         Tochuctour tochuctour = tochuctourRepository.findById(i).orElse(null);
         TochuctourDto tochuctourDto  = tochuctourMapper.toDto(tochuctour);

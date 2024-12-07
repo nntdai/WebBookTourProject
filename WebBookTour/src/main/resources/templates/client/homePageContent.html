@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trang Chủ - Đặt Tour Du Lịch</title>
+  <style>
+    /* Custom styles */
+    .banner {
+
+      height: 60vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+      background-image: url('https://webbooktourimg.s3.ap-southeast-1.amazonaws.com/z3879855812811_48d5d112ce626923a7ab9f89bcdfe459-5.jpg');
+      background-size: 80%; /* Scale ảnh nền xuống còn 80% */
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+
+    .banner h1 {
+      font-size: 3rem;
+      font-weight: bold;
+    }
+
+    .search-section {
+      margin-top: -50px;
+      padding: 30px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: center;
+    }
+
+    .search-form {
+      max-width: 800px;
+      width: 100%;
+    }
+
+    .tour-card img {
+      height: 200px;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+<!-- Banner -->
+<div class="banner">
+  <h1>Khám Phá Thế Giới Với Chúng Tôi</h1>
+</div>
+
+<!-- Search Section -->
+<div class="search-section container">
+  <form class="search-form">
+    <div class="row g-3">
+      <div class="col-md-4">
+        <label for="destination" class="form-label">Điểm đến</label>
+        <select id="destination" name="destination" class="diemDen form-select">
+          <option th:each="diaDiem : ${dsDiaDiem}" th:value="${diaDiem.getId()}" th:text="${diaDiem.getTen()}"></option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label for="date" class="form-label">Ngày khởi hành</label>
+        <input type="date" id="date" name="date" class="form-control">
+      </div>
+      <div class="col-md-4">
+        <label for="price" class="form-label">Khoảng giá</label>
+        <select id="price" class="diemDen form-select">
+          <option value="10000000">Từ 5 - 10 triệu </option>
+          <option value ="20000000">Từ 10 - 20 triệu </option>
+          <option value ="20000001">Trên 20 triệu </option>
+        </select>
+      </div>
+    </div>
+    <div class="text-center mt-3">
+      <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+    </div>
+  </form>
+</div>
+
+<!-- Featured Tours Section -->
+<div class="container my-5">
+  <h2 class="text-center mb-4">Các Tour Nổi Bật</h2>
+  <div class="row g-4">
+    <!-- Tour Card 1 -->
+    <div class="col-md-4">
+      <div class="card tour-card">
+        <img src="https://source.unsplash.com/400x300/?beach" class="card-img-top" alt="Tour 1">
+        <div class="card-body">
+          <h5 class="card-title">Tour Miền Bắc</h5>
+          <p class="card-text">Khám phá phong cảnh tuyệt đẹp của miền Bắc Việt Nam.</p>
+          <a href="#" class="btn btn-primary">Chi tiết</a>
+        </div>
+      </div>
+    </div>
+    <!-- Tour Card 2 -->
+    <div class="col-md-4">
+      <div class="card tour-card">
+        <img src="https://source.unsplash.com/400x300/?mountain" class="card-img-top" alt="Tour 2">
+        <div class="card-body">
+          <h5 class="card-title">Tour Miền Trung</h5>
+          <p class="card-text">Trải nghiệm văn hóa và di sản lịch sử đặc sắc.</p>
+          <a href="#" class="btn btn-primary">Chi tiết</a>
+        </div>
+      </div>
+    </div>
+    <!-- Tour Card 3 -->
+    <div class="col-md-4">
+      <div class="card tour-card">
+        <img src="https://source.unsplash.com/400x300/?city" class="card-img-top" alt="Tour 3">
+        <div class="card-body">
+          <h5 class="card-title">Tour Miền Nam</h5>
+          <p class="card-text">Thưởng ngoạn vẻ đẹp năng động của miền Nam.</p>
+          <a href="#" class="btn btn-primary">Chi tiết</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+  $('.diemDen').select2({
+    placeholder: 'Select an option',
+    theme: 'bootstrap-5'
+
+  });
+</script>
+</html>

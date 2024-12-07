@@ -52,11 +52,16 @@ $(document).ready(function()
             });
         }
     });
+    $(document).on('hidden.bs.modal', '#toChucTourModal', function () {
+        $('#modalContainer').html('');
+    });
 
     $(document).on('click','.btnAddToChuc', function() {
         var idTour = this.getAttribute("data-id");
         var day =this.getAttribute("data-dto")
+        $('#modalContainer').html('');
         if (!$('#toChucTourModal').hasClass('show')) {
+            console.log("Nút Mở To Chức");
             $.ajax({
                 url: '/admin/tourdesign/getToChucTour',
                 type: 'GET',

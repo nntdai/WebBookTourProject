@@ -43,7 +43,7 @@ public class TourDuLichRestcontroller {
     }
 
     @PostMapping("/addToChucTour")
-    public String addToChucTour(@RequestBody TochuctourDto tochuctourDto) {
+    public boolean addToChucTour(@RequestBody TochuctourDto tochuctourDto) {
         return tochuctourService.addToChucTour(tochuctourDto);
     }
 

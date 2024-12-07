@@ -42,9 +42,10 @@ public class RouteController {
 
     @Autowired
     private EmailService emailService;
-
-    @GetMapping
-    public String getHomePage(Model model)
+    @Autowired
+    private DiadiemService diadiemService;
+    @GetMapping("/listTour")
+    public String getListTour(Model model)
     {
         LocalDate today = LocalDate.now();
         List<VungmienDto> vungmienDtos = vungmienService.getAllVungMien();
@@ -73,10 +74,23 @@ public class RouteController {
                 })
                 .filter(tour -> !tour.getTochuctours().isEmpty()) // Loại bỏ các tour không có tổ chức nào thỏa mãn
                 .collect(Collectors.toList());
-
+        List<DiadiemDto> dsDiaDiem = diadiemService.getAllDiaDiems();
+        model.addAttribute("dsDiaDiem",dsDiaDiem);
         model.addAttribute("dsTourDuLich", dsTourDuLich);
         model.addAttribute("vungmienDtos", vungmienDtos);
         model.addAttribute("var","client/listToChucTour");
+        return "client/homepage";
+    }
+
+
+    @GetMapping
+    public String getHomePage(Model model)
+    {
+        List<VungmienDto> vungmienDtos = vungmienService.getAllVungMien();
+        List<DiadiemDto> dsDiaDiem = diadiemService.getAllDiaDiems();
+        model.addAttribute("dsDiaDiem",dsDiaDiem);
+        model.addAttribute("vungmienDtos", vungmienDtos);
+        model.addAttribute("var","client/homePageContent");
         return "client/homepage";
     }
     @GetMapping("/success")
@@ -142,7 +156,6 @@ public class RouteController {
                                 .toString(), // Khóa là ngày khởi hành dạng String
                         tochuctour -> List.of(tochuctour.getId(), tochuctour.getSoChoCon()) // Giá trị là danh sách [ID, Số chỗ còn]
                 ));
-        System.out.println(validDatesWithIds);
         model.addAttribute("validDatesWithIds", validDatesWithIds);
         model.addAttribute("tourDulich", tourdulichDto);
         model.addAttribute("vungmienDtos", vungmienDtos);

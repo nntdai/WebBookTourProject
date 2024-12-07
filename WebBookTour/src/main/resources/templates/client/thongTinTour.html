@@ -265,7 +265,7 @@
     <div class="sidebar">
         <div class="tour-info">
             <!--/*@thymesVar id="tourDulich" type="com.example.WebBookTour.dto.TourdulichDto"*/-->
-            <div id="giaTour" th:data-number="${tourDulich.getGiaTour()}">Giá:    <div id="giaTourDisplay"></div></div>
+            <div id="giaTour" th:data-number="${tourDulich.getGiaTour()}">Giá:    <div id="giaTourDisplay" style="color:red"></div></div>
             <div>Mã Tour:    [[${tourDulich.getId()}]]</div>
             <div>Khởi hành:   [[${tourDulich.getDiaDiemKH().getTen()}]]</div>
             <div>Thời gian:    [[${tourDulich.getThoiGian()}]]</div>

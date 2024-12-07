@@ -11,6 +11,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashSet;
 import java.util.Comparator;
 import java.util.List;
@@ -101,14 +106,35 @@ public class ThietKeTourController {
     }
 
     @GetMapping("/getToChucTour")
-    public String getToChucTour(Model model,@RequestParam int idTour,@RequestParam String day) {
-        Page<TochuctourDto> dsTochuctour = tochuctourService.getAllTochuctours(0,10,idTour);
+    public String getToChucTour(Model model, @RequestParam int idTour, @RequestParam String day) {
+        Page<TochuctourDto> dsTochuctour = tochuctourService.getAllTochuctours(0, 10, idTour);
         int totalPage = dsTochuctour.getTotalPages();
         System.out.println(totalPage);
+
         List<NhansuDto> dsHDV = nhansuService.getAllHDV();
+
+        // Chuyển đổi ngày giờ từ UTC sang Việt Nam (Asia/Ho_Chi_Minh) cho mỗi ToChucTour
+        dsTochuctour.getContent().forEach(tochuctour -> {
+            // Chuyển đổi Ngày Khởi Hành (NgayKH)
+            Instant instantNgayKH = tochuctour.getNgayKH();
+            if (instantNgayKH != null) {
+                ZonedDateTime vietnamTimeKH = instantNgayKH.atZone(ZoneId.of("Asia/Ho_Chi_Minh"));
+                String formattedNgayKH = vietnamTimeKH.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+                tochuctour.setFormattedNgayKH(formattedNgayKH);  // Lưu ngày khởi hành đã định dạng
+            }
+
+            // Chuyển đổi Ngày Về (NgayVe)
+            Instant instantNgayVe = tochuctour.getNgayVe();
+            if (instantNgayVe != null) {
+                ZonedDateTime vietnamTimeVe = instantNgayVe.atZone(ZoneId.of("Asia/Ho_Chi_Minh"));
+                String formattedNgayVe = vietnamTimeVe.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+                tochuctour.setFormattedNgayVe(formattedNgayVe);  // Lưu ngày về đã định dạng
+            }
+        });
+
         model.addAttribute("dsHDV", dsHDV);
-        model.addAttribute("day", day.split("[^0-9]")[0]);  // Add the date to the model
-        model.addAttribute("idTour",idTour);
+        model.addAttribute("day", day.split("[^0-9]")[0]);
+        model.addAttribute("idTour", idTour);
         model.addAttribute("dsTochuctour", dsTochuctour);
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("page", 0);
@@ -119,6 +145,23 @@ public class ThietKeTourController {
     public String getTableToChucTour(Model model,@RequestParam int idTour)
     {
         Page<TochuctourDto> dsTochuctour = tochuctourService.getAllTochuctours(0,10,idTour);
+        dsTochuctour.getContent().forEach(tochuctour -> {
+            // Chuyển đổi Ngày Khởi Hành (NgayKH)
+            Instant instantNgayKH = tochuctour.getNgayKH();
+            if (instantNgayKH != null) {
+                ZonedDateTime vietnamTimeKH = instantNgayKH.atZone(ZoneId.of("Asia/Ho_Chi_Minh"));
+                String formattedNgayKH = vietnamTimeKH.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+                tochuctour.setFormattedNgayKH(formattedNgayKH);  // Lưu ngày khởi hành đã định dạng
+            }
+
+            // Chuyển đổi Ngày Về (NgayVe)
+            Instant instantNgayVe = tochuctour.getNgayVe();
+            if (instantNgayVe != null) {
+                ZonedDateTime vietnamTimeVe = instantNgayVe.atZone(ZoneId.of("Asia/Ho_Chi_Minh"));
+                String formattedNgayVe = vietnamTimeVe.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+                tochuctour.setFormattedNgayVe(formattedNgayVe);  // Lưu ngày về đã định dạng
+            }
+        });
         int totalPage = dsTochuctour.getTotalPages();
         model.addAttribute("idTour",idTour);
         model.addAttribute("dsTochuctour", dsTochuctour);

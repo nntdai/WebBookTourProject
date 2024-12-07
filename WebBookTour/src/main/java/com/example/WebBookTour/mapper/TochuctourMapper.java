@@ -13,6 +13,7 @@ public interface TochuctourMapper {
 
     Tochuctour toEntity(TochuctourDto tochuctourDto);
     @Mapping(target="idTourDuLich",ignore=true)
+    @Mapping(target = "formattedNgayKH", ignore = true)
     TochuctourDto toDto(Tochuctour tochuctour);
     @AfterMapping
     default void linkTourDuLich(@MappingTarget TochuctourDto tochuctourDto,Tochuctour tochuctour, TourdulichMapper tourdulichMapper) {

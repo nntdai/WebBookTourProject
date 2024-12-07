@@ -18,7 +18,7 @@
 <!--                    </div>-->
                     <div class="input-group mb-3">
                         <span class="input-group-text"  style="width: 140px">Tour du lịch</span>
-                        <select class="form-select" id="tourdl" name="tourdl" >
+                        <select class="selectLocTour form-select" id="tourdl" name="tourdl" >
                             <option value="0">Chọn</option>
                             <option th:each="tochuctour : ${dsTochuctour}"
                                     th:value="${tochuctour.getId()}"
@@ -28,7 +28,7 @@
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text">Số điện thoại khách hàng</span>
-                        <select class="form-select" id="sdtKH" name="sdtKH" >
+                        <select class="selectLocTour form-select" id="sdtKH" name="sdtKH" >
                             <option value="0">Chọn</option>
                             <option th:each="kh : ${dsKhachhang}"
                                     th:value="${kh.getSoDienThoai()}"
@@ -58,18 +58,19 @@
 </div>
 <script>
 
-    document.getElementById('ngayDC').addEventListener('change', function() {
-        var ngayKH = new Date(this.value);
-        var daysToAdd = parseInt(document.getElementById('ngayDC').getAttribute('data-id'));
-    });
-    $('.form-select').select2({
+
+    $('.selectLocTour').select2({
         placeholder: 'Select an option',
         dropdownParent: '#SearchModal',
         theme: 'bootstrap-5'
 
     });
-    var today = new Date();
-    today.setDate(today.getDate() + 3);
-    var minDate = today.toISOString().slice(0, 16);
-    document.getElementById('ngayDC').setAttribute('min', minDate);
+    // document.getElementById('ngayDC').addEventListener('change', function() {
+    //     var ngayKH = new Date(this.value);
+    //     var daysToAdd = parseInt(document.getElementById('ngayDC').getAttribute('data-id'));
+    // });
+    // var today = new Date();
+    // today.setDate(today.getDate() + 3);
+    // var minDate = today.toISOString().slice(0, 16);
+    // document.getElementById('ngayDC').setAttribute('min', minDate);
 </script>

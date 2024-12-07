@@ -11,5 +11,5 @@ import java.util.Optional;
 @Repository
 public interface TochuctourRepository extends JpaRepository<Tochuctour, Integer> {
     Optional<Tochuctour> findById(Integer id);
-
+    Optional<Tochuctour> findByNgayKH(LocalDate ngayKH);
 }
