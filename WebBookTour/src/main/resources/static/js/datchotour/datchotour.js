@@ -49,7 +49,6 @@ $(document).ready(function(){
     // });
     $(document).on('click', '#btnSearch', function (){
         const value=$('#Search_text').val();
-        alert(value);
         $('#loading').hide();
         const pageSelected = $(this).data('page');
         const pagePresent =$('.page-item.active').data('page');
@@ -73,12 +72,9 @@ $(document).ready(function(){
             },
             contentType :'application/json',
             success: function (respone){
-                console.log(respone);
                 $('#tableDatchotour').html(respone);
             },
             error: function (xhr, status, error){
-                console.error("Không thể tải nội dung modal:", error);
-                console.error("keyword: ", { keyword: value, page: page, size: 10 })
             }
         });
     });
@@ -102,7 +98,7 @@ $(document).ready(function(){
         const madattour = $('#madattour').val().toString();
         const tourdulich=$('#tourdl').val().toString();
         const sdtKH=$('#sdtKH').val().toString();
-        alert("ma : "+madattour+" tour : "+ tourdulich+ " sdt : "+ sdtKH);
+
         $('#loading').hide();
         const pageSelected = $(this).data('page');
         const pagePresent =$('.page-item.active').data('page');

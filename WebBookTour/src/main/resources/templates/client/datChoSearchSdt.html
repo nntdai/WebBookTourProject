@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Title</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -13,17 +13,20 @@
     }
     .container {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column; /* Đổi từ ngang sang dọc */
+      align-items: center; /* Căn giữa các phần tử */
       padding: 20px;
       max-width: 1400px;
       margin: 0 auto;
     }
+
     .main-content {
-      flex: 3;
-      padding-right: 20px;
+      width: 100%; /* Đảm bảo main-content chiếm toàn bộ chiều rộng */
+      padding: 20px;
       background-color: #fff;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
+      margin-bottom: 30px; /* Tạo khoảng cách giữa các phần content */
     }
     .main_text{
       text-align: center;
@@ -64,7 +67,7 @@
 </head>
 <body>
 <div class="container">
-  <div class="main-content">
+  <div class="main-content" th:each="datchotour : ${ds}">
     <div class="main_text">Thông tin đặt tour </div>
     <!--/*@thymesVar id="datchotour" type="com.example.WebBookTour.dto.DatchotourDto"*/-->
     <div style="margin: 30px"  >Tour Đặt : <a th:href="'/tour/'+${datchotour.getIdToChucTour().getIdTourDuLich().getId()}" th:text="${datchotour.getIdToChucTour().getIdTourDuLich().getTen()}"></a></div>

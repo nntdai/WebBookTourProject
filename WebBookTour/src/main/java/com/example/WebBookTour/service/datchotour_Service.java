@@ -13,9 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -44,7 +47,7 @@ public class datchotour_Service {
     private ThongtinhanhkhachMapper thongtinhanhkhachMapper;
 
     public Page<DatchotourDto> getDatchotour(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id")); // Thay "id" bằng trường cần sắp xếp
         Page<Datchotour> ds = datchotourRepository.findAll(pageable);
         Page<DatchotourDto> datchotourDTOPage = ds.map(datchotour ->
         {
@@ -100,7 +103,7 @@ public class datchotour_Service {
 //        return datchotourDtos;
 //    }
     public Page<DatchotourDto> getSearchDatchotour(int page, int size, String value) {
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"));
         Page<Datchotour> ds=datchotourRepository.searchDatchoTourByKeyword(value, pageable);
         Page<DatchotourDto> datchotourDTOPage = ds.map(datchotour ->
         {
@@ -117,7 +120,7 @@ public class datchotour_Service {
         return datchotourDTOPage;
     }
     public Page<DatchotourDto> getFilterDatchotour(int page, int size, String matour, String tourdl, String sdt) {
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"));
         Page<Datchotour> ds=datchotourRepository.searchDatchoTour(matour, sdt, tourdl, pageable);
         Page<DatchotourDto> datchotourDTOPage = ds.map(datchotour ->
         {
@@ -131,6 +134,23 @@ public class datchotour_Service {
             System.out.println("Không có dữ liệu");
         }
         System.out.println("Có dữ liệu");
+        return datchotourDTOPage;
+    }
+    public List<DatchotourDto> traCuuBangSdt(String soDienThoai) {
+        // Lấy danh sách Datchotour theo số điện thoại
+        List<Datchotour> ds = datchotourRepository.findBySdtKhachHang_SoDienThoai(soDienThoai);
+
+        // Chuyển đổi sang DatchotourDto
+        List<DatchotourDto> datchotourDTOPage = ds.stream().map(datchotour -> {
+            // Sử dụng mapper để chuyển đổi và thiết lập các liên kết
+            DatchotourDto datchotourDto = datchotourMapper.toDto(datchotour);
+            datchotourMapper.linkToChucTour(datchotourDto, datchotour, tochuctourMapper);
+            tochuctourMapper.linkTourDuLich(datchotourDto.getIdToChucTour(), datchotour.getIdToChucTour(), tourdulichMapper);
+            datchotourMapper.linkKhachHang(datchotourDto, datchotour, khachhangMapper);
+            datchotourMapper.linkThongtinkhachhang(datchotourDto, datchotour, thongtinhanhkhachMapper);
+            return datchotourDto;
+        }).collect(Collectors.toList()); // Thu thập kết quả thành List
+
         return datchotourDTOPage;
     }
 

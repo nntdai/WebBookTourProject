@@ -21,6 +21,7 @@ public class DatchotourDto {
     private Integer id;
     private BigDecimal tongTien;
     private Instant ngayDatCho;
+    private String formattedNgayDatCho;
     private Integer diemTLCong;
     private Integer diemTLDung;
     private TochuctourDto idToChucTour;

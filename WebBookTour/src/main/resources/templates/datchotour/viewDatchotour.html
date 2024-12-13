@@ -14,11 +14,11 @@
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text" style="width: 160px">Tổng tiền</span>
-                    <input type="text" id="tongtien" th:value="${datchotour.getTongTien()}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
+                    <input type="text" id="tongtien" th:value="${datchotour.getTongTien()}" onload="format(this)" class="tongTienDatCho form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text" style="width: 160px">Ngày đặt chỗ</span>
-                    <input type="text" id="ngaydatcho" th:value="${datchotour.getNgayDatCho()}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
+                    <input type="text" id="ngaydatcho" th:value="${datchotour.getFormattedNgayDatCho()}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text" style="width: 160px">Điểm tích lũy cộng</span>
@@ -100,5 +100,7 @@
         </div>
     </div>
 </div>
+<script>
 
+</script>
 <!--<script th:src="@{/js/datchotour/datchotour.js}"></script>-->

@@ -61,4 +61,6 @@ public interface DatchotourRepository extends JpaRepository<Datchotour, Integer>
                                       @Param("sdt") String sdt,
                                       @Param("tourdl") String tourdl,
                                       Pageable pageable);
+
+    List<Datchotour> findBySdtKhachHang_SoDienThoai(String sdtKhachHang);
 }

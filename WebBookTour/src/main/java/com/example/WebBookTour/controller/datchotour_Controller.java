@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -40,6 +44,16 @@ public class datchotour_Controller {
         int page = dsDatchotour.getPageable().getPageNumber();
         int totalPage = dsDatchotour.getTotalPages();
         dsTochuctour=tochuctour_service.getAllTochuctour();
+        dsDatchotour.getContent().forEach(datChoTour -> {
+            // Chuyển đổi Ngày Khởi Hành (NgayKH)
+            Instant instantNgayDatCho = datChoTour.getNgayDatCho();
+            if (instantNgayDatCho != null) {
+                ZonedDateTime vietnamTimeKH = instantNgayDatCho.atZone(ZoneId.of("Asia/Ho_Chi_Minh"));
+                String formattedNgayDatCho = vietnamTimeKH.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+                datChoTour.setFormattedNgayDatCho(formattedNgayDatCho);  // Lưu ngày khởi hành đã định dạng
+            }
+
+        });
         dsKhachhang=khachhang_service.getAllKhachhang();
         dsKhuyenmai=khuyenmai_service.getAllKhuyenmai();
         model.addAttribute("var", "datchotour/datchotour");
@@ -60,6 +74,12 @@ public class datchotour_Controller {
     @GetMapping("/view/{id}")
     public String ViewDatchotour(@PathVariable int id, Model model) {
         DatchotourDto rs=datchotour_service.getDatchotourDto(id);
+        Instant instantNgayDatCho = rs.getNgayDatCho();
+        if (instantNgayDatCho != null) {
+            ZonedDateTime vietnamTimeKH = instantNgayDatCho.atZone(ZoneId.of("Asia/Ho_Chi_Minh"));
+            String formattedNgayDatCho = vietnamTimeKH.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+            rs.setFormattedNgayDatCho(formattedNgayDatCho);  // Lưu ngày khởi hành đã định dạng
+        }
         if (rs == null) {
             throw new RuntimeException("Không tìm thấy dữ liệu với ID: " + id);
         }
@@ -71,6 +91,17 @@ public class datchotour_Controller {
     public String searchDatchotour(
             @RequestParam String keyword, Model model){
         Page<DatchotourDto> rs=datchotour_service.getSearchDatchotour(0, 10, keyword);
+
+        rs.getContent().forEach(datChoTour -> {
+            // Chuyển đổi Ngày Khởi Hành (NgayKH)
+            Instant instantNgayDatCho = datChoTour.getNgayDatCho();
+            if (instantNgayDatCho != null) {
+                ZonedDateTime vietnamTimeKH = instantNgayDatCho.atZone(ZoneId.of("Asia/Ho_Chi_Minh"));
+                String formattedNgayDatCho = vietnamTimeKH.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+                datChoTour.setFormattedNgayDatCho(formattedNgayDatCho);  // Lưu ngày khởi hành đã định dạng
+            }
+
+        });
         if (rs == null) {
             throw new RuntimeException("Không tìm thấy dữ liệu với ID: ");
         }
@@ -112,6 +143,16 @@ public class datchotour_Controller {
             sdt="";
         }
         Page<DatchotourDto> rs=datchotour_service.getFilterDatchotour(0, 10, matour, tourdl, sdt);
+        rs.getContent().forEach(datChoTour -> {
+            // Chuyển đổi Ngày Khởi Hành (NgayKH)
+            Instant instantNgayDatCho = datChoTour.getNgayDatCho();
+            if (instantNgayDatCho != null) {
+                ZonedDateTime vietnamTimeKH = instantNgayDatCho.atZone(ZoneId.of("Asia/Ho_Chi_Minh"));
+                String formattedNgayDatCho = vietnamTimeKH.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+                datChoTour.setFormattedNgayDatCho(formattedNgayDatCho);  // Lưu ngày khởi hành đã định dạng
+            }
+
+        });
         if (rs == null) {
             throw new RuntimeException("Không tìm thấy dữ liệu với ID: ");
         }

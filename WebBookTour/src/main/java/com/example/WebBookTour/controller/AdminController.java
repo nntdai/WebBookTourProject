@@ -19,16 +19,16 @@ public class AdminController {
 
     @GetMapping("")
     public RedirectView redirectToDashboard() {
-        return new RedirectView("/admin/dashboard");
+        return new RedirectView("/admin/diadiem");
     }
 
-    @GetMapping({"/dashboard"})
-    public String adminPage(Model model)
-    {
-        String var = "dashboard";
-        model.addAttribute("var", var);
-        return "admin";
-    }
+//    @GetMapping({"/diadiem"})
+//    public String adminPage(Model model)
+//    {
+//        String var = "dashboard";
+//        model.addAttribute("var", var);
+//        return "admin";
+//    }
 
 //    @GetMapping("/tourdulich")
 //    public String getTourDuLich(Model model)

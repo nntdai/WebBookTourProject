@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -181,12 +183,64 @@ public class RouteController {
     @GetMapping("/datchoSearch/{value}")
     public String datchoSearch(Model model, @PathVariable String value) {
         DatchotourDto rs=datchotour_service.getDatchotourDto(parseInt(value));
-        if (rs == null) {
-            throw new RuntimeException("Không tìm thấy dữ liệu với ID: " + value);
+        Instant instantNgayKhoiHanh = rs.getIdToChucTour().getNgayKH();
+        if (instantNgayKhoiHanh != null) {
+            ZonedDateTime vietnamTimeKH = instantNgayKhoiHanh.atZone(ZoneId.of("Asia/Ho_Chi_Minh"));
+            String formattedNgayKhoiHanh = vietnamTimeKH.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+            rs.getIdToChucTour().setFormattedNgayKH(formattedNgayKhoiHanh);  // Lưu ngày khởi hành đã định dạng
         }
-        System.out.println("Đã tìm thấy đối tượng: " + rs);
+        Instant instantNgayKhoiVe = rs.getIdToChucTour().getNgayVe();
+        if (instantNgayKhoiVe != null) {
+            ZonedDateTime vietnamTimeKH = instantNgayKhoiVe.atZone(ZoneId.of("Asia/Ho_Chi_Minh"));
+            String formattedNgayVe = vietnamTimeKH.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+            rs.getIdToChucTour().setFormattedNgayVe(formattedNgayVe);  // Lưu ngày khởi hành đã định dạng
+        }
+        Instant instantNgayDatCho = rs.getNgayDatCho();
+        if (instantNgayDatCho != null) {
+            ZonedDateTime vietnamTimeKH = instantNgayDatCho.atZone(ZoneId.of("Asia/Ho_Chi_Minh"));
+            String formattedNgayDatCho = vietnamTimeKH.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+            rs.setFormattedNgayDatCho(formattedNgayDatCho);  // Lưu ngày khởi hành đã định dạng
+        }
         model.addAttribute("datchotour",rs);
         model.addAttribute("var","client/datchoSearch");
         return "client/homepage";
     }
+    @GetMapping("/searchSDT/{sdt}")
+    public String searchSDT(Model model, @PathVariable String sdt) {
+        // Tìm kiếm danh sách đặt tour theo số điện thoại
+        List<DatchotourDto> ds = datchotour_service.traCuuBangSdt(sdt);
+
+        // Lặp qua danh sách DatchotourDto và xử lý ngày khởi hành, ngày về và ngày đặt cho
+        for (DatchotourDto datchotourDto : ds) {
+            // Xử lý ngày khởi hành
+            Instant instantNgayKhoiHanh = datchotourDto.getIdToChucTour().getNgayKH();
+            if (instantNgayKhoiHanh != null) {
+                ZonedDateTime vietnamTimeKH = instantNgayKhoiHanh.atZone(ZoneId.of("Asia/Ho_Chi_Minh"));
+                String formattedNgayKhoiHanh = vietnamTimeKH.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+                datchotourDto.getIdToChucTour().setFormattedNgayKH(formattedNgayKhoiHanh);  // Lưu ngày khởi hành đã định dạng
+            }
+
+            // Xử lý ngày về
+            Instant instantNgayKhoiVe = datchotourDto.getIdToChucTour().getNgayVe();
+            if (instantNgayKhoiVe != null) {
+                ZonedDateTime vietnamTimeVe = instantNgayKhoiVe.atZone(ZoneId.of("Asia/Ho_Chi_Minh"));
+                String formattedNgayVe = vietnamTimeVe.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+                datchotourDto.getIdToChucTour().setFormattedNgayVe(formattedNgayVe);  // Lưu ngày về đã định dạng
+            }
+
+            // Xử lý ngày đặt tour
+            Instant instantNgayDatCho = datchotourDto.getNgayDatCho();
+            if (instantNgayDatCho != null) {
+                ZonedDateTime vietnamTimeDatCho = instantNgayDatCho.atZone(ZoneId.of("Asia/Ho_Chi_Minh"));
+                String formattedNgayDatCho = vietnamTimeDatCho.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+                datchotourDto.setFormattedNgayDatCho(formattedNgayDatCho);  // Lưu ngày đặt tour đã định dạng
+            }
+        }
+        Collections.reverse(ds);  // Đảo ngược danh sách
+        // Thêm đối tượng model cho giao diện
+        model.addAttribute("ds", ds);
+        model.addAttribute("var", "client/datChoSearchSdt");
+        return "client/homepage";  // Trả về trang homepage
+    }
+
 }

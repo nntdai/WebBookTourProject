@@ -193,8 +193,8 @@
         <!--        </li>-->
       </ul>
       <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Mã đặt chỗ" id="searchdatcho" value="" aria-label="Search">
-        <button class="btn btn-outline-success" type="button" onclick="changePage(this)">Search</button>
+        <input class="form-control me-2" type="search" placeholder="Mã đặt chỗ" id="searchdatcho" value="" aria-label="Search" style="width: 200px">
+        <button class="btn btn-outline-success" type="button" onclick="changePage(this)">Tra cứu</button>
       </form>
     </div>
   </div>
@@ -233,6 +233,10 @@
           <a href="#" class="text-light me-3"><i class="fab fa-instagram fa-2x"></i></a>
           <a href="#" class="text-light me-3"><i class="fab fa-youtube fa-2x"></i></a>
         </div>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Số điện thoại" id="searchSdt" value="" aria-label="Search" style="width: 200px">
+          <button class="btn btn-outline-success" type="button" onclick="SearchSDT(this)">Tra cứu</button>
+        </form>
       </div>
     </div>
     <!-- Footer Bottom Section -->
@@ -332,9 +336,56 @@
     function changePage(button)
     {
       const value = document.getElementById("searchdatcho").value;
-      alert(value)
-      window.location.href="/datchoSearch/"+ value;
+      if (!value || value.trim() === "") {
+        alertError("Vui lòng nhập mã đặt chỗ trước khi tìm kiếm!");
+        return;
+      }
+
+      $.ajax({
+        url: "/api/user/datchotour/datchoSearch/" + value, // Gọi URL của controller
+        type: "GET", // Phương thức GET
+        success: function(response) {
+          // Nếu có kết quả
+          if (response) {
+            // Ví dụ, nếu có kết quả, chuyển đến trang hiển thị thông tin
+            window.location.href = "/datchoSearch/" + value;
+          } else {
+            // Nếu không có kết quả, hiển thị thông báo lỗi
+            alertError("Không tìm thấy dữ liệu cho mã đặt chỗ:   " + value);
+          }
+        },
+        error: function() {
+          alertError("Không tìm thấy dữ liệu cho mã đặt chỗ : " + value);
+        }
+      });
     }
+
+  function SearchSDT(button)
+  {
+    const value = document.getElementById("searchSdt").value;
+    if (!value || value.trim() === "") {
+      alertError("Vui lòng nhập số điện thoại trước khi tìm kiếm!");
+      return;
+    }
+
+    $.ajax({
+      url: "/api/user/datchotour/searchSDT/" + value, // Gọi URL của controller
+      type: "GET", // Phương thức GET
+      success: function(response) {
+        // Nếu có kết quả
+        if (response && response.length > 0) {
+          // Nếu có kết quả, chuyển đến trang hiển thị thông tin
+          window.location.href = "/searchSDT/" + value;
+        } else {
+          // Nếu không có kết quả, hiển thị thông báo lỗi
+          alertError("Không thông tin đặt chỗ cho số điện thoại : " + value);
+        }
+      },
+      error: function() {
+        alertError("Không thông tin đặt chỗ cho số điện thoại : " + value);
+      }
+    });
+  }
 </script>
 <!-- Page level plugins -->
 <!--    <script th:src="@{/vendor/chart.js/Chart.min.js}"></script>-->

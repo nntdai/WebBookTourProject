@@ -28,12 +28,12 @@ public class ZaloPayService {
 //        put("key2", "uUfsWgfLkRLzq6W2uNXTCxrfxs51auny");
 //        put("endpoint", "https://sandbox.zalopay.com.vn/v001/tpe/createorder");
 //    }};
-//private static final Map<String, String> config = new HashMap<String, String>() {{
-//    put("appid", "");
-//    put("key1", "");
-//    put("key2", "");
-//    put("endpoint", "https://sandbox.zalopay.com.vn/v001/tpe/createorder");
-//}};
+private static final Map<String, String> config = new HashMap<String, String>() {{
+    put("appid", "");
+    put("key1", "");
+    put("key2", "");
+    put("endpoint", "https://sandbox.zalopay.com.vn/v001/tpe/createorder");
+}};
 
 
 
